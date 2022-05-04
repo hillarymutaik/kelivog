@@ -186,9 +186,3 @@ class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
     );
   }
 }
-class Fee {
-  final String fee;
-  const Fee({
-    required this.fee,
-  });
-}

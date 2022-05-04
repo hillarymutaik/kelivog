@@ -26,11 +26,10 @@ class Inventory {
 
 class SellDetails extends StatefulWidget {
   final String item, id, title;
-  final Fee serviceFee;
   const SellDetails(
       {Key? key, required this.id,
         required this.item,
-        required this.title, required this.serviceFee})
+        required this.title})
       : super(key: key);
 
   @override
@@ -43,11 +42,20 @@ class _SellDetailsState extends State<SellDetails> {
   var takeHome = 0.0;
   late double price;
 
-    // void initState() {
-    //   super.initState();
-    //   takeHome = (price * fee) as double;
-    //   takeHome = price - (price * fee).toDouble();
-    // }
+  var newPrice = 0.0;
+  var savedAmount = 0.0;
+  late double originalPrice;
+  late double discount;
+
+  void _calculateDiscount() {
+    setState(() {
+      savedAmount = originalPrice * discount;
+      newPrice = originalPrice - (originalPrice * discount);
+    });
+
+    print(newPrice);
+
+  }
 
 
 
@@ -63,7 +71,7 @@ class _SellDetailsState extends State<SellDetails> {
   }
 
   List<Inventory> inventories = [];
-  List<Fee> fee = [];
+  List<Fee> fees = [];
 
   Map<String, dynamic> selectedCapacity =
       {"capacity": "", "capacityId": ""} as Map<String, dynamic>;
@@ -305,8 +313,8 @@ class _SellDetailsState extends State<SellDetails> {
                         ),
                       ),
 
-                      rowItem('SERVICE FEE',widget.serviceFee.fee),
-                      rowItem('TAKE HOME',widget.serviceFee.toString()),
+                      rowItem('SERVICE FEE',fees.length.toString()),
+                      rowItem('TAKE HOME',fees.toString()),
 
                       // rowItem('SERVICE FEE', widget.fee.toString() ),
                       // rowItem('TAKE HOME',
@@ -480,6 +488,27 @@ class _SellDetailsState extends State<SellDetails> {
     );
   }
 
+  void getServiceFee() async {
+    final http.Response responseFee =
+    await http.get(Uri.parse("https://kelivog.com/serviceFee"), headers: {
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+    if (responseFee.statusCode == 200) {
+      var responseBody2 = json.decode(responseFee.body);
+      print(responseBody2);
+      for (final dynamic item in responseBody2['data']) {
+        final Fee fee = Fee(
+          fee: item['serviceFee'],
+        );
+        print(fee.fee);
+        fees.add(fee);
+        print(fees);
+      }
+    } else {
+      print(responseFee.statusCode);
+    }
+  }
+
   void getInventory() async {
     final http.Response response2 =
         await http.get(Uri.parse("https://kelivog.com/capacity"), headers: {
@@ -503,3 +532,9 @@ class _SellDetailsState extends State<SellDetails> {
   }
 }
 
+class Fee {
+  final String fee;
+  const Fee({
+    required this.fee,
+  });
+}
