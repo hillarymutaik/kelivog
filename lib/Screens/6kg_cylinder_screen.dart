@@ -27,6 +27,7 @@ class SixCylindersListsScreen extends StatefulWidget {
 }
 
 class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
+  late final List <Fee> item=[];
   late String myData;
   late Timer timer;
 
@@ -39,6 +40,35 @@ class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
     super.initState();
     timer = Timer.periodic(
         const Duration(seconds: 5), (Timer t) => fetchCylinderDetails());
+  }
+
+  void getServiceFee() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? jwt = prefs.getString('jwt');
+    Map<String, dynamic> token = jsonDecode(jwt!);
+    print(token);
+
+    final http.Response response = await http.get(
+        Uri.parse("https://kelivog.com/serviceFee"),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Authorization': token['token']
+        });
+
+    if (response.statusCode == 200) {
+      var responseBody = json.decode(response.body);
+      print(responseBody);
+      for (final dynamic item in responseBody['data']) {
+        final Fee fee = Fee(
+          fee: item['serviceFee'],
+        );
+        item.add(fee);
+        print(fee);
+      }
+      setState(() { });
+    } else {
+      throw Exception('Failed to load fee');
+    }
   }
 
   Future fetchCylinderDetails() async {
@@ -89,7 +119,7 @@ class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
         builder: (ctx) => SellDetails(
               id: widget.id,
               item: widget.item,
-              title: widget.title, fee: '',
+              title: widget.title,
             ));
     Navigator.push(context, route).then(onGoBack);
   }
@@ -155,4 +185,10 @@ class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
       ),
     );
   }
+}
+class Fee {
+  final String fee;
+  const Fee({
+    required this.fee,
+  });
 }

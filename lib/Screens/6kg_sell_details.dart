@@ -11,9 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:kelivog/Widget/validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '6kg_cylinder_screen.dart';
-
 
 
 class Inventory {
@@ -27,13 +25,12 @@ class Inventory {
 }
 
 class SellDetails extends StatefulWidget {
-  final String item, id, title, fee;
-
+  final String item, id, title;
+  final Fee serviceFee;
   const SellDetails(
       {Key? key, required this.id,
         required this.item,
-        required this.title,
-        required this.fee})
+        required this.title, required this.serviceFee})
       : super(key: key);
 
   @override
@@ -43,22 +40,15 @@ class SellDetails extends StatefulWidget {
 class _SellDetailsState extends State<SellDetails> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  var newPrice = 0.0;
-  var savedAmount = 0.0;
-  late double originalPrice;
-  late double discount;
-  late double _servicefee = 0.0;
-  late double _takeHome = 0.0;
+  var takeHome = 0.0;
+  late double price;
 
-  void _calculateDiscount() {
-    setState(() {
-      savedAmount = originalPrice * discount;
-      newPrice = originalPrice - (originalPrice * discount);
-    });
+    // void initState() {
+    //   super.initState();
+    //   takeHome = (price * fee) as double;
+    //   takeHome = price - (price * fee).toDouble();
+    // }
 
-    print(newPrice);
-
-  }
 
 
   TextEditingController brandController = TextEditingController();
@@ -289,7 +279,7 @@ class _SellDetailsState extends State<SellDetails> {
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
                                   child: TextFormField(
-                                    onChanged: (value) => originalPrice = double.parse(value),
+                                    //onChanged: (value) => originalPrice = double.parse(value),
                                     textAlign: TextAlign.center,
                                     controller: priceController,
                                     validator: priceValidator,
@@ -299,7 +289,7 @@ class _SellDetailsState extends State<SellDetails> {
                                         color: Colors.black, fontSize: 25.sp),
                                     decoration: const InputDecoration(
                                       //hintText: '100',
-                                      prefix: Text("KES."),
+                                      //prefix: Text("KES."),
                                       contentPadding: EdgeInsets.only(
                                           top: 1.0, bottom: 6.0, left: 8.0),
                                       // contentPadding:
@@ -315,63 +305,13 @@ class _SellDetailsState extends State<SellDetails> {
                         ),
                       ),
 
-                      rowItem('SERVICE FEE', widget.fee.toString() ),
-                      rowItem('TAKE HOME',
-                          (priceController.toString() + widget.fee).toString()),
+                      rowItem('SERVICE FEE',widget.serviceFee.fee),
+                      rowItem('TAKE HOME',widget.serviceFee.toString()),
 
-                      // Padding(
-                      //   padding: EdgeInsets.symmetric(
-                      //       vertical: 12.h, horizontal: 16.w),
-                      //   child: Row(
-                      //     children: [
-                      //       Expanded(
-                      //         child: Text("SERVICE FEE",
-                      //             style: TextStyle(
-                      //               fontSize: 18.sp,
-                      //               fontWeight: FontWeight.bold,
-                      //             )),
-                      //       ),
-                      //       SizedBox(width: 1.w),
-                      //       Expanded(
-                      //         child: Container(
-                      //           width: 90.w,
-                      //           height: 40.h,
-                      //           decoration: BoxDecoration(
-                      //               color: Colors.yellow[600],
-                      //               borderRadius: BorderRadius.circular(15)),
-                      //           child: Center(
-                      //             //child: Text(serviceFeeController.text),
-                      //             child: TextFormField(
-                      //               onChanged: (value) => discount = (double.parse(value)/100)*originalPrice ,
-                      //               // validator: ,
-                      //               // controller: ,
-                      //               cursorColor: Colors.black,
-                      //               keyboardType: TextInputType.number,
-                      //               showCursor: false,
-                      //               textAlign: TextAlign.center,
-                      //               style: const TextStyle(
-                      //                 fontSize: 20.0,
-                      //                 height: 2.0,
-                      //                 color: Colors.black,
-                      //               ),
-                      //               decoration: const InputDecoration(
-                      //                 suffix: Text("%"),
-                      //                 contentPadding: EdgeInsets.only(
-                      //                     top: 1.0, bottom: 100.0, left: 8.0),
-                      //                 border: OutlineInputBorder(
-                      //                   borderRadius: BorderRadius.all(
-                      //                       Radius.circular(15.0)),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      // //rowItem('TAKE HOME',newPrice.toString()),
-                      // //
+                      // rowItem('SERVICE FEE', widget.fee.toString() ),
+                      // rowItem('TAKE HOME',
+                      //     (priceController.toString() + widget.fee).toString()),
+
                       // Padding(
                       //   padding: EdgeInsets.symmetric(
                       //       vertical: 12.h, horizontal: 16.w),
@@ -531,34 +471,13 @@ class _SellDetailsState extends State<SellDetails> {
               height: 40.h,
               decoration: BoxDecoration(
                   color: Colors.yellow[600],
-                  borderRadius: BorderRadius.circular(5)),
+                  borderRadius: BorderRadius.circular(15)),
               child: const Center(child: Text('')),
             ),
           ),
         ],
       ),
     );
-  }
-
-  void getServiceFee() async {
-    final http.Response responseFee =
-    await http.get(Uri.parse("https://kelivog.com/serviceFee"), headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-    });
-    if (responseFee.statusCode == 200) {
-      var responseBody2 = json.decode(responseFee.body);
-      print(responseBody2);
-      for (final dynamic item in responseBody2['data']) {
-        final Fee fee = Fee(
-          fee: item['serviceFee'],
-        );
-        print(fee.fee);
-        //fee.add(fee);
-        print(fee);
-      }
-    } else {
-      print(responseFee.statusCode);
-    }
   }
 
   void getInventory() async {
@@ -583,9 +502,4 @@ class _SellDetailsState extends State<SellDetails> {
     }
   }
 }
-class Fee {
-  final String fee;
-  const Fee({
-    required this.fee,
-  });
-}
+
