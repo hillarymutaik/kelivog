@@ -9,7 +9,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:kelivog/Widget/sixCylinders_card.dart';
-import 'package:kelivog/Widget/thirteenCylinders_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '6kg_sell_details.dart';
@@ -42,34 +41,34 @@ class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
         const Duration(seconds: 5), (Timer t) => fetchCylinderDetails());
   }
 
-  void getServiceFee() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? jwt = prefs.getString('jwt');
-    Map<String, dynamic> token = jsonDecode(jwt!);
-    print(token);
-
-    final http.Response response = await http.get(
-        Uri.parse("https://kelivog.com/serviceFee"),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': token['token']
-        });
-
-    if (response.statusCode == 200) {
-      var responseBody = json.decode(response.body);
-      print(responseBody);
-      for (final dynamic item in responseBody['data']) {
-        final Fee fee = Fee(
-          fee: item['serviceFee'],
-        );
-        item.add(fee);
-        print(fee);
-      }
-      setState(() { });
-    } else {
-      throw Exception('Failed to load fee');
-    }
-  }
+  // void getServiceFee() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   final String? jwt = prefs.getString('jwt');
+  //   Map<String, dynamic> token = jsonDecode(jwt!);
+  //   print(token);
+  //
+  //   final http.Response response = await http.get(
+  //       Uri.parse("https://kelivog.com/serviceFee"),
+  //       headers: {
+  //         'Content-Type': 'application/json; charset=UTF-8',
+  //         'Authorization': token['token']
+  //       });
+  //
+  //   if (response.statusCode == 200) {
+  //     var responseBody = json.decode(response.body);
+  //     print(responseBody);
+  //     for (final dynamic item in responseBody['data']) {
+  //       final Fee fee = Fee(
+  //         fee: item['serviceFee'],
+  //       );
+  //       item.add(fee);
+  //       print(fee);
+  //     }
+  //     setState(() { });
+  //   } else {
+  //     throw Exception('Failed to load fee');
+  //   }
+  // }
 
   Future fetchCylinderDetails() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();

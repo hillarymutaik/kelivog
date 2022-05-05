@@ -14,22 +14,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '6kg_cylinder_screen.dart';
 
 
-class Inventory {
-  final String capacity;
-  final String capacityId;
-
-  const Inventory({
-    required this.capacityId,
-    required this.capacity,
-  });
-}
-
 class SellDetails extends StatefulWidget {
   final String item, id, title;
   const SellDetails(
       {Key? key, required this.id,
         required this.item,
-        required this.title})
+        required this.title,})
       : super(key: key);
 
   @override
@@ -40,24 +30,19 @@ class _SellDetailsState extends State<SellDetails> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   var takeHome = 0.0;
-  late double price;
-
-  var newPrice = 0.0;
   var savedAmount = 0.0;
-  late double originalPrice;
-  late double discount;
+  late double price;
+  late double serviceFee;
 
   void _calculateDiscount() {
     setState(() {
-      savedAmount = originalPrice * discount;
-      newPrice = originalPrice - (originalPrice * discount);
+      savedAmount = price * serviceFee;
+      takeHome = price - (price * serviceFee);
     });
 
-    print(newPrice);
+    print(takeHome);
 
   }
-
-
 
   TextEditingController brandController = TextEditingController();
   TextEditingController capacityController = TextEditingController();
@@ -81,7 +66,8 @@ class _SellDetailsState extends State<SellDetails> {
         String? capacityId,
         String? cylinderId,
         String? price,
-        required bool update}) async {
+        required bool update,
+        String? serviceFee}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? jwt = prefs.getString('jwt');
     Map<String, dynamic> token = jsonDecode(jwt!);
@@ -89,6 +75,7 @@ class _SellDetailsState extends State<SellDetails> {
       'brand': brand,
       'capacity': capacityId,
       'price': int.parse(price!),
+      'serviceFee': double.parse(serviceFee!),
     };
     if (update) {
       final updateCylinderRequest = await http.Client().put(
@@ -113,13 +100,6 @@ class _SellDetailsState extends State<SellDetails> {
           backgroundColor: Colors.redAccent,
         ));
       }
-
-      // Map<String, dynamic> updateResponse = {
-      //   'message': jsonDecode(updateCylinderRequest.body)['message'],
-      //   'success': jsonDecode(updateCylinderRequest.body)['success'],
-      //   'data': jsonDecode(updateCylinderRequest.body)['data'],
-      // };
-      // return updateResponse;
     }
     final postCylinderRequest =
     await http.post(Uri.parse('https://kelivog.com/sell/cylinder'),
@@ -313,8 +293,39 @@ class _SellDetailsState extends State<SellDetails> {
                         ),
                       ),
 
-                      rowItem('SERVICE FEE',fees.length.toString()),
-                      rowItem('TAKE HOME',fees.toString()),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 12.h, horizontal: 16.w),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text("SERVICE FEE",
+                                  style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ),
+                            SizedBox(width: 1.w),
+                            Expanded(
+                              child: Container(
+                                width: 90.w,
+                                height: 40.h,
+                                decoration: BoxDecoration(
+                                    color: Colors.yellow[600],
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: Center(
+                                    child: Text('0.5',
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 25.sp))),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      //rowItem('SERVICE FEE',details: fees.toString()),
+                      rowItem('TAKE HOME',details: fees.toString()),
 
                       // rowItem('SERVICE FEE', widget.fee.toString() ),
                       // rowItem('TAKE HOME',
@@ -388,6 +399,7 @@ class _SellDetailsState extends State<SellDetails> {
                               brand: brandController.text,
                               capacityId: widget.id,
                               price: priceController.text,
+                              serviceFee: serviceFee.toString(),
                             ).then((value) {
                           final responseValue = value.cast<String, dynamic>();
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -460,7 +472,7 @@ class _SellDetailsState extends State<SellDetails> {
       ),
     );
   }
-  Widget rowItem(text, String _service) {
+  Widget rowItem(text, {required String details}) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
       child: Row(
@@ -498,9 +510,9 @@ class _SellDetailsState extends State<SellDetails> {
       print(responseBody2);
       for (final dynamic item in responseBody2['data']) {
         final Fee fee = Fee(
-          fee: item['serviceFee'],
+          serviceFee: item['serviceFee'],
         );
-        print(fee.fee);
+        print(fee.serviceFee);
         fees.add(fee);
         print(fees);
       }
@@ -531,10 +543,19 @@ class _SellDetailsState extends State<SellDetails> {
     }
   }
 }
+class Inventory {
+  final String capacity;
+  final String capacityId;
+
+  const Inventory({
+    required this.capacityId,
+    required this.capacity,
+  });
+}
 
 class Fee {
-  final String fee;
+  final String serviceFee;
   const Fee({
-    required this.fee,
+    required this.serviceFee,
   });
 }
