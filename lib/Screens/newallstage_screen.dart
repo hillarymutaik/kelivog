@@ -219,7 +219,7 @@ class _PendingSchedulesScreenState extends State<NewAllStageScreen> {
                   fontWeight: FontWeight.w700,
                 ),
               )),
-          SizedBox(width: 5.w),
+          // SizedBox(width: 5.w),
           SizedBox(
             width: 0.40.sw,
             child: Container(

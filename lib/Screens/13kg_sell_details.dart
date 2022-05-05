@@ -215,7 +215,7 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
                             SizedBox(width: 1.w),
                             Expanded(
                               child: Container(
-                                width: 95.w,
+                                width: 90.w,
                                 height: 40.h,
                                 decoration: BoxDecoration(
                                     color: Colors.yellow[600],
@@ -246,7 +246,7 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
                             SizedBox(width: 1.w),
                             Expanded(
                               child: Container(
-                                width: 95.w,
+                                width: 90.w,
                                 height: 40.h,
                                 decoration: BoxDecoration(
                                     color: Colors.yellow[600],
@@ -343,7 +343,7 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
                             SizedBox(width: 1.w),
                             Expanded(
                               child: Container(
-                                width: 95.w,
+                                width: 90.w,
                                 height: 40.h,
                                 decoration: BoxDecoration(
                                     color: Colors.yellow[600],
@@ -489,7 +489,7 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
           SizedBox(width: 5.w),
           Expanded(
             child: Container(
-              width: 95.w,
+              width: 90.w,
               height: 25.h,
               decoration: BoxDecoration(
                   color: Colors.yellow[600],
