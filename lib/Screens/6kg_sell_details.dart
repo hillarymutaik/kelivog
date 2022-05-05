@@ -13,14 +13,14 @@ import 'package:kelivog/Widget/validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '6kg_cylinder_screen.dart';
 
-
 class SellDetails extends StatefulWidget {
   final String item, id, title;
-  const SellDetails(
-      {Key? key, required this.id,
-        required this.item,
-        required this.title,})
-      : super(key: key);
+  const SellDetails({
+    Key? key,
+    required this.id,
+    required this.item,
+    required this.title,
+  }) : super(key: key);
 
   @override
   State<SellDetails> createState() => _SellDetailsState();
@@ -41,7 +41,6 @@ class _SellDetailsState extends State<SellDetails> {
     });
 
     print(takeHome);
-
   }
 
   TextEditingController brandController = TextEditingController();
@@ -63,11 +62,11 @@ class _SellDetailsState extends State<SellDetails> {
 
   Future<dynamic> UploadData(
       {String? brand,
-        String? capacityId,
-        String? cylinderId,
-        String? price,
-        required bool update,
-        String? serviceFee}) async {
+      String? capacityId,
+      String? cylinderId,
+      String? price,
+      required bool update,
+      String? serviceFee}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? jwt = prefs.getString('jwt');
     Map<String, dynamic> token = jsonDecode(jwt!);
@@ -90,8 +89,13 @@ class _SellDetailsState extends State<SellDetails> {
       if (updateCylinderRequest.statusCode == 200) {
         print("success");
         Navigator.push(
-            context, MaterialPageRoute(builder: (ctx) =>
-            const SixCylindersListsScreen(title: '', id: '', item: '',)));
+            context,
+            MaterialPageRoute(
+                builder: (ctx) => const SixCylindersListsScreen(
+                      title: '',
+                      id: '',
+                      item: '',
+                    )));
       } else {
         print(updateCylinderRequest.body);
 
@@ -102,12 +106,12 @@ class _SellDetailsState extends State<SellDetails> {
       }
     }
     final postCylinderRequest =
-    await http.post(Uri.parse('https://kelivog.com/sell/cylinder'),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': token['token']
-        },
-        body: jsonEncode(body));
+        await http.post(Uri.parse('https://kelivog.com/sell/cylinder'),
+            headers: {
+              'Content-Type': 'application/json; charset=UTF-8',
+              'Authorization': token['token']
+            },
+            body: jsonEncode(body));
     Map<String, dynamic> updateResponse = {
       'message': jsonDecode(postCylinderRequest.body)['message'],
       'success': jsonDecode(postCylinderRequest.body)['success'],
@@ -183,7 +187,7 @@ class _SellDetailsState extends State<SellDetails> {
                             SizedBox(width: 1.w),
                             Expanded(
                               child: Container(
-                                width: 90.w,
+                                width: 95.w,
                                 height: 40.h,
                                 decoration: BoxDecoration(
                                     color: Colors.yellow[600],
@@ -229,7 +233,7 @@ class _SellDetailsState extends State<SellDetails> {
                             SizedBox(width: 1.w),
                             Expanded(
                               child: Container(
-                                width: 90.w,
+                                width: 95.w,
                                 height: 40.h,
                                 decoration: BoxDecoration(
                                     color: Colors.yellow[600],
@@ -260,7 +264,7 @@ class _SellDetailsState extends State<SellDetails> {
                             SizedBox(width: 1.w),
                             Expanded(
                               child: Container(
-                                width: 90.w,
+                                width: 95.w,
                                 height: 40.h,
                                 decoration: BoxDecoration(
                                     color: Colors.yellow[600],
@@ -308,7 +312,7 @@ class _SellDetailsState extends State<SellDetails> {
                             SizedBox(width: 1.w),
                             Expanded(
                               child: Container(
-                                width: 90.w,
+                                width: 95.w,
                                 height: 40.h,
                                 decoration: BoxDecoration(
                                     color: Colors.yellow[600],
@@ -325,7 +329,7 @@ class _SellDetailsState extends State<SellDetails> {
                       ),
 
                       //rowItem('SERVICE FEE',details: fees.toString()),
-                      rowItem('TAKE HOME',details: fees.toString()),
+                      rowItem('TAKE HOME', details: fees.toString()),
 
                       // rowItem('SERVICE FEE', widget.fee.toString() ),
                       // rowItem('TAKE HOME',
@@ -391,16 +395,16 @@ class _SellDetailsState extends State<SellDetails> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton(
-                          onPressed: () async {
-                            context.read<LoadingProvider>().setLoad(true);
-                            if (_formKey.currentState!.validate()) {
-                            UploadData(
-                              update: false,
-                              brand: brandController.text,
-                              capacityId: widget.id,
-                              price: priceController.text,
-                              serviceFee: serviceFee.toString(),
-                            ).then((value) {
+                    onPressed: () async {
+                      context.read<LoadingProvider>().setLoad(true);
+                      if (_formKey.currentState!.validate()) {
+                        UploadData(
+                          update: false,
+                          brand: brandController.text,
+                          capacityId: widget.id,
+                          price: priceController.text,
+                          serviceFee: serviceFee.toString(),
+                        ).then((value) {
                           final responseValue = value.cast<String, dynamic>();
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
@@ -472,6 +476,7 @@ class _SellDetailsState extends State<SellDetails> {
       ),
     );
   }
+
   Widget rowItem(text, {required String details}) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
@@ -502,7 +507,7 @@ class _SellDetailsState extends State<SellDetails> {
 
   void getServiceFee() async {
     final http.Response responseFee =
-    await http.get(Uri.parse("https://kelivog.com/serviceFee"), headers: {
+        await http.get(Uri.parse("https://kelivog.com/serviceFee"), headers: {
       'Content-Type': 'application/json; charset=UTF-8',
     });
     if (responseFee.statusCode == 200) {
@@ -543,6 +548,7 @@ class _SellDetailsState extends State<SellDetails> {
     }
   }
 }
+
 class Inventory {
   final String capacity;
   final String capacityId;

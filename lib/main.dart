@@ -24,19 +24,17 @@ class MyApp extends StatelessWidget {
     ]);
     return ScreenUtilInit(
       designSize: const Size(392.7, 737.4),
-      builder: () {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'KELIVOG',
-          builder: LoadingScreen.init(),
-          theme: ThemeData(
-            primarySwatch: Colors.yellow,
-            //    scaffoldBackgroundColor: Colors.grey[300],
-            scaffoldBackgroundColor: Colors.transparent,
-          ),
-          home: const SplashScreen(),
-        );
-      },
+      builder: (_) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'KELIVOG',
+        builder: LoadingScreen.init(),
+        theme: ThemeData(
+          primarySwatch: Colors.yellow,
+          //    scaffoldBackgroundColor: Colors.grey[300],
+          scaffoldBackgroundColor: Colors.transparent,
+        ),
+        home: const SplashScreen(),
+      ),
     );
   }
 }

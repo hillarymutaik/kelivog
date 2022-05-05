@@ -186,9 +186,9 @@ class _PendingSchedulesScreenState extends State<ActiveSchedulesScreen> {
           SizedBox(width: 0.2.sw, child: Text(name)),
           SizedBox(width: 5.w),
           SizedBox(
-            width: 0.3.sw,
+            width: 0.2.sw,
             child: Container(
-              width: 90.w,
+              width: 95.w,
               height: 25.h,
               decoration: BoxDecoration(
                   color: Colors.yellow[600],
