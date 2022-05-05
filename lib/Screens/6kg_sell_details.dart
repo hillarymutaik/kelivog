@@ -34,12 +34,11 @@ class _SellDetailsState extends State<SellDetails> {
   late double price;
   late double serviceFee;
 
-  void _calculateDiscount() {
+  void _calculateTakeHome() {
     setState(() {
       savedAmount = price * serviceFee;
       takeHome = price - (price * serviceFee);
     });
-
     print(takeHome);
 
   }
@@ -314,7 +313,7 @@ class _SellDetailsState extends State<SellDetails> {
                                     color: Colors.yellow[600],
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
-                                    child: Text('0.5',
+                                    child: Text(fees.toString(),
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 25.sp))),
@@ -323,65 +322,7 @@ class _SellDetailsState extends State<SellDetails> {
                           ],
                         ),
                       ),
-
-                      //rowItem('SERVICE FEE',details: fees.toString()),
                       rowItem('TAKE HOME',details: fees.toString()),
-
-                      // rowItem('SERVICE FEE', widget.fee.toString() ),
-                      // rowItem('TAKE HOME',
-                      //     (priceController.toString() + widget.fee).toString()),
-
-                      // Padding(
-                      //   padding: EdgeInsets.symmetric(
-                      //       vertical: 12.h, horizontal: 16.w),
-                      //   child: Row(
-                      //     children: [
-                      //       Expanded(
-                      //         child: Text("TAKE HOME",
-                      //             style: TextStyle(
-                      //               fontSize: 18.sp,
-                      //               fontWeight: FontWeight.bold,
-                      //             )),
-                      //       ),
-                      //       SizedBox(width: 1.w),
-                      //       Expanded(
-                      //         child: Container(
-                      //           width: 90.w,
-                      //           height: 40.h,
-                      //           decoration: BoxDecoration(
-                      //               color: Colors.yellow[600],
-                      //               borderRadius: BorderRadius.circular(15)),
-                      //           child: Center(
-                      //             //child: Text(serviceFeeController.text),
-                      //             child: TextFormField(
-                      //               onChanged: (value) {
-                      //                 setState(() {
-                      //                   newPrice = originalPrice-discount;                                      });
-                      //               },
-                      //               showCursor: true,
-                      //               cursorColor: Colors.black,
-                      //               keyboardType: TextInputType.number,
-                      //               textAlign: TextAlign.center,
-                      //               style: const TextStyle(
-                      //                 fontSize: 20.0,
-                      //                 height: 2.0,
-                      //                 color: Colors.black,
-                      //               ),
-                      //               decoration: const InputDecoration(
-                      //                 contentPadding: EdgeInsets.only(
-                      //                     top: 1.0, bottom: 100.0, left: 8.0),
-                      //                 border: OutlineInputBorder(
-                      //                   borderRadius: BorderRadius.all(
-                      //                       Radius.circular(15.0)),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
                     ],
                   ),
                 ),
@@ -392,6 +333,7 @@ class _SellDetailsState extends State<SellDetails> {
                 children: [
                   ElevatedButton(
                           onPressed: () async {
+                            _calculateTakeHome;
                             context.read<LoadingProvider>().setLoad(true);
                             if (_formKey.currentState!.validate()) {
                             UploadData(
