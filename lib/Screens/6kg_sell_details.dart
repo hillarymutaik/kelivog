@@ -32,7 +32,7 @@ class _SellDetailsState extends State<SellDetails> {
   var takeHome = 0.0;
   var savedAmount = 0.0;
   late double price;
-  late double serviceFee;
+  late double serviceFee = 0.0;
 
   void _calculateTakeHome() {
     setState(() {
@@ -266,7 +266,7 @@ class _SellDetailsState extends State<SellDetails> {
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
                                   child: TextFormField(
-                                    //onChanged: (value) => originalPrice = double.parse(value),
+                                    onChanged: (value) => price = double.parse(value),
                                     textAlign: TextAlign.center,
                                     controller: priceController,
                                     validator: priceValidator,
@@ -322,7 +322,37 @@ class _SellDetailsState extends State<SellDetails> {
                           ],
                         ),
                       ),
-                      rowItem('TAKE HOME',details: fees.toString()),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: 12.h, horizontal: 16.w),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text("TAKE HOME",
+                                  style: TextStyle(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ),
+                            SizedBox(width: 1.w),
+                            Expanded(
+                              child: Container(
+                                width: 90.w,
+                                height: 40.h,
+                                decoration: BoxDecoration(
+                                    color: Colors.yellow[600],
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: Center(
+                                    child: Text(fees.toString(),
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 25.sp))),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      //rowItem('TAKE HOME',details: fees.toString()),
                     ],
                   ),
                 ),
