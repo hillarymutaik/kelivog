@@ -29,10 +29,7 @@ class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
   late final List <Fee> item=[];
   late String myData;
   late Timer timer;
-
-  // ignore: prefer_typing_uninitialized_variables
   var thirteenCylinders;
-  //late Timer timer;
 
   @override
   void initState() {
