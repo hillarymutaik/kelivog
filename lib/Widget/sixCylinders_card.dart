@@ -4,7 +4,7 @@ import '../Screens/six_save_delete_cylinder_details.dart';
 
 class SixCylindersCard extends StatelessWidget {
   final String brand, price, capacityName, id, capacityId;
-      final double serviceFee;
+      //final double serviceFee;
 
   const SixCylindersCard(
       {Key? key,
@@ -13,7 +13,7 @@ class SixCylindersCard extends StatelessWidget {
       required this.capacityId,
       required this.brand,
       required this.capacityName,
-      required this.serviceFee
+      //required this.serviceFee
       })
       : super(key: key);
 
@@ -137,25 +137,25 @@ class SixCylindersCard extends StatelessWidget {
                           ),
                         ]),
 
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          rowItem('SERVICE FEE'),
-                          SizedBox(
-                              width: 0.3.sw,
-                              child: Container(
-                                width: 90.w,
-                                height: 25.h,
-                                decoration: BoxDecoration(
-                                    color: Colors.yellow[600],
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: Center(
-                                  child: Text( serviceFee.toString(),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),)
-                          ),
-                        ]),
+                    // Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       rowItem('SERVICE FEE'),
+                    //       SizedBox(
+                    //           width: 0.3.sw,
+                    //           child: Container(
+                    //             width: 90.w,
+                    //             height: 25.h,
+                    //             decoration: BoxDecoration(
+                    //                 color: Colors.yellow[600],
+                    //                 borderRadius: BorderRadius.circular(15)),
+                    //             child: Center(
+                    //               child: Text( serviceFee.toString(),
+                    //                 textAlign: TextAlign.center,
+                    //               ),
+                    //             ),)
+                    //       ),
+                    //     ]),
 
                   ],
                 )

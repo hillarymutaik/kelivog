@@ -12,7 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '6kg_cylinder_screen.dart';
 
 
-class SellDetails extends StatelessWidget {
+class SellDetails extends StatefulWidget {
   final String item, id, title;
   //final double serviceFee;
    SellDetails(
@@ -23,11 +23,11 @@ class SellDetails extends StatelessWidget {
       })
       : super(key: key);
 
-//   @override
-//   State<SellDetails> createState() => _SellDetailsState();
-// }
-//
-// class _SellDetailsState extends State<SellDetails> {
+  @override
+  State<SellDetails> createState() => _SellDetailsState();
+}
+
+class _SellDetailsState extends State<SellDetails> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   var takeHome = 0.0;
@@ -241,7 +241,7 @@ class SellDetails extends StatelessWidget {
                                     color: Colors.yellow[600],
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
-                                    child: Text(title,
+                                    child: Text(widget.title,
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 25.sp))),
@@ -376,7 +376,7 @@ class SellDetails extends StatelessWidget {
                             UploadData(
                               update: false,
                               brand: brandController.text,
-                              capacityId: id,
+                              capacityId: widget.id,
                               price: priceController.text,
                               serviceFee:serviceFee.toString(),
                             ).then((value) {

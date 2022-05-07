@@ -141,7 +141,7 @@ class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
                       thirteenCylinders == null ? 0 : thirteenCylinders.length,
                   itemBuilder: (BuildContext context, int index) {
                     return SixCylindersCard(
-                      serviceFee: thirteenCylinders[index]['serviceFee'] ,
+                      //zserviceFee: thirteenCylinders[index]['serviceFee'] ,
                       brand: thirteenCylinders[index]['brand'],
                       capacityId: thirteenCylinders[index]['capacity'],
                       capacityName: thirteenCylinders[index]['capacityName'],
