@@ -6,8 +6,14 @@ import '../Screens/6kg_cylinder_screen.dart';
 
 class SixCylinderCard extends StatelessWidget {
   final String id, image, title;
+  //final double serviceFee ;
   const SixCylinderCard(
-      {Key? key, required this.image, required this.title, required this.id})
+      {Key? key,
+        required this.image,
+        required this.title,
+        required this.id,
+       // required this.serviceFee
+      })
       : super(key: key);
 
   @override
@@ -46,8 +52,7 @@ class SixCylinderCard extends StatelessWidget {
                           builder: (ctx) => SixCylindersListsScreen(
                               item: image, id: id, title: title)));
                 },
-                child: Text(
-                  title,
+                child: Text(title,
                   style: TextStyle(
                       color: const Color(0xff0ced10), fontSize: 20.sp),
                 ),

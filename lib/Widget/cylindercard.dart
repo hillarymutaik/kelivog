@@ -4,7 +4,8 @@ import 'package:kelivog/Screens/6kg_cylinder_screen.dart';
 
 class CylinderCard extends StatelessWidget {
   final String image, title;
-  const CylinderCard({Key? key, required this.image, required this.title})
+  final double serviceFee;
+  const CylinderCard({Key? key, required this.image, required this.title, required this.serviceFee})
       : super(key: key);
 
   @override
@@ -25,7 +26,7 @@ class CylinderCard extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (ctx) => const SixCylindersListsScreen(
+                          builder: (ctx) => SixCylindersListsScreen(
                                 item: '',
                                 id: '',
                                 title: '',

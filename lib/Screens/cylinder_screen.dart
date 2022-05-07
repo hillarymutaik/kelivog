@@ -50,7 +50,7 @@ class CylinderScreen extends StatelessWidget {
                                   context,
                                   MaterialPageRoute(
                                       builder: (ctx) =>
-                                          const SellCylinderScreen()));
+                                          SellCylinderScreen()));
                             },
                             child: Text(
                               'SELL',

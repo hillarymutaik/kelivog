@@ -15,9 +15,14 @@ import '6kg_sell_details.dart';
 
 class SixCylindersListsScreen extends StatefulWidget {
   final String item, id, title;
-
+  //final double serviceFee;
   const SixCylindersListsScreen(
-      {Key? key, required this.item, required this.id, required this.title})
+      {Key? key,
+        required this.item,
+        required this.id,
+        required this.title,
+       // required this.serviceFee
+      })
       : super(key: key);
 
   @override
@@ -26,10 +31,10 @@ class SixCylindersListsScreen extends StatefulWidget {
 }
 
 class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
-  late final List <Fee> item=[];
   late String myData;
   late Timer timer;
   var thirteenCylinders;
+
 
   @override
   void initState() {
@@ -37,35 +42,6 @@ class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
     timer = Timer.periodic(
         const Duration(seconds: 5), (Timer t) => fetchCylinderDetails());
   }
-
-  // void getServiceFee() async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   final String? jwt = prefs.getString('jwt');
-  //   Map<String, dynamic> token = jsonDecode(jwt!);
-  //   print(token);
-  //
-  //   final http.Response response = await http.get(
-  //       Uri.parse("https://kelivog.com/serviceFee"),
-  //       headers: {
-  //         'Content-Type': 'application/json; charset=UTF-8',
-  //         'Authorization': token['token']
-  //       });
-  //
-  //   if (response.statusCode == 200) {
-  //     var responseBody = json.decode(response.body);
-  //     print(responseBody);
-  //     for (final dynamic item in responseBody['data']) {
-  //       final Fee fee = Fee(
-  //         fee: item['serviceFee'],
-  //       );
-  //       item.add(fee);
-  //       print(fee);
-  //     }
-  //     setState(() { });
-  //   } else {
-  //     throw Exception('Failed to load fee');
-  //   }
-  // }
 
   Future fetchCylinderDetails() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -83,19 +59,19 @@ class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
 
       //Map<String, dynamic> thirteenCylinders = jsonDecode(myResponse.body);
       if (kDebugMode) {
-        print(myResponse.body);
+       // print(myResponse.body);
       }
 
       setState(() {
         thirteenCylinders = jsonDecode(myData)["data"];
 
         if (kDebugMode) {
-          print(thirteenCylinders.length);
+         // print(thirteenCylinders.length);
         }
       });
 
       if (kDebugMode) {
-        print(thirteenCylinders[0]['brand']);
+       // print(thirteenCylinders[0]['brand']);
       }
     } else {
       if (kDebugMode) {
@@ -135,14 +111,13 @@ class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
               SizedBox(height: 5.h),
               Text(
                 '6 KG',
-                // jsonDecode(myData)['allCylinders'][1]['capacityName'],
                 style: Theme.of(context).textTheme.headline5!.copyWith(
                     color: const Color(0xff261005),
                     fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 15.h),
               ElevatedButton(
-                onPressed: inventoryData,
+               onPressed: inventoryData,
                 child: Text(
                   '+ ADD',
                   style: TextStyle(
@@ -166,7 +141,7 @@ class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
                       thirteenCylinders == null ? 0 : thirteenCylinders.length,
                   itemBuilder: (BuildContext context, int index) {
                     return SixCylindersCard(
-                      //serviceFee: thirteenCylinders[index]['serviceFee'].toString(),
+                      serviceFee: thirteenCylinders[index]['serviceFee'] ,
                       brand: thirteenCylinders[index]['brand'],
                       capacityId: thirteenCylinders[index]['capacity'],
                       capacityName: thirteenCylinders[index]['capacityName'],
@@ -183,3 +158,5 @@ class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
     );
   }
 }
+
+
