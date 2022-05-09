@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:kelivog/Widget/green_button.dart';
 import 'package:kelivog/Widget/header.dart';
@@ -63,6 +64,9 @@ class _AddCylindersScreenState extends State<AddCylindersScreen>
                       horizontal: 15,
                     ),
                     child: TextFormField(
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.allow(RegExp('[a-zA-Z]')),
+                      ],
                       validator: brandValidator,
                       controller: brandController,
                       cursorColor: Colors.black,
