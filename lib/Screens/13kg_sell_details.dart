@@ -176,10 +176,10 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
                                   child: TextFormField(
-                                    // inputFormatters: <TextInputFormatter>[
-                                    //   FilteringTextInputFormatter.allow(
-                                    //       RegExp('[a-zA-Z]')),
-                                    // ],
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp('[a-zA-Z]')),
+                                    ],
 
                                     textAlign: TextAlign.center,
                                     controller: brandController,
