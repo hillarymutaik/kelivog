@@ -71,7 +71,7 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
   final brandController = TextEditingController();
   final capacityController = TextEditingController();
   final priceController = TextEditingController();
-     TextEditingController _servicefee = TextEditingController();
+  TextEditingController _servicefee = TextEditingController();
   TextEditingController _takeHome = TextEditingController();
 
   //File? image;
@@ -82,20 +82,20 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
     priceController.clear();
   }
 
-  _doTheMath(){
-     //perform validation then do the math
-     double? amount = double.tryParse(priceController.text);
-     if(amount != null) {
-       setState((){
-         final serviceFee = amount * 0.05;
-         _servicefee = serviceFee as TextEditingController;
-         _takeHome = (amount - serviceFee) as TextEditingController;
-       });
-     } else {
-       if (kDebugMode) {
-         print('Invalid input');
-       }
-     }
+  _doTheMath() {
+    //perform validation then do the math
+    double? amount = double.tryParse(priceController.text);
+    if (amount != null) {
+      setState(() {
+        final serviceFee = amount * 0.05;
+        _servicefee = serviceFee as TextEditingController;
+        _takeHome = (amount - serviceFee) as TextEditingController;
+      });
+    } else {
+      if (kDebugMode) {
+        print('Invalid input');
+      }
+    }
   }
 
   List<Inventory> inventories = [];
@@ -176,6 +176,11 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
                                   child: TextFormField(
+                                    // inputFormatters: <TextInputFormatter>[
+                                    //   FilteringTextInputFormatter.allow(
+                                    //       RegExp('[a-zA-Z]')),
+                                    // ],
+
                                     textAlign: TextAlign.center,
                                     controller: brandController,
                                     validator: brandValidator,
@@ -301,7 +306,8 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
                                   child: TextFormField(
                                     onChanged: (value) {
                                       setState(() {
-                                        _servicefee = double.tryParse(value) as TextEditingController;
+                                        _servicefee = double.tryParse(value)
+                                            as TextEditingController;
                                       });
                                     },
                                     // validator: ,
@@ -353,7 +359,8 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
                                   child: TextFormField(
                                     onChanged: (value) {
                                       setState(() {
-                                        _takeHome = double.tryParse(value) as TextEditingController;
+                                        _takeHome = double.tryParse(value)
+                                            as TextEditingController;
                                       });
                                     },
                                     // validator: ,
@@ -501,6 +508,7 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
       ),
     );
   }
+
   void getInventory() async {
     final http.Response response2 =
         await http.get(Uri.parse("https://kelivog.com/capacity"), headers: {

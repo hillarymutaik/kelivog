@@ -194,6 +194,11 @@ class _SellDetailsState extends State<SellDetails> {
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
                                   child: TextFormField(
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.allow(
+                                          RegExp('[a-zA-Z]')),
+                                    ],
+
                                     //onChanged: (value) => brandController = double.parse(value) as TextEditingController,
                                     textAlign: TextAlign.center,
                                     controller: brandController,

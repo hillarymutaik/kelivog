@@ -63,7 +63,7 @@ class _AddCylindersScreenState extends State<AddCylindersScreen>
                       horizontal: 15,
                     ),
                     child: TextFormField(
-                      validator: nameValidator,
+                      validator: brandValidator,
                       controller: brandController,
                       cursorColor: Colors.black,
                       decoration: const InputDecoration(

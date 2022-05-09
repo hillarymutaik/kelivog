@@ -150,7 +150,7 @@ class _SaveDeleteState extends State<SaveDeleteScreen>
                 ),
                 child: TextFormField(
                   style: TextStyle(color: Colors.black, fontSize: 20.sp),
-                  validator: nameValidator,
+                  validator: brandValidator,
                   textAlign: TextAlign.center,
                   controller: brandController,
                   cursorColor: Colors.black,
@@ -254,7 +254,6 @@ class _SaveDeleteState extends State<SaveDeleteScreen>
 
                     Navigator.of(context).pop();
                     context.read<LoadingProvider>().setLoad(false);
-
                   }).catchError((error) {
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text(error.toString())));
