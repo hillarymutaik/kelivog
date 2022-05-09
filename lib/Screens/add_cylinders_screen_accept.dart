@@ -108,7 +108,7 @@ class AddCylindersScreenAccept extends StatelessWidget {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
           child: Container(
-            width: 0.7.sw,
+            width: 0.9.sw,
             height: 40.h,
             decoration: BoxDecoration(
                 color: Colors.yellow[600],

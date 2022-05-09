@@ -53,7 +53,7 @@ class _AddCylindersScreenState extends State<AddCylindersScreen>
                 ),
                 SizedBox(height: 15.h),
                 Container(
-                  width: 0.7.sw,
+                  width: 0.9.sw,
                   height: 40.h,
                   decoration: BoxDecoration(
                       color: Colors.yellow[600],

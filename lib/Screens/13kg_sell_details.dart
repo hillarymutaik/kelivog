@@ -169,7 +169,7 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
                             SizedBox(width: 1.w),
                             Expanded(
                               child: Container(
-                                width: 90.w,
+                                width: 95.w,
                                 height: 40.h,
                                 decoration: BoxDecoration(
                                     color: Colors.yellow[600],

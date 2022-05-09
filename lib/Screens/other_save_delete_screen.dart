@@ -223,7 +223,7 @@ class _SaveDeleteState extends State<OtherSaveDeleteScreen>
                             fontSize: 20.sp, fontWeight: FontWeight.bold)),
                     Container(
                       height: 50.h,
-                      width: 300.h,
+                      width: 350.h,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
                         color: Colors.yellow[600],

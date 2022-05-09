@@ -211,7 +211,7 @@ class _PendingSchedulesScreenState extends State<NewAllStageScreen> {
         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SizedBox(
-              width: 0.2.sw,
+              width: 0.1.sw,
               child: Text(
                 text,
                 style: TextStyle(
@@ -219,9 +219,9 @@ class _PendingSchedulesScreenState extends State<NewAllStageScreen> {
                   fontWeight: FontWeight.w700,
                 ),
               )),
-          SizedBox(width: 5.w),
+          // SizedBox(width: 5.w),
           SizedBox(
-            width: 0.35.sw,
+            width: 0.40.sw,
             child: Container(
               width: 90.w,
               height: text == 'PURCHASE STATUS' ? 40.h : 20.h,

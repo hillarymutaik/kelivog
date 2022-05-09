@@ -43,7 +43,7 @@ class UploadScreen extends StatelessWidget {
                                 fontSize: 20.sp, fontWeight: FontWeight.bold)),
                         Container(
                           height: 25.h,
-                          width: 160.h,
+                          width: 180.h,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(6),
                             color: Colors.yellow,

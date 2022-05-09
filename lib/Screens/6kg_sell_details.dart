@@ -11,7 +11,6 @@ import 'package:kelivog/Widget/validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '6kg_cylinder_screen.dart';
 
-
 class SellDetails extends StatefulWidget {
   final String item, id, title;
   //final double serviceFee;
@@ -66,11 +65,11 @@ class _SellDetailsState extends State<SellDetails> {
 
   Future<dynamic> UploadData(
       {String? brand,
-        String? capacityId,
-        String? cylinderId,
-        String? price,
-        required bool update,
-        String? serviceFee}) async {
+      String? capacityId,
+      String? cylinderId,
+      String? price,
+      required bool update,
+      String? serviceFee}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? jwt = prefs.getString('jwt');
     Map<String, dynamic> token = jsonDecode(jwt!);
@@ -109,12 +108,12 @@ class _SellDetailsState extends State<SellDetails> {
       }
     }
     final postCylinderRequest =
-    await http.post(Uri.parse('https://kelivog.com/sell/cylinder'),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': token['token']
-        },
-        body: jsonEncode(body));
+        await http.post(Uri.parse('https://kelivog.com/sell/cylinder'),
+            headers: {
+              'Content-Type': 'application/json; charset=UTF-8',
+              'Authorization': token['token']
+            },
+            body: jsonEncode(body));
     Map<String, dynamic> updateResponse = {
       'message': jsonDecode(postCylinderRequest.body)['message'],
       'success': jsonDecode(postCylinderRequest.body)['success'],
@@ -189,7 +188,7 @@ class _SellDetailsState extends State<SellDetails> {
                             SizedBox(width: 1.w),
                             Expanded(
                               child: Container(
-                                width: 90.w,
+                                width: 95.w,
                                 height: 40.h,
                                 decoration: BoxDecoration(
                                     color: Colors.yellow[600],
@@ -235,7 +234,7 @@ class _SellDetailsState extends State<SellDetails> {
                             SizedBox(width: 1.w),
                             Expanded(
                               child: Container(
-                                width: 90.w,
+                                width: 95.w,
                                 height: 40.h,
                                 decoration: BoxDecoration(
                                     color: Colors.yellow[600],
@@ -266,7 +265,7 @@ class _SellDetailsState extends State<SellDetails> {
                             SizedBox(width: 1.w),
                             Expanded(
                               child: Container(
-                                width: 90.w,
+                                width: 95.w,
                                 height: 40.h,
                                 decoration: BoxDecoration(
                                     color: Colors.yellow[600],
@@ -314,7 +313,7 @@ class _SellDetailsState extends State<SellDetails> {
                             SizedBox(width: 1.w),
                             Expanded(
                               child: Container(
-                                width: 90.w,
+                                width: 95.w,
                                 height: 40.h,
                                 decoration: BoxDecoration(
                                     color: Colors.yellow[600],
@@ -454,6 +453,7 @@ class _SellDetailsState extends State<SellDetails> {
       ),
     );
   }
+
   Widget rowItem(text, {required String details}) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
@@ -524,6 +524,7 @@ class _SellDetailsState extends State<SellDetails> {
   }
 
 }
+
 class Inventory {
   final String capacity;
   final String capacityId;

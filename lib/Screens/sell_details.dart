@@ -114,7 +114,7 @@ class SellDetails extends StatelessWidget {
           SizedBox(width: 5.w),
           Expanded(
             child: Container(
-              width: 90.w,
+              width: 95.w,
               height: 25.h,
               decoration: BoxDecoration(
                   color: Colors.yellow[600],
