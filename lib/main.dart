@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
     ]);
     return ScreenUtilInit(
       designSize: const Size(392.7, 737.4),
-      builder: (_) => MaterialApp(
+      builder: (){  return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'KELIVOG',
         builder: LoadingScreen.init(),
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.transparent,
         ),
         home: const SplashScreen(),
-      ),
+      );},
     );
   }
 }

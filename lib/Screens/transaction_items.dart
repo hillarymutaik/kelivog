@@ -61,15 +61,12 @@ class TransactionItemsScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             children: [
-                              historyItem(
-                                  'TRANSACTION NO.', transaction.transactionId),
-                              historyItem(
-                                  'AMOUNT', transaction.transactionAmount),
+                              historyItem('TRANSACTION NO.', transaction.transactionId),
+                             // historyItem('AMOUNT', transaction.transactionAmount),
                               historyItem('DATE', transaction.id),
-                              historyItem('ITEM', transaction.capacityName),
-                              historyItem('CLIENT', transaction.clientName),
-                              historyItem('TRANSACTION DESCRIPTION',
-                                  transaction.id, 55),
+                             // historyItem('ITEM', transaction.capacityName),
+                              //historyItem('CLIENT', transaction.clientName),
+                             // historyItem('TRANSACTION DESCRIPTION', transaction.id, 55),
                             ],
                           ),
                         ),

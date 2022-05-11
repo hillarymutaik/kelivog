@@ -162,17 +162,16 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
         if (response2.statusCode == 200) {
           var responseBody2 = json.decode(response2.body);
           print(responseBody2);
-          // for (final dynamic item in responseBody) {
-
+          for (final dynamic item in responseBody) {
           final Transaction transaction = Transaction(
             id: responseBody2['data']['_id'],
             transactionId: responseBody2['data']['transID'],
-            capacityName: responseBody2['data']['capacityName'],
-            clientName: responseBody2['data']['clientName'],
-            transactionAmount: responseBody2['data']['transAmount'],
+            //capacityName: responseBody2['data']['capacityName'],
+            //clientName: responseBody2['data']['clientName'],
+            //transactionAmount: responseBody2['data']['transAmount'],
           );
           transactions.add(transaction);
-          // }
+           }
         }
       }
       setState(() {});
@@ -225,13 +224,13 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
 class Transaction {
   final String transactionId;
   final String id;
-  final String transactionAmount;
-  final String capacityName;
-  final String clientName;
+  //final String transactionAmount;
+  //final String capacityName;
+  //final String clientName;
   Transaction(
-      {required this.transactionAmount,
-      required this.capacityName,
-      required this.clientName,
+      {//required this.transactionAmount,
+     // required this.capacityName,
+     // required this.clientName,
       required this.transactionId,
       required this.id});
 }

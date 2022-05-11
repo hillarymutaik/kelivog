@@ -34,15 +34,6 @@ class _SellDetailsState extends State<SellDetails> {
   late double price;
   //late double serviceFee = 0.0;
 
-  // void _calculateTakeHome() {
-  //   setState(() {
-  //     savedAmount = price * widget.serviceFee;
-  //     takeHome = price - (price * widget.serviceFee);
-  //   });
-  //   print(takeHome);
-  //
-  // }
-
   TextEditingController brandController = TextEditingController();
   TextEditingController capacityController = TextEditingController();
   TextEditingController priceController = TextEditingController();
@@ -62,6 +53,15 @@ class _SellDetailsState extends State<SellDetails> {
 
   Map<String, dynamic> serviceFee =
   {"serviceFee": ""} as Map<String, dynamic>;
+
+  // void _calculateTakeHome() {
+  //   setState(() {
+  //     savedAmount = price * widget.serviceFee;
+  //     takeHome = price - (price * widget.serviceFee);
+  //   });
+  //   print(takeHome);
+  //
+  // }
 
   Future<dynamic> UploadData(
       {String? brand,
@@ -100,11 +100,6 @@ class _SellDetailsState extends State<SellDetails> {
           'data': jsonDecode(updateCylinderRequest.body)['data'],
         };
         return updateResponse;
-
-        // return ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        //   content: Text("Failed"),
-        //   backgroundColor: Colors.redAccent,
-        // ));
       }
     }
     final postCylinderRequest =
