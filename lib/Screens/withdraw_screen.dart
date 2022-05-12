@@ -169,7 +169,7 @@ class _WithdrawScreenState extends State<WithdrawScreen> {
                     return DropdownMenuItem(
                       value: items,
                       child: Padding(
-                        padding: const EdgeInsets.only(right: 90.0, left: 20.0),
+                        padding: const EdgeInsets.only(right: 50.0, left: 30.0),
                         child: Text(
                           items,
                           style: const TextStyle(

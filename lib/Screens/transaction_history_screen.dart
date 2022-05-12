@@ -159,39 +159,41 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
               'Content-Type': 'application/json; charset=UTF-8',
               'Authorization': token['token']
             });
+
+
         if (response2.statusCode == 200) {
           var responseBody2 = json.decode(response2.body);
           print(responseBody2);
-          for (final dynamic item in responseBody) {
-          final Transaction transaction = Transaction(
-            id: responseBody2['data']['_id'],
-            transactionId: responseBody2['data']['transID'],
-            //capacityName: responseBody2['data']['capacityName'],
-            //clientName: responseBody2['data']['clientName'],
-            //transactionAmount: responseBody2['data']['transAmount'],
-          );
-          transactions.add(transaction);
-           }
+
+          for (final dynamic item in responseBody2['data']) {
+            final Transaction transaction = Transaction(
+              id: item['_id'],
+              transactionId: item['transID'],
+              date: item['createdAt'].toString(),
+              clientName: item['clientName'],
+              transactionAmount: item['transAmount'],
+            );
+            transactions.add(transaction);
+          }
+
+          // responseBody2['data'].forEach((item) {
+          //   final Transaction transaction = Transaction(
+          //     id: item['_id'],
+          //     transactionId: item['transID'],
+          //     //clientName: item['clientName'],
+          //     //transactionAmount: item['transAmount'].toString(),
+          //     //date:item['createdAt'],
+          //   );
+          //   print(transaction);
+          //   transactions.add(transaction);
+          // });
+
         }
       }
-      setState(() {});
+      //setState(() {});
     } else {
-      throw Exception('Failed to load album');
+      throw Exception('Failed to load transactions');
     }
-
-    // if (response.statusCode == 200) {
-    //   final List<dynamic> responseBody = json.decode(response.body);
-    //   for (final dynamic item in responseBody) {
-    //     final Transaction transaction = Transaction(
-    //       id: item['_id'].toString(),
-    //       transactionId: item['transID'].toString(),
-    //     );
-    //     transactions.add(transaction);
-    //   }
-    //   setState(() {});
-    // } else {
-    //   throw Exception('Failed to load album');
-    // }
   }
 
   Widget item1(Transaction transaction) {
@@ -224,13 +226,67 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
 class Transaction {
   final String transactionId;
   final String id;
-  //final String transactionAmount;
-  //final String capacityName;
-  //final String clientName;
+  final String transactionAmount;
+  final String clientName;
+  final String date;
   Transaction(
-      {//required this.transactionAmount,
-     // required this.capacityName,
-     // required this.clientName,
-      required this.transactionId,
-      required this.id});
+      {
+        required this.transactionAmount,
+        // required this.capacityName,
+        required this.clientName,
+        required this.date,
+        required this.transactionId,
+        required this.id});
 }
+
+//
+// class Transactions {
+//   final String transactionId;
+//   final String id;
+//   final String transactionAmount;
+//   final String capacityName;
+//   final String clientName;
+//   final String date;
+//
+//   Transactions(
+//       {
+//         required this.transactionAmount,
+//         required this.capacityName,
+//         required this.clientName,
+//         required this.transactionId,
+//         required this.id});
+// }
+//
+// void getTransactions(String id) async {
+//   final SharedPreferences prefs = await SharedPreferences.getInstance();
+//   final String? jwt = prefs.getString('jwt');
+//   Map<String, dynamic> token = jsonDecode(jwt!);
+//
+//   final http.Response response = await http
+//       .get(Uri.parse("https://kelivog.com/transactions/${id}"), headers: {
+//     'Content-Type': 'application/json; charset=UTF-8',
+//     'Authorization': token['token']
+//   });
+//
+//   if (response.statusCode == 200) {
+//     var responseBody2 = json.decode(response.body);
+//     print(responseBody2);
+
+//     responseBody2['data'].forEach((item) {
+//       final Transactions transactionsy = Transactions(
+//         id: item['_id'],
+//         transactionId: item['transID'],
+//         capacityName: item['capacityName'],
+//         clientName: item['clientName'],
+//         transactionAmount: item['transAmount'],
+//         date: item['createdAt'],
+//
+//       );
+//       print(transactionsy);
+//       transactionz.add(transactionsy);
+//     });
+//     setState(() {});
+//   } else {
+//     throw Exception('Failed to load transactions');
+//   }
+// }
