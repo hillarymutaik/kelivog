@@ -24,8 +24,7 @@ class _PendingSchedulesScreenState extends State<NewAllStageScreen> {
   @override
   void initState() {
     super.initState();
-    timer =
-        Timer.periodic(const Duration(seconds: 3), (Timer t) => getStage());
+    timer = Timer.periodic(const Duration(seconds: 3), (Timer t) => getStage());
   }
 
   @override
@@ -45,9 +44,9 @@ class _PendingSchedulesScreenState extends State<NewAllStageScreen> {
                     alignment: Alignment.center,
                     child: Padding(
                       padding:
-                      EdgeInsets.symmetric(horizontal: 15.w, vertical: 6.h),
+                          EdgeInsets.symmetric(horizontal: 15.w, vertical: 6.h),
                       child: Text(
-                          'ONGOING PURCHASES',
+                        'ONGOING PURCHASES',
                         style: TextStyle(
                             fontSize: 25.sp, fontWeight: FontWeight.bold),
                       ),
@@ -98,7 +97,7 @@ class _PendingSchedulesScreenState extends State<NewAllStageScreen> {
     Map<String, dynamic> token = jsonDecode(jwt!);
 
     final http.Response response =
-    await http.get(Uri.parse("https://kelivog.com/sell"), headers: {
+        await http.get(Uri.parse("https://kelivog.com/sell"), headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': token['token']
     });
@@ -111,13 +110,13 @@ class _PendingSchedulesScreenState extends State<NewAllStageScreen> {
           capacity: item['capacity'],
           //buyerUserId: item['buyerUserId'],
           buyerContact: item['buyerNumber'],
-         // cylinderId: item['cylinderId'],
+          // cylinderId: item['cylinderId'],
           //status: item['status'],
           brand: item['brand'],
-            price: item['price'],
-            userId: item['userId'],
-            capacityName: item['capacityName'],
-            isSold: item['isSold'],
+          price: item['price'],
+          userId: item['userId'],
+          capacityName: item['capacityName'],
+          isSold: item['isSold'],
         );
         print(schedule);
         items.add(schedule);
@@ -160,18 +159,17 @@ class _PendingSchedulesScreenState extends State<NewAllStageScreen> {
                 //     MaterialPageRoute(builder: (ctx) => const DescriptionScreen()));
               },
               child: Container(
-                height: 120,
-                width: 120,
+                height: 80,
+                width: 80,
                 child: transaction.capacityName == "6 Kg"
                     ? Image.asset(
-                  "images/6kg.jpg",
-                  fit: BoxFit.contain,
-                )
+                        "images/6kg.jpg",
+                        fit: BoxFit.contain,
+                      )
                     : Image.asset(
-                  "images/13kg.jpg",
-                  fit: BoxFit.contain,
-                ),
-
+                        "images/13kg.jpg",
+                        fit: BoxFit.contain,
+                      ),
                 clipBehavior: Clip.antiAlias,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -211,15 +209,15 @@ class _PendingSchedulesScreenState extends State<NewAllStageScreen> {
         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SizedBox(
-              width: 0.1.sw,
+              // width: 0.1.sw,
               child: Text(
-                text,
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              )),
-          // SizedBox(width: 5.w),
+            text,
+            style: TextStyle(
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w700,
+            ),
+          )),
+          SizedBox(width: 25.w),
           SizedBox(
             width: 0.40.sw,
             child: Container(
@@ -243,15 +241,14 @@ class _PendingSchedulesScreenState extends State<NewAllStageScreen> {
       scrollDirection: Axis.vertical,
       itemCount: items.length,
       itemBuilder: (context, index) {
-        return newSchedulesCard(
-          schedule: items[index]);
+        return newSchedulesCard(schedule: items[index]);
       },
     );
   }
 }
 
 class Cylinder {
- // final String refId;
+  // final String refId;
   final String id;
   final String capacity;
   final String userId;
@@ -261,7 +258,7 @@ class Cylinder {
   final String brand;
   final bool isSold;
   Cylinder(
-      {//required this.refId,
+      { //required this.refId,
       required this.capacity,
       required this.userId,
       required this.buyerContact,
@@ -269,6 +266,5 @@ class Cylinder {
       required this.price,
       required this.id,
       required this.brand,
-      required this.isSold
-      });
+      required this.isSold});
 }
