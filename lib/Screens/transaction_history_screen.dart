@@ -134,14 +134,13 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
   }
 
   Widget _itemTitle(Transaction transaction) {
-    return Text(transaction.id, style: const TextStyle(fontSize: 18.0));
+    return Text(transaction.transactionId, style: const TextStyle(fontSize: 18.0));
   }
 
   void getTransaction() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? jwt = prefs.getString('jwt');
     Map<String, dynamic> token = jsonDecode(jwt!);
-
     final http.Response response = await http
         .get(Uri.parse("https://kelivog.com/transactions/list"), headers: {
       'Content-Type': 'application/json; charset=UTF-8',
@@ -165,28 +164,28 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
           var responseBody2 = json.decode(response2.body);
           print(responseBody2);
 
-          for (final dynamic item in responseBody2['data']) {
-            final Transaction transaction = Transaction(
-              id: item['_id'],
-              transactionId: item['transID'],
-              date: item['createdAt'].toString(),
-              clientName: item['clientName'],
-              transactionAmount: item['transAmount'],
-            );
-            transactions.add(transaction);
-          }
-
-          // responseBody2['data'].forEach((item) {
+          // for (final dynamic item in responseBody2) {
           //   final Transaction transaction = Transaction(
-          //     id: item['_id'],
-          //     transactionId: item['transID'],
-          //     //clientName: item['clientName'],
-          //     //transactionAmount: item['transAmount'].toString(),
-          //     //date:item['createdAt'],
+          //     id: responseBody2['data']['_id'],
+          //     transactionId: responseBody2['data']['transID'],
+          //     date: responseBody2['data']['createdAt'].toString(),
+          //     clientName: responseBody2['data']['clientName'],
+          //     transactionAmount: responseBody2['data']['transAmount'],
           //   );
-          //   print(transaction);
           //   transactions.add(transaction);
-          // });
+          // }
+
+          responseBody['data'].forEach((item) {
+            final Transaction transaction = Transaction(
+              id: responseBody2['data']['_id'],
+              transactionId: responseBody2['data']['transID'],
+              clientName: responseBody2['data']['clientName'],
+              transactionAmount: responseBody2['data']['transAmount'].toString(),
+              date:responseBody2['data']['createdAt'],
+            );
+            print(transaction);
+            transactions.add(transaction);
+          });
 
         }
       }
@@ -215,7 +214,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
             ),
             width: 0.75.sw,
             height: 65.h,
-            child: Center(child: Text(transaction.id)),
+            child: Center(child: Text(transaction.transactionId)),
           ),
         ),
       ),

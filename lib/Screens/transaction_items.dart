@@ -62,11 +62,11 @@ class TransactionItemsScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               historyItem('TRANSACTION NO.', transaction.transactionId),
-                              historyItem('DATE', transaction.id),
+                              historyItem('DATE', transaction.date),
                               historyItem('AMOUNT', transaction.transactionAmount),
                              //historyItem('ITEM', transaction.date),
                               historyItem('CLIENT', transaction.clientName),
-                             historyItem('TRANSACTION DESCRIPTION', transaction.id, 55),
+                             //historyItem('TRANSACTION DESCRIPTION', transaction.id, 55),
                             ],
                           ),
                         ),
