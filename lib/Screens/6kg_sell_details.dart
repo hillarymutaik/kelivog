@@ -31,8 +31,8 @@ class _SellDetailsState extends State<SellDetails> {
 
   var takeHome = 0.0;
   var savedAmount = 0.0;
-  late double price;
-  //late double serviceFee = 0.0;
+  var  serviceFee;
+  late double price = priceController as double;
 
   TextEditingController brandController = TextEditingController();
   TextEditingController capacityController = TextEditingController();
@@ -51,17 +51,23 @@ class _SellDetailsState extends State<SellDetails> {
   Map<String, dynamic> selectedCapacity =
       {"capacity": "", "capacityId": ""} as Map<String, dynamic>;
 
-  Map<String, dynamic> serviceFee =
-  {"serviceFee": ""} as Map<String, dynamic>;
+  void _calculateTakeHome() {
+    setState(() {
+      savedAmount = price * serviceFee;
+      takeHome = price - (price * serviceFee);
+    });
+    print(takeHome);
 
-  // void _calculateTakeHome() {
-  //   setState(() {
-  //     savedAmount = price * widget.serviceFee;
-  //     takeHome = price - (price * widget.serviceFee);
-  //   });
-  //   print(takeHome);
-  //
-  // }
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    priceController.dispose();
+    super.dispose();
+  }
+
 
   Future<dynamic> UploadData(
       {String? brand,
@@ -117,6 +123,17 @@ class _SellDetailsState extends State<SellDetails> {
     return updateResponse;
   }
 
+  void _printTakeHome() {
+    print('Second text field: ${priceController.text}');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Start listening to changes.
+    priceController.addListener(_printTakeHome);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -129,7 +146,6 @@ class _SellDetailsState extends State<SellDetails> {
             children: [
               header(),
               SizedBox(height: 20.h),
-              //const EditImage(),
               Container(
                 height: 140.h,
                 width: 150.w,
@@ -267,7 +283,10 @@ class _SellDetailsState extends State<SellDetails> {
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
                                   child: TextFormField(
-                                    onChanged: (value) => price = double.parse(value),
+                                      onChanged: (text) {
+                                        print('First text field: $text');
+                                      },
+                                    //onChanged: (value) => price = double.parse(value),
                                     textAlign: TextAlign.center,
                                     controller: priceController,
                                     validator: priceValidator,
@@ -280,8 +299,6 @@ class _SellDetailsState extends State<SellDetails> {
                                       //prefix: Text("KES."),
                                       contentPadding: EdgeInsets.only(
                                           top: 1.0, bottom: 6.0, left: 8.0),
-                                      // contentPadding:
-                                      // EdgeInsets.symmetric(horizontal: 10.w),
                                       border: InputBorder.none,
                                       fillColor: Colors.black,
                                     ),
@@ -344,12 +361,23 @@ class _SellDetailsState extends State<SellDetails> {
                                     color: Colors.yellow[600],
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
-                                    child: Text(serviceFee.toString(),
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 25.sp))),
+                                    child: TextField(
+                                      controller: priceController,
+                                  textAlign: TextAlign.center,
+                                  cursorColor: Colors.black,
+                                  keyboardType: TextInputType.number,
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 25.sp),
+                                  decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.only(
+                                        top: 1.0, bottom: 6.0, left: 8.0),
+                                    border: InputBorder.none,
+                                    fillColor: Colors.black,
+                                  ),
+                               ),
                               ),
                             ),
+                            )
                           ],
                         ),
                       ),

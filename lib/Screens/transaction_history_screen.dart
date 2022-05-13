@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:kelivog/Screens/transaction_items.dart';
 import 'package:kelivog/Widget/header.dart';
@@ -66,12 +65,6 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                             ),
                           ),
                         )
-                  // child: ListView(
-                  //   scrollDirection: Axis.vertical,
-                  //   children: <Widget>[
-
-                  //   ],
-                  // ),
                   ),
             ],
           ),
@@ -81,9 +74,6 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
   }
 
   void _navigationToNewsDetail(BuildContext context, Transaction transaction) {
-    // Navigator.push(context, MaterialPageRoute(builder: (context) {
-    //   return NewsInfo(newsDetail);
-    // }));
   }
   Widget _listViewItemBuilder(BuildContext context, int index) {
     var transaction = transactions[index];
@@ -108,16 +98,6 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
         ]),
       ),
     );
-    // return ListTile(
-    //     contentPadding: const EdgeInsets.all(10.0),
-    //     leading: _itemThumbnail(transaction),
-    //     title: _itemTitle(transaction),
-    //     onTap: () {
-    //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-    //         content: Text(index.toString()),
-    //       ));
-    //       _navigationToNewsDetail(context, transaction);
-    //     });
   }
 
   Widget _itemThumbnail(Transaction transaction) {
@@ -125,12 +105,6 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
       transaction.id,
       style: TextStyle(fontSize: 20.0),
     );
-    // return Container(
-    //   constraints: const BoxConstraints.tightFor(width: 100.0),
-    //   child: newsDetail.url != null
-    //       ? Image.network(newsDetail.url, fit: BoxFit.contain)
-    //       : null,
-    // );
   }
 
   Widget _itemTitle(Transaction transaction) {
@@ -158,38 +132,22 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
               'Content-Type': 'application/json; charset=UTF-8',
               'Authorization': token['token']
             });
-
-
         if (response2.statusCode == 200) {
           var responseBody2 = json.decode(response2.body);
           print(responseBody2);
-
-          // for (final dynamic item in responseBody2) {
-          //   final Transaction transaction = Transaction(
-          //     id: responseBody2['data']['_id'],
-          //     transactionId: responseBody2['data']['transID'],
-          //     date: responseBody2['data']['createdAt'].toString(),
-          //     clientName: responseBody2['data']['clientName'],
-          //     transactionAmount: responseBody2['data']['transAmount'],
-          //   );
-          //   transactions.add(transaction);
-          // }
-
-          responseBody['data'].forEach((item) {
             final Transaction transaction = Transaction(
               id: responseBody2['data']['_id'],
               transactionId: responseBody2['data']['transID'],
               clientName: responseBody2['data']['clientName'],
+              capacityName: responseBody2['data']['capacityName'],
               transactionAmount: responseBody2['data']['transAmount'].toString(),
               date:responseBody2['data']['createdAt'],
             );
             print(transaction);
             transactions.add(transaction);
-          });
-
         }
       }
-      //setState(() {});
+      setState(() {});
     } else {
       throw Exception('Failed to load transactions');
     }
@@ -207,12 +165,9 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(15.r)),
-              // border: Border(
-              //   bottom: BorderSide(color: Colors.green, width: 2),
-              // ),
               color: Colors.yellow,
             ),
-            width: 0.75.sw,
+            width: 0.70.sw,
             height: 65.h,
             child: Center(child: Text(transaction.transactionId)),
           ),
@@ -227,65 +182,13 @@ class Transaction {
   final String id;
   final String transactionAmount;
   final String clientName;
+  final String capacityName;
   final String date;
-  Transaction(
-      {
+  Transaction({
         required this.transactionAmount,
-        // required this.capacityName,
+        required this.capacityName,
         required this.clientName,
         required this.date,
         required this.transactionId,
         required this.id});
 }
-
-//
-// class Transactions {
-//   final String transactionId;
-//   final String id;
-//   final String transactionAmount;
-//   final String capacityName;
-//   final String clientName;
-//   final String date;
-//
-//   Transactions(
-//       {
-//         required this.transactionAmount,
-//         required this.capacityName,
-//         required this.clientName,
-//         required this.transactionId,
-//         required this.id});
-// }
-//
-// void getTransactions(String id) async {
-//   final SharedPreferences prefs = await SharedPreferences.getInstance();
-//   final String? jwt = prefs.getString('jwt');
-//   Map<String, dynamic> token = jsonDecode(jwt!);
-//
-//   final http.Response response = await http
-//       .get(Uri.parse("https://kelivog.com/transactions/${id}"), headers: {
-//     'Content-Type': 'application/json; charset=UTF-8',
-//     'Authorization': token['token']
-//   });
-//
-//   if (response.statusCode == 200) {
-//     var responseBody2 = json.decode(response.body);
-//     print(responseBody2);
-
-//     responseBody2['data'].forEach((item) {
-//       final Transactions transactionsy = Transactions(
-//         id: item['_id'],
-//         transactionId: item['transID'],
-//         capacityName: item['capacityName'],
-//         clientName: item['clientName'],
-//         transactionAmount: item['transAmount'],
-//         date: item['createdAt'],
-//
-//       );
-//       print(transactionsy);
-//       transactionz.add(transactionsy);
-//     });
-//     setState(() {});
-//   } else {
-//     throw Exception('Failed to load transactions');
-//   }
-// }
