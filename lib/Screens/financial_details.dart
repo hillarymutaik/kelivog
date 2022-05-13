@@ -49,12 +49,14 @@ class FinancialDetails extends StatefulWidget {
 }
 
 class _FinancialDetailsState extends State<FinancialDetails> {
+
   TextEditingController mpesaController = TextEditingController();
   final bankNameController = TextEditingController();
   final accountNameController = TextEditingController();
   final accountNoController = TextEditingController();
   final branchNameController = TextEditingController();
   final branchController = TextEditingController();
+
   Future<String?> updateFinance({
     String? mpesaNumber,
     String? bankName,
@@ -129,6 +131,7 @@ class _FinancialDetailsState extends State<FinancialDetails> {
       future: loadFinancialDetails(),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
+
           return Container(
             decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -484,8 +487,7 @@ class _FinancialDetailsState extends State<FinancialDetails> {
     Map<String, dynamic> token = jsonDecode(jwt!);
     var url = Uri.parse('https://kelivog.com/financial-details');
     final res = await http.Client().get(
-      url,
-      headers: {
+      url, headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': token['token']
       },

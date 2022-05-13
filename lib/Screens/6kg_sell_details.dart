@@ -11,14 +11,32 @@ import 'package:kelivog/Widget/validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '6kg_cylinder_screen.dart';
 
+class Details {
+      // final String? price;
+      final double? takeHome;
+      final  double? serviceFee;
+
+      Details({
+    // this.price,
+    this.takeHome,
+    this.serviceFee,
+  });
+
+  factory Details.fromJson(Map<String, dynamic> json) {
+    return Details(
+      //price: json['price'],
+      takeHome: json['takeHome'],
+      serviceFee: json['serviceFee'],
+    );
+  }
+}
+
 class SellDetails extends StatefulWidget {
   final String item, id, title;
-  //final double serviceFee;
    SellDetails(
       {Key? key, required this.id,
         required this.item,
         required this.title,
-        //required this.serviceFee,
       })
       : super(key: key);
 
@@ -29,53 +47,16 @@ class SellDetails extends StatefulWidget {
 class _SellDetailsState extends State<SellDetails> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  var takeHome = 0.0;
-  var savedAmount = 0.0;
-  var  serviceFee;
-  late double price = priceController as double;
 
-  TextEditingController brandController = TextEditingController();
-  TextEditingController capacityController = TextEditingController();
-  TextEditingController priceController = TextEditingController();
-
-  bool isLoading = false;
-
-  clearTextInput() {
-    brandController.clear();
-    priceController.clear();
-  }
-
-  List<Inventory> inventories = [];
-  List<ServiceFee> fees = [];
-
-  Map<String, dynamic> selectedCapacity =
-      {"capacity": "", "capacityId": ""} as Map<String, dynamic>;
-
-  void _calculateTakeHome() {
-    setState(() {
-      savedAmount = price * serviceFee;
-      takeHome = price - (price * serviceFee);
-    });
-    print(takeHome);
-
-  }
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is removed from the
-    // widget tree.
-    priceController.dispose();
-    super.dispose();
-  }
-
-
-  Future<dynamic> UploadData(
+  Future<Map<String, dynamic>> uploadData(
       {String? brand,
       String? capacityId,
       String? cylinderId,
       String? price,
+      String? takeHome,
       required bool update,
-      String? serviceFee}) async {
+      String? serviceFee
+      }) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? jwt = prefs.getString('jwt');
     Map<String, dynamic> token = jsonDecode(jwt!);
@@ -84,6 +65,7 @@ class _SellDetailsState extends State<SellDetails> {
       'capacity': capacityId,
       'price': int.parse(price!),
       'serviceFee': double.parse(serviceFee!),
+      'takeHome': double.parse(takeHome!),
     };
     if (update) {
       final updateCylinderRequest = await http.Client().put(
@@ -94,7 +76,6 @@ class _SellDetailsState extends State<SellDetails> {
         },
         body: jsonEncode(body),
       );
-
       if (updateCylinderRequest.statusCode == 200) {
         print("success");
       } else {
@@ -123,8 +104,41 @@ class _SellDetailsState extends State<SellDetails> {
     return updateResponse;
   }
 
+  TextEditingController brandController = TextEditingController();
+  TextEditingController capacityController = TextEditingController();
+  late final  priceController = TextEditingController();
+  late final serviceFeecontroller = TextEditingController();
+  late final takeHomecontroller = TextEditingController();
+
+  bool isLoading = false;
+
+  clearTextInput() {
+    brandController.clear();
+    priceController.clear();
+  }
+
+  List<Inventory> inventories = [];
+  //List<ServiceFee> fees = [];
+
+  Map<String, dynamic> selectedCapacity =
+  {"capacity": "", "capacityId": ""} as Map<String, dynamic>;
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    priceController.dispose();
+    super.dispose();
+  }
+
   void _printTakeHome() {
-    print('Second text field: ${priceController.text}');
+    var price = int.parse(priceController.text);
+    var fee = double.parse(serviceFeecontroller.text);
+    var takeH = double.parse(takeHomecontroller.text);
+    var servicefee = price * fee;
+    takeH = price - servicefee;
+
+      print('${takeH}');
   }
 
   @override
@@ -136,6 +150,14 @@ class _SellDetailsState extends State<SellDetails> {
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: getServiceFee(),
+        builder: (BuildContext context, AsyncSnapshot snapshot) {
+          final details = Details.fromJson(snapshot.data);
+
+          //priceController.text = finances.price ?? '';
+          //takeHomecontroller.text = (details.takeHome ?? '').toString();
+          serviceFeecontroller.text = (details.serviceFee ?? '').toString();
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(
@@ -331,10 +353,34 @@ class _SellDetailsState extends State<SellDetails> {
                                     color: Colors.yellow[600],
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
-                                    child: Text(serviceFee.toString(),
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 25.sp))),
+
+
+                                    child: TextFormField(
+                                      // onChanged: (text) {
+                                      //   print('First text field: $text');
+                                      // },
+                                      //onChanged: (value) => price = double.parse(value),
+                                      textAlign: TextAlign.center,
+                                      controller: serviceFeecontroller,
+                                      validator: priceValidator,
+                                      cursorColor: Colors.black,
+                                      keyboardType: TextInputType.number,
+                                      style: TextStyle(
+                                          color: Colors.black, fontSize: 25.sp),
+                                      decoration: const InputDecoration(
+                                        //hintText: '100',
+                                        //prefix: Text("KES."),
+                                        contentPadding: EdgeInsets.only(
+                                            top: 1.0, bottom: 6.0, left: 8.0),
+                                        border: InputBorder.none,
+                                        fillColor: Colors.black,
+                                      ),
+                                    ),
+                                    // child: Text(serviceFee.toString(),
+                                    //     style: TextStyle(
+                                    //         color: Colors.black,
+                                    //         fontSize: 25.sp))
+                                ),
                               ),
                             ),
                           ],
@@ -362,7 +408,7 @@ class _SellDetailsState extends State<SellDetails> {
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
                                     child: TextField(
-                                      controller: priceController,
+                                      controller: takeHomecontroller,
                                   textAlign: TextAlign.center,
                                   cursorColor: Colors.black,
                                   keyboardType: TextInputType.number,
@@ -395,12 +441,13 @@ class _SellDetailsState extends State<SellDetails> {
                            // _calculateTakeHome;
                             context.read<LoadingProvider>().setLoad(true);
                             if (_formKey.currentState!.validate()) {
-                            UploadData(
+                            uploadData(
                               update: false,
                               brand: brandController.text,
                               capacityId: widget.id,
                               price: priceController.text,
-                              serviceFee:serviceFee.toString(),
+                              serviceFee:serviceFeecontroller.text,
+                              takeHome:takeHomecontroller.text
                             ).then((value) {
                           final responseValue = value.cast<String, dynamic>();
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -475,6 +522,7 @@ class _SellDetailsState extends State<SellDetails> {
         ),
       ),
     );
+  });
   }
 
   Widget rowItem(text, {required String details}) {
@@ -526,26 +574,18 @@ class _SellDetailsState extends State<SellDetails> {
     }
   }
 
-  void getServiceFee() async {
-    final http.Response responseFee =
-    await http.get(Uri.parse("https://kelivog.com/serviceFee"), headers: {
+  Future getServiceFee() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? jwt = prefs.getString('jwt');
+    Map<String, dynamic> token = jsonDecode(jwt!);
+    final http.Response responseFee = await http.get(Uri.parse("https://kelivog.com/serviceFee"),
+        headers: {
       'Content-Type': 'application/json; charset=UTF-8',
+    'Authorization': token['token']
     });
-    if (responseFee.statusCode == 200) {
-      var responseBody2 = json.decode(responseFee.body);
-      print(responseBody2);
-      for (final dynamic item in responseBody2['data']) {
-        final ServiceFee fee = ServiceFee(
-          serviceFee: item['serviceFee']);
-        print(fee.serviceFee);
-        fees.add(fee);
-        print(fees);
-      }
-    } else {
-      print(responseFee.statusCode);
-    }
+      final data = jsonDecode(responseFee.body);
+      return Future.value((data)['data']);
   }
-
 }
 
 class Inventory {
@@ -558,10 +598,15 @@ class Inventory {
   });
 }
 
-class ServiceFee {
-  final double serviceFee;
 
-  const ServiceFee({
-    required this.serviceFee,
-  });
-}
+// class ServiceFee {
+//   final double serviceFee;
+//   const ServiceFee({
+//     required this.serviceFee,
+//   });
+//   factory ServiceFee.fromJson(Map<String, dynamic> json) {
+//     return ServiceFee(
+//       serviceFee: json['serviceFee'],
+//     );
+//   }
+// }
