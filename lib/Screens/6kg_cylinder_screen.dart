@@ -1,7 +1,6 @@
 // ignore: file_names
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:kelivog/Widget/header.dart';
@@ -10,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:kelivog/Widget/sixCylinders_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '6kg_sell_details.dart';
 
 class SixCylindersListsScreen extends StatefulWidget {
@@ -26,13 +24,12 @@ class SixCylindersListsScreen extends StatefulWidget {
 }
 
 class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
-  late final List <Fee> item=[];
   late String myData;
   late Timer timer;
+  late Fee serviceFee;
 
   // ignore: prefer_typing_uninitialized_variables
   var thirteenCylinders;
-  //late Timer timer;
 
   @override
   void initState() {
@@ -59,7 +56,7 @@ class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
   //     print(responseBody);
   //     for (final dynamic item in responseBody['data']) {
   //       final Fee fee = Fee(
-  //         fee: item['serviceFee'],
+  //         serviceFee: item['serviceFee'],
   //       );
   //       item.add(fee);
   //       print(fee);
@@ -69,6 +66,7 @@ class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
   //     throw Exception('Failed to load fee');
   //   }
   // }
+
 
   Future fetchCylinderDetails() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -83,23 +81,13 @@ class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
         });
     if (myResponse.statusCode == 200) {
       myData = myResponse.body;
-
-      //Map<String, dynamic> thirteenCylinders = jsonDecode(myResponse.body);
-      if (kDebugMode) {
         print(myResponse.body);
-      }
-
       setState(() {
         thirteenCylinders = jsonDecode(myData)["data"];
-
         if (kDebugMode) {
           print(thirteenCylinders.length);
         }
       });
-
-      if (kDebugMode) {
-        print(thirteenCylinders[0]['brand']);
-      }
     } else {
       if (kDebugMode) {
         print(myResponse.statusCode);
@@ -119,6 +107,7 @@ class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
               id: widget.id,
               item: widget.item,
               title: widget.title,
+              serviceFee: serviceFee,
             ));
     Navigator.push(context, route).then(onGoBack);
   }
@@ -138,7 +127,6 @@ class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
               SizedBox(height: 5.h),
               Text(
                 '6 KG',
-                // jsonDecode(myData)['allCylinders'][1]['capacityName'],
                 style: Theme.of(context).textTheme.headline5!.copyWith(
                     color: const Color(0xff261005),
                     fontWeight: FontWeight.bold),
@@ -165,11 +153,9 @@ class _ThirteenCylinderScreenState extends State<SixCylindersListsScreen> {
                 child: ListView.builder(
                   physics: const ScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount:
-                      thirteenCylinders == null ? 0 : thirteenCylinders.length,
+                  itemCount: thirteenCylinders == null ? 0 : thirteenCylinders.length,
                   itemBuilder: (BuildContext context, int index) {
                     return SixCylindersCard(
-                      //serviceFee: thirteenCylinders[index]['serviceFee'].toString(),
                       brand: thirteenCylinders[index]['brand'],
                       capacityId: thirteenCylinders[index]['capacity'],
                       capacityName: thirteenCylinders[index]['capacityName'],

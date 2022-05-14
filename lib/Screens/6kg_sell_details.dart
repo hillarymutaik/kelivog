@@ -16,10 +16,13 @@ import '6kg_cylinder_screen.dart';
 
 class SellDetails extends StatefulWidget {
   final String item, id, title;
+  final Fee serviceFee;
   const SellDetails(
       {Key? key, required this.id,
         required this.item,
-        required this.title,})
+        required this.title,
+        required this.serviceFee,
+        })
       : super(key: key);
 
   @override
@@ -32,12 +35,11 @@ class _SellDetailsState extends State<SellDetails> {
   var takeHome = 0.0;
   var savedAmount = 0.0;
   late double price;
-  late double serviceFee = 0.0;
 
   void _calculateTakeHome() {
     setState(() {
-      savedAmount = price * serviceFee;
-      takeHome = price - (price * serviceFee);
+      savedAmount = price * widget.serviceFee.serviceFee;
+      takeHome = price - (price * widget.serviceFee.serviceFee);
     });
     print(takeHome);
 
@@ -46,8 +48,6 @@ class _SellDetailsState extends State<SellDetails> {
   TextEditingController brandController = TextEditingController();
   TextEditingController capacityController = TextEditingController();
   TextEditingController priceController = TextEditingController();
-
-  bool isLoading = false;
 
   clearTextInput() {
     brandController.clear();
@@ -66,7 +66,8 @@ class _SellDetailsState extends State<SellDetails> {
         String? cylinderId,
         String? price,
         required bool update,
-        String? serviceFee}) async {
+        double? serviceFee,
+        }) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? jwt = prefs.getString('jwt');
     Map<String, dynamic> token = jsonDecode(jwt!);
@@ -74,7 +75,7 @@ class _SellDetailsState extends State<SellDetails> {
       'brand': brand,
       'capacity': capacityId,
       'price': int.parse(price!),
-      'serviceFee': double.parse(serviceFee!),
+      'serviceFee': widget.serviceFee.serviceFee,
     };
     if (update) {
       final updateCylinderRequest = await http.Client().put(
@@ -100,14 +101,13 @@ class _SellDetailsState extends State<SellDetails> {
         ));
       }
     }
-    final postCylinderRequest =
-    await http.post(Uri.parse('https://kelivog.com/sell/cylinder'),
+    final postCylinderRequest = await http.post(Uri.parse('https://kelivog.com/sell/cylinder'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'Authorization': token['token']
         },
         body: jsonEncode(body));
-    Map<String, dynamic> updateResponse = {
+       Map<String, dynamic> updateResponse = {
       'message': jsonDecode(postCylinderRequest.body)['message'],
       'success': jsonDecode(postCylinderRequest.body)['success'],
       'data': jsonDecode(postCylinderRequest.body)['data'],
@@ -151,7 +151,6 @@ class _SellDetailsState extends State<SellDetails> {
               SizedBox(height: 30.h),
               Form(
                 key: _formKey,
-                //autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Container(
                   width: 350.w,
                   decoration: BoxDecoration(
@@ -275,12 +274,8 @@ class _SellDetailsState extends State<SellDetails> {
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 25.sp),
                                     decoration: const InputDecoration(
-                                      //hintText: '100',
-                                      //prefix: Text("KES."),
                                       contentPadding: EdgeInsets.only(
                                           top: 1.0, bottom: 6.0, left: 8.0),
-                                      // contentPadding:
-                                      // EdgeInsets.symmetric(horizontal: 10.w),
                                       border: InputBorder.none,
                                       fillColor: Colors.black,
                                     ),
@@ -313,7 +308,7 @@ class _SellDetailsState extends State<SellDetails> {
                                     color: Colors.yellow[600],
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
-                                    child: Text(fees.toString(),
+                                    child: Text(widget.serviceFee.toString(),
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 25.sp))),
@@ -343,7 +338,7 @@ class _SellDetailsState extends State<SellDetails> {
                                     color: Colors.yellow[600],
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
-                                    child: Text(fees.toString(),
+                                    child: Text(widget.serviceFee.toString(),
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 25.sp))),
@@ -371,7 +366,7 @@ class _SellDetailsState extends State<SellDetails> {
                               brand: brandController.text,
                               capacityId: widget.id,
                               price: priceController.text,
-                              serviceFee: serviceFee.toString(),
+                              serviceFee: widget.serviceFee.serviceFee,
                             ).then((value) {
                           final responseValue = value.cast<String, dynamic>();
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -526,7 +521,7 @@ class Inventory {
 }
 
 class Fee {
-  final String serviceFee;
+  final double serviceFee;
   const Fee({
     required this.serviceFee,
   });
