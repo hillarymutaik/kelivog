@@ -242,10 +242,10 @@ class _SaveDeleteState extends State<SaveDeleteScreen>
                         : ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text(
-                                'Inventory Updated!',
+                                'Inventory cylinder updated!',
                                 style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 20,
+                                    fontSize: 18,
                                     fontWeight: FontWeight.bold),
                               ),
                               backgroundColor: Colors.green,

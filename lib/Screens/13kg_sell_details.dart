@@ -4,11 +4,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:kelivog/Models/loading.dart';
-//import 'package:flutter/services.dart';
-import 'package:kelivog/Screens/6kg_cylinder_screen.dart';
-import 'package:kelivog/Widget/edit_image.dart';
 import 'package:kelivog/Widget/header.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
@@ -71,8 +67,6 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
   final brandController = TextEditingController();
   final capacityController = TextEditingController();
   final priceController = TextEditingController();
-     TextEditingController _servicefee = TextEditingController();
-  TextEditingController _takeHome = TextEditingController();
 
   //File? image;
   bool isLoading = false;
@@ -82,21 +76,21 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
     priceController.clear();
   }
 
-  _doTheMath(){
-     //perform validation then do the math
-     double? amount = double.tryParse(priceController.text);
-     if(amount != null) {
-       setState((){
-         final serviceFee = amount * 0.05;
-         _servicefee = serviceFee as TextEditingController;
-         _takeHome = (amount - serviceFee) as TextEditingController;
-       });
-     } else {
-       if (kDebugMode) {
-         print('Invalid input');
-       }
-     }
-  }
+  // _doTheMath(){
+  //    //perform validation then do the math
+  //    double? amount = double.tryParse(priceController.text);
+  //    if(amount != null) {
+  //      setState((){
+  //        final serviceFee = amount * 0.05;
+  //        _servicefee = serviceFee as TextEditingController;
+  //        _takeHome = (amount - serviceFee) as TextEditingController;
+  //      });
+  //    } else {
+  //      if (kDebugMode) {
+  //        print('Invalid input');
+  //      }
+  //    }
+  // }
 
   List<Inventory> inventories = [];
   Map<String, dynamic> selectedCapacity =
@@ -180,6 +174,7 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
                                     controller: brandController,
                                     validator: brandValidator,
                                     cursorColor: Colors.black,
+                                    keyboardType: TextInputType.text,
                                     //showCursor: true,
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 25.sp),
@@ -276,109 +271,109 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
                         ),
                       ),
 
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 12.h, horizontal: 16.w),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text("SERVICE FEE",
-                                  style: TextStyle(
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            ),
-                            SizedBox(width: 1.w),
-                            Expanded(
-                              child: Container(
-                                width: 90.w,
-                                height: 40.h,
-                                decoration: BoxDecoration(
-                                    color: Colors.yellow[600],
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: Center(
-                                  //child: Text(serviceFeeController.text),
-                                  child: TextFormField(
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _servicefee = double.tryParse(value) as TextEditingController;
-                                      });
-                                    },
-                                    // validator: ,
-                                    // controller: ,
-                                    showCursor: false,
-                                    style: const TextStyle(
-                                      fontSize: 20.0,
-                                      height: 2.0,
-                                      color: Colors.black,
-                                    ),
-                                    decoration: const InputDecoration(
-                                      contentPadding: EdgeInsets.only(
-                                          top: 1.0, bottom: 100.0, left: 8.0),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(15.0)),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 12.h, horizontal: 16.w),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text("TAKE HOME",
-                                  style: TextStyle(
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            ),
-                            SizedBox(width: 1.w),
-                            Expanded(
-                              child: Container(
-                                width: 90.w,
-                                height: 40.h,
-                                decoration: BoxDecoration(
-                                    color: Colors.yellow[600],
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: Center(
-                                  //child: Text(serviceFeeController.text),
-                                  child: TextFormField(
-                                    onChanged: (value) {
-                                      setState(() {
-                                        _takeHome = double.tryParse(value) as TextEditingController;
-                                      });
-                                    },
-                                    // validator: ,
-                                    // controller: ,
-                                    showCursor: false,
-                                    style: const TextStyle(
-                                      fontSize: 20.0,
-                                      height: 2.0,
-                                      color: Colors.black,
-                                    ),
-                                    decoration: const InputDecoration(
-                                      contentPadding: EdgeInsets.only(
-                                          top: 1.0, bottom: 100.0, left: 8.0),
-                                      border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(15.0)),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(
+                      //       vertical: 12.h, horizontal: 16.w),
+                      //   child: Row(
+                      //     children: [
+                      //       Expanded(
+                      //         child: Text("SERVICE FEE",
+                      //             style: TextStyle(
+                      //               fontSize: 18.sp,
+                      //               fontWeight: FontWeight.bold,
+                      //             )),
+                      //       ),
+                      //       SizedBox(width: 1.w),
+                      //       Expanded(
+                      //         child: Container(
+                      //           width: 90.w,
+                      //           height: 40.h,
+                      //           decoration: BoxDecoration(
+                      //               color: Colors.yellow[600],
+                      //               borderRadius: BorderRadius.circular(15)),
+                      //           child: Center(
+                      //             //child: Text(serviceFeeController.text),
+                      //             child: TextFormField(
+                      //               onChanged: (value) {
+                      //                 setState(() {
+                      //                   _servicefee = double.tryParse(value) as TextEditingController;
+                      //                 });
+                      //               },
+                      //               // validator: ,
+                      //               // controller: ,
+                      //               showCursor: false,
+                      //               style: const TextStyle(
+                      //                 fontSize: 20.0,
+                      //                 height: 2.0,
+                      //                 color: Colors.black,
+                      //               ),
+                      //               decoration: const InputDecoration(
+                      //                 contentPadding: EdgeInsets.only(
+                      //                     top: 1.0, bottom: 100.0, left: 8.0),
+                      //                 border: OutlineInputBorder(
+                      //                   borderRadius: BorderRadius.all(
+                      //                       Radius.circular(15.0)),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      //
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(
+                      //       vertical: 12.h, horizontal: 16.w),
+                      //   child: Row(
+                      //     children: [
+                      //       Expanded(
+                      //         child: Text("TAKE HOME",
+                      //             style: TextStyle(
+                      //               fontSize: 18.sp,
+                      //               fontWeight: FontWeight.bold,
+                      //             )),
+                      //       ),
+                      //       SizedBox(width: 1.w),
+                      //       Expanded(
+                      //         child: Container(
+                      //           width: 90.w,
+                      //           height: 40.h,
+                      //           decoration: BoxDecoration(
+                      //               color: Colors.yellow[600],
+                      //               borderRadius: BorderRadius.circular(15)),
+                      //           child: Center(
+                      //             //child: Text(serviceFeeController.text),
+                      //             child: TextFormField(
+                      //               onChanged: (value) {
+                      //                 setState(() {
+                      //                   _takeHome = double.tryParse(value) as TextEditingController;
+                      //                 });
+                      //               },
+                      //               // validator: ,
+                      //               // controller: ,
+                      //               showCursor: false,
+                      //               style: const TextStyle(
+                      //                 fontSize: 20.0,
+                      //                 height: 2.0,
+                      //                 color: Colors.black,
+                      //               ),
+                      //               decoration: const InputDecoration(
+                      //                 contentPadding: EdgeInsets.only(
+                      //                     top: 1.0, bottom: 100.0, left: 8.0),
+                      //                 border: OutlineInputBorder(
+                      //                   borderRadius: BorderRadius.all(
+                      //                       Radius.circular(15.0)),
+                      //                 ),
+                      //               ),
+                      //             ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
 
                       // rowItem('SERVICE FEE'),
                       // rowItem('TAKE HOME'),

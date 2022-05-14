@@ -53,9 +53,9 @@ class _SellDetailsState extends State<SellDetails> {
       String? capacityId,
       String? cylinderId,
       String? price,
-      String? takeHome,
+      // String? takeHome,
       required bool update,
-      String? serviceFee
+      // String? serviceFee
       }) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? jwt = prefs.getString('jwt');
@@ -64,8 +64,8 @@ class _SellDetailsState extends State<SellDetails> {
       'brand': brand,
       'capacity': capacityId,
       'price': int.parse(price!),
-      'serviceFee': double.parse(serviceFee!),
-      'takeHome': double.parse(takeHome!),
+      // 'serviceFee': double.parse(serviceFee!),
+      // 'takeHome': double.parse(takeHome!),
     };
     if (update) {
       final updateCylinderRequest = await http.Client().put(
@@ -104,17 +104,23 @@ class _SellDetailsState extends State<SellDetails> {
     return updateResponse;
   }
 
+  double price = 0;
+  double fee = 0;
+  double takeH = 0;
+  double servicefee =0;
+
   TextEditingController brandController = TextEditingController();
   TextEditingController capacityController = TextEditingController();
   late final  priceController = TextEditingController();
   late final serviceFeecontroller = TextEditingController();
-  late final takeHomecontroller = TextEditingController();
+  late var takeHomecontroller = TextEditingController();
 
   bool isLoading = false;
 
   clearTextInput() {
     brandController.clear();
     priceController.clear();
+    takeHomecontroller.clear();
   }
 
   List<Inventory> inventories = [];
@@ -123,41 +129,42 @@ class _SellDetailsState extends State<SellDetails> {
   Map<String, dynamic> selectedCapacity =
   {"capacity": "", "capacityId": ""} as Map<String, dynamic>;
 
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is removed from the
-    // widget tree.
-    priceController.dispose();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   // Clean up the controller when the widget is removed from the
+  //   // widget tree.
+  //   takeHomecontroller.dispose();
+  //   super.dispose();
+  // }
 
-  void _printTakeHome() {
-    var price = int.parse(priceController.text);
-    var fee = double.parse(serviceFeecontroller.text);
-    var takeH = double.parse(takeHomecontroller.text);
-    var servicefee = price * fee;
-    takeH = price - servicefee;
 
-      print('${takeH}');
-  }
+  // void _printTakeHome() {
+  //   setState((){
+  //     var price = int.parse(priceController.text);
+  //     fee = double.parse(serviceFeecontroller.text);
+  //     takeH = double.parse(takeHomecontroller.text);
+  //     servicefee = price * fee;
+  //     takeH = price - servicefee;
+  //   });
+  //
+  // }
 
-  @override
-  void initState() {
-    super.initState();
-    // Start listening to changes.
-    priceController.addListener(_printTakeHome);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // Start listening to changes.
+  //   takeHomecontroller.addListener(_printTakeHome);
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: getServiceFee(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          final details = Details.fromJson(snapshot.data);
-
-          //priceController.text = finances.price ?? '';
-          //takeHomecontroller.text = (details.takeHome ?? '').toString();
-          serviceFeecontroller.text = (details.serviceFee ?? '').toString();
+    // return FutureBuilder(
+    //     future: getServiceFee(),
+    //     builder: (BuildContext context, AsyncSnapshot snapshot) {
+    //       final details = Details.fromJson(snapshot.data);
+    //       //priceController.text = finances.price ?? '';
+    //       takeHomecontroller.text = (details.takeHome ?? '').toString();
+    //       serviceFeecontroller.text = (details.serviceFee ?? '').toString();
     return Container(
       decoration: const BoxDecoration(
           image: DecorationImage(
@@ -232,6 +239,7 @@ class _SellDetailsState extends State<SellDetails> {
                                     textAlign: TextAlign.center,
                                     controller: brandController,
                                     validator: brandValidator,
+                                    keyboardType: TextInputType.text,
                                     cursorColor: Colors.black,
                                     //showCursor: true,
                                     style: TextStyle(
@@ -305,9 +313,15 @@ class _SellDetailsState extends State<SellDetails> {
                                     borderRadius: BorderRadius.circular(15)),
                                 child: Center(
                                   child: TextFormField(
-                                      onChanged: (text) {
-                                        print('First text field: $text');
-                                      },
+                                    // onChanged: (value){
+                                    //   if(value.isEmpty){
+                                    //     setState(() => price = 0);
+                                    //   }else{
+                                    //     setState((){
+                                    //       price = double.parse(value);
+                                    //     });
+                                    //   }
+                                    // },
                                     //onChanged: (value) => price = double.parse(value),
                                     textAlign: TextAlign.center,
                                     controller: priceController,
@@ -332,101 +346,97 @@ class _SellDetailsState extends State<SellDetails> {
                         ),
                       ),
 
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 12.h, horizontal: 16.w),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text("SERVICE FEE",
-                                  style: TextStyle(
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            ),
-                            SizedBox(width: 1.w),
-                            Expanded(
-                              child: Container(
-                                width: 95.w,
-                                height: 40.h,
-                                decoration: BoxDecoration(
-                                    color: Colors.yellow[600],
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: Center(
-
-
-                                    child: TextFormField(
-                                      // onChanged: (text) {
-                                      //   print('First text field: $text');
-                                      // },
-                                      //onChanged: (value) => price = double.parse(value),
-                                      textAlign: TextAlign.center,
-                                      controller: serviceFeecontroller,
-                                      validator: priceValidator,
-                                      cursorColor: Colors.black,
-                                      keyboardType: TextInputType.number,
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 25.sp),
-                                      decoration: const InputDecoration(
-                                        //hintText: '100',
-                                        //prefix: Text("KES."),
-                                        contentPadding: EdgeInsets.only(
-                                            top: 1.0, bottom: 6.0, left: 8.0),
-                                        border: InputBorder.none,
-                                        fillColor: Colors.black,
-                                      ),
-                                    ),
-                                    // child: Text(serviceFee.toString(),
-                                    //     style: TextStyle(
-                                    //         color: Colors.black,
-                                    //         fontSize: 25.sp))
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                            vertical: 12.h, horizontal: 16.w),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text("TAKE HOME",
-                                  style: TextStyle(
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            ),
-                            SizedBox(width: 1.w),
-                            Expanded(
-                              child: Container(
-                                width: 90.w,
-                                height: 40.h,
-                                decoration: BoxDecoration(
-                                    color: Colors.yellow[600],
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: Center(
-                                    child: TextField(
-                                      controller: takeHomecontroller,
-                                  textAlign: TextAlign.center,
-                                  cursorColor: Colors.black,
-                                  keyboardType: TextInputType.number,
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 25.sp),
-                                  decoration: const InputDecoration(
-                                    contentPadding: EdgeInsets.only(
-                                        top: 1.0, bottom: 6.0, left: 8.0),
-                                    border: InputBorder.none,
-                                    fillColor: Colors.black,
-                                  ),
-                               ),
-                              ),
-                            ),
-                            )
-                          ],
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(
+                      //       vertical: 12.h, horizontal: 16.w),
+                      //   child: Row(
+                      //     children: [
+                      //       Expanded(
+                      //         child: Text("SERVICE FEE",
+                      //             style: TextStyle(
+                      //               fontSize: 18.sp,
+                      //               fontWeight: FontWeight.bold,
+                      //             )),
+                      //       ),
+                      //       SizedBox(width: 1.w),
+                      //       Expanded(
+                      //         child: Container(
+                      //           width: 95.w,
+                      //           height: 40.h,
+                      //           decoration: BoxDecoration(
+                      //               color: Colors.yellow[600],
+                      //               borderRadius: BorderRadius.circular(15)),
+                      //           child: Center(
+                      //               child: TextFormField(
+                      //                 // onChanged: (serviceFeecontroller) {
+                      //                 //   print('Second text field: $serviceFeecontroller');
+                      //                 // },
+                      //                 textAlign: TextAlign.center,
+                      //                 controller: serviceFeecontroller,
+                      //                 validator: priceValidator,
+                      //                 cursorColor: Colors.black,
+                      //                 keyboardType: TextInputType.number,
+                      //                 style: TextStyle(
+                      //                     color: Colors.black, fontSize: 25.sp),
+                      //                 decoration: const InputDecoration(
+                      //                   //hintText: '100',
+                      //                   //prefix: Text("KES."),
+                      //                   contentPadding: EdgeInsets.only(
+                      //                       top: 1.0, bottom: 6.0, left: 8.0),
+                      //                   border: InputBorder.none,
+                      //                   fillColor: Colors.black,
+                      //                 ),
+                      //               ),
+                      //           ),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                      // Padding(
+                      //   padding: EdgeInsets.symmetric(
+                      //       vertical: 12.h, horizontal: 16.w),
+                      //   child: Row(
+                      //     children: [
+                      //       Expanded(
+                      //         child: Text("TAKE HOME",
+                      //             style: TextStyle(
+                      //               fontSize: 18.sp,
+                      //               fontWeight: FontWeight.bold,
+                      //             )),
+                      //       ),
+                      //       SizedBox(width: 1.w),
+                      //       Expanded(
+                      //         child: Container(
+                      //           width: 90.w,
+                      //           height: 40.h,
+                      //           decoration: BoxDecoration(
+                      //               color: Colors.yellow[600],
+                      //               borderRadius: BorderRadius.circular(15)),
+                      //           child: Center(
+                      //             child: Text("${price-servicefee }"
+                      //             )
+                      //
+                      //          //      child: TextField(
+                      //          //    controller: takeHomecontroller,
+                      //          //    textAlign: TextAlign.center,
+                      //          //    cursorColor: Colors.black,
+                      //          //    keyboardType: TextInputType.number,
+                      //          //    style: TextStyle(
+                      //          //        color: Colors.black, fontSize: 25.sp),
+                      //          //    decoration: const InputDecoration(
+                      //          //      contentPadding: EdgeInsets.only(
+                      //          //          top: 1.0, bottom: 6.0, left: 8.0),
+                      //          //      border: InputBorder.none,
+                      //          //      fillColor: Colors.black,
+                      //          //    ),
+                      //          // ),
+                      //         ),
+                      //       ),
+                      //       )
+                      //     ],
+                      //   ),
+                      // ),
                       //rowItem('TAKE HOME',details: fees.toString()),
                     ],
                   ),
@@ -446,8 +456,8 @@ class _SellDetailsState extends State<SellDetails> {
                               brand: brandController.text,
                               capacityId: widget.id,
                               price: priceController.text,
-                              serviceFee:serviceFeecontroller.text,
-                              takeHome:takeHomecontroller.text
+                              // serviceFee:serviceFeecontroller.text,
+                              // takeHome:takeHomecontroller.text
                             ).then((value) {
                           final responseValue = value.cast<String, dynamic>();
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -522,7 +532,7 @@ class _SellDetailsState extends State<SellDetails> {
         ),
       ),
     );
-  });
+  // });
   }
 
   Widget rowItem(text, {required String details}) {
