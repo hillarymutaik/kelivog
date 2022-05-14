@@ -75,12 +75,15 @@ class ThirteenCylindersCard extends StatelessWidget {
                 ),
                 Column(
                   children: [
+                    SizedBox(
+                      height: 0.05.sw,
+                    ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           rowItem('BRAND'),
                           SizedBox(
-                              width: 0.2.sw,
+                              width: 0.5.sw,
                               child: Container(
                                 width: 95.w,
                                 height: 25.h,
@@ -95,12 +98,15 @@ class ThirteenCylindersCard extends StatelessWidget {
                                 ),
                               )),
                         ]),
+                    SizedBox(
+                      height: 0.05.sw,
+                    ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           rowItem('CAPACITY'),
                           SizedBox(
-                              width: 0.3.sw,
+                              width: 0.5.sw,
                               child: Container(
                                 width: 90.w,
                                 height: 25.h,
@@ -115,12 +121,15 @@ class ThirteenCylindersCard extends StatelessWidget {
                                 ),
                               )),
                         ]),
+                    SizedBox(
+                      height: 0.05.sw,
+                    ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           rowItem('AMOUNT'),
                           SizedBox(
-                              width: 0.3.sw,
+                              width: 0.5.sw,
                               child: Container(
                                 width: 90.w,
                                 height: 25.h,
@@ -135,6 +144,9 @@ class ThirteenCylindersCard extends StatelessWidget {
                                 ),
                               )),
                         ]),
+                    SizedBox(
+                      height: 0.05.sw,
+                    ),
                   ],
                 )
               ],

@@ -78,85 +78,78 @@ class SixCylindersCard extends StatelessWidget {
                 ),
                 Column(
                   children: [
+                    SizedBox(
+                      height: 0.05.sw,
+                    ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           rowItem('BRAND'),
                           SizedBox(
-                            width: 0.2.sw,
+                            width: 0.5.sw,
                             child: Container(
-                              width: 95.w,
-                              height: 25.h,
-                              decoration: BoxDecoration(
-                                  color: Colors.yellow[600],
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Center(
-                              child: Text(
-                                brand,
-                                textAlign: TextAlign.center,
-                              ),)
-                            ),
+                                width: 95.w,
+                                height: 25.h,
+                                decoration: BoxDecoration(
+                                    color: Colors.yellow[600],
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: Center(
+                                  child: Text(
+                                    brand,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                )),
                           ),
                         ]),
+                    SizedBox(
+                      height: 0.05.sw,
+                    ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           rowItem('CAPACITY'),
                           SizedBox(
-                            width: 0.3.sw,
-                            child: Container(
-                              width: 90.w,
-                              height: 25.h,
-                              decoration: BoxDecoration(
-                                  color: Colors.yellow[600],
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Center(
-                              child: Text(capacityName,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),)
-                          ),
+                              width: 0.5.sw,
+                              child: Container(
+                                width: 90.w,
+                                height: 25.h,
+                                decoration: BoxDecoration(
+                                    color: Colors.yellow[600],
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: Center(
+                                  child: Text(
+                                    capacityName,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              )),
                         ]),
+                    SizedBox(
+                      height: 0.05.sw,
+                    ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           rowItem('AMOUNT'),
                           SizedBox(
-                            width: 0.3.sw,
-                            child: Container(
-                              width: 90.w,
-                              height: 25.h,
-                              decoration: BoxDecoration(
-                                  color: Colors.yellow[600],
-                                  borderRadius: BorderRadius.circular(15)),
-                              child: Center(
-                              child: Text(price,
-                                textAlign: TextAlign.center,
-                              ),
-                            ),)
-                          ),
+                              width: 0.5.sw,
+                              child: Container(
+                                width: 90.w,
+                                height: 25.h,
+                                decoration: BoxDecoration(
+                                    color: Colors.yellow[600],
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: Center(
+                                  child: Text(
+                                    price,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              )),
                         ]),
-
-                    // Row(
-                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    //     children: [
-                    //       rowItem('SERVICE FEE'),
-                    //       SizedBox(
-                    //           width: 0.3.sw,
-                    //           child: Container(
-                    //             width: 90.w,
-                    //             height: 25.h,
-                    //             decoration: BoxDecoration(
-                    //                 color: Colors.yellow[600],
-                    //                 borderRadius: BorderRadius.circular(15)),
-                    //             child: Center(
-                    //               child: Text( serviceFee.toString(),
-                    //                 textAlign: TextAlign.center,
-                    //               ),
-                    //             ),)
-                    //       ),
-                    //     ]),
-
+                    SizedBox(
+                      height: 0.05.sw,
+                    ),
                   ],
                 )
               ],

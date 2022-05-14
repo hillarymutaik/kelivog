@@ -18,6 +18,7 @@ import 'package:kelivog/Widget/green_button.dart';
 import 'package:kelivog/Widget/header.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
+import 'package:kelivog/Widget/validators.dart';
 // import 'package:kelivog/Widget/inventory_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -230,7 +231,7 @@ class _SaveDeleteState extends State<OtherSaveDeleteScreen>
                       ),
                       child: TextFormField(
                         style: TextStyle(color: Colors.black, fontSize: 20.sp),
-                        // validator: nameValidator,0xff0ced10
+                        validator: brandValidator,
                         controller: brandController,
                         cursorColor: Colors.black,
                         decoration: const InputDecoration(

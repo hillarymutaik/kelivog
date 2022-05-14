@@ -1,7 +1,11 @@
 import 'package:form_field_validator/form_field_validator.dart';
 
 final nameValidator = RequiredValidator(errorText: '*required');
-final brandValidator = RequiredValidator(errorText: '*required');
+final brandValidator = MultiValidator([
+  RequiredValidator(errorText: '*required'),
+  BrandPatternValidator(r"^[a-zA-Z]",
+      errorText: 'Incorrent format,do not use numbers')
+]);
 
 final phoneValidator = MultiValidator([
   RequiredValidator(errorText: '*required'),

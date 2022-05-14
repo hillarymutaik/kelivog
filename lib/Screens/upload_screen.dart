@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:kelivog/Widget/header.dart';
+import 'package:kelivog/Widget/validators.dart';
 
 class UploadScreen extends StatelessWidget {
   const UploadScreen({Key? key}) : super(key: key);
@@ -51,7 +52,7 @@ class UploadScreen extends StatelessWidget {
                           child: TextFormField(
                             style:
                                 TextStyle(color: Colors.black, fontSize: 16.sp),
-                            // validator: nameValidator,0xff0ced10
+                            validator: brandValidator,
                             // controller: loginController,
                             cursorColor: Colors.green,
                             decoration: const InputDecoration(

@@ -191,7 +191,7 @@ class _SellDetailsState extends State<SellDetails> {
               Form(
                 key: _formKey,
                 child: Container(
-                  width: 350.w,
+                  width: 360.w,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(15.r)),
                     image: const DecorationImage(
@@ -210,40 +210,40 @@ class _SellDetailsState extends State<SellDetails> {
                             vertical: 12.h, horizontal: 16.w),
                         child: Row(
                           children: [
-                            Expanded(
-                              child: Text("BRAND",
+                            Text("BRAND",
+                                style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            SizedBox(width: 35.w),
+                            Container(
+                              width: 240.w,
+                              height: 40.h,
+                              decoration: BoxDecoration(
+                                  color: Colors.yellow[600],
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: Center(
+                                child: TextFormField(
+                                  inputFormatters: <TextInputFormatter>[
+                                    FilteringTextInputFormatter.allow(
+                                        RegExp('[a-zA-Z]')),
+                                  ],
+
+                                  //onChanged: (value) => brandController = double.parse(value) as TextEditingController,
+                                  textAlign: TextAlign.center,
+                                  controller: brandController,
+                                  validator: brandValidator,
+                                  cursorColor: Colors.black,
+                                  //showCursor: true,
                                   style: TextStyle(
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            ),
-                            SizedBox(width: 1.w),
-                            Expanded(
-                              child: Container(
-                                width: 95.w,
-                                height: 40.h,
-                                decoration: BoxDecoration(
-                                    color: Colors.yellow[600],
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: Center(
-                                  child: TextFormField(
-                                    //onChanged: (value) => brandController = double.parse(value) as TextEditingController,
-                                    textAlign: TextAlign.center,
-                                    controller: brandController,
-                                    validator: brandValidator,
-                                    keyboardType: TextInputType.text,
-                                    cursorColor: Colors.black,
-                                    //showCursor: true,
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 25.sp),
-                                    decoration: const InputDecoration(
-                                      contentPadding: EdgeInsets.only(
-                                          top: 1.0, bottom: 10.0, left: 8.0),
-                                      // contentPadding:
-                                      // EdgeInsets.symmetric(horizontal: 10.w),
-                                      border: InputBorder.none,
-                                      fillColor: Colors.black,
-                                    ),
+                                      color: Colors.black, fontSize: 18.sp),
+                                  decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.only(
+                                        top: 1.0, bottom: 10.0, left: 8.0),
+                                    // contentPadding:
+                                    // EdgeInsets.symmetric(horizontal: 10.w),
+                                    border: InputBorder.none,
+                                    fillColor: Colors.black,
                                   ),
                                 ),
                               ),

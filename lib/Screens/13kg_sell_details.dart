@@ -134,7 +134,7 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
                 key: _formKey,
                 //autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Container(
-                  width: 350.w,
+                  width: 360.w,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(15.r)),
                     image: const DecorationImage(
@@ -153,43 +153,44 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
                             vertical: 12.h, horizontal: 16.w),
                         child: Row(
                           children: [
-                            Expanded(
-                              child: Text("BRAND",
+                            Text("BRAND",
+                                style: TextStyle(
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            SizedBox(width: 35.w),
+                            Container(
+                              width: 240.w,
+                              height: 40.h,
+                              decoration: BoxDecoration(
+                                  color: Colors.yellow[600],
+                                  borderRadius: BorderRadius.circular(15)),
+                              child: Center(
+                                child: TextFormField(
+                                  inputFormatters: <TextInputFormatter>[
+                                    FilteringTextInputFormatter.allow(
+                                        RegExp('[a-zA-Z]')),
+                                  ],
+
+                                  //onChanged: (value) => brandController = double.parse(value) as TextEditingController,
+                                  textAlign: TextAlign.center,
+                                  controller: brandController,
+                                  validator: brandValidator,
+                                  cursorColor: Colors.black,
+                                  //showCursor: true,
                                   style: TextStyle(
-                                    fontSize: 18.sp,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            ),
-                            SizedBox(width: 1.w),
-                            Expanded(
-                              child: Container(
-                                width: 95.w,
-                                height: 40.h,
-                                decoration: BoxDecoration(
-                                    color: Colors.yellow[600],
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: Center(
-                                  child: TextFormField(
-                                    textAlign: TextAlign.center,
-                                    controller: brandController,
-                                    validator: brandValidator,
-                                    cursorColor: Colors.black,
-                                    keyboardType: TextInputType.text,
-                                    //showCursor: true,
-                                    style: TextStyle(
-                                        color: Colors.black, fontSize: 25.sp),
-                                    decoration: const InputDecoration(
-                                      contentPadding: EdgeInsets.only(
-                                          top: 1.0, bottom: 10.0, left: 8.0),
-                                      // contentPadding:
-                                      // EdgeInsets.symmetric(horizontal: 10.w),
-                                      border: InputBorder.none,
-                                      fillColor: Colors.black,
-                                    ),
+                                      color: Colors.black, fontSize: 18.sp),
+                                  decoration: const InputDecoration(
+                                    contentPadding: EdgeInsets.only(
+                                        top: 1.0, bottom: 10.0, left: 8.0),
+                                    // contentPadding:
+                                    // EdgeInsets.symmetric(horizontal: 10.w),
+                                    border: InputBorder.none,
+                                    fillColor: Colors.black,
                                   ),
                                 ),
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -481,10 +482,10 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
               style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(width: 5.w),
+          SizedBox(width: 3.w),
           Expanded(
             child: Container(
-              width: 90.w,
+              width: 98.w,
               height: 25.h,
               decoration: BoxDecoration(
                   color: Colors.yellow[600],
@@ -496,6 +497,7 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
       ),
     );
   }
+
   void getInventory() async {
     final http.Response response2 =
         await http.get(Uri.parse("https://kelivog.com/capacity"), headers: {

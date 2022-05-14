@@ -267,598 +267,627 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       image: AssetImage("images/background.jpg"),
                       fit: BoxFit.cover)),
               child: Scaffold(
-                  body: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: <Widget>[
-                    header(),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12.w),
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          'PROFILE',
-                          style: TextStyle(
-                              fontSize: 20.sp, fontWeight: FontWeight.bold),
+                body: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(
+                    children: <Widget>[
+                      header(),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12.w),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            'PROFILE',
+                            style: TextStyle(
+                                fontSize: 20.sp, fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        if (image == null) {
-                          showDialog<void>(
-                            context: context,
-                            barrierDismissible: false, // user must tap button!
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  // ignore: prefer_const_literals_to_create_immutables
-                                  children: [
-                                    const Text(
-                                      'Choose Image',
-                                      style: TextStyle(),
-                                    ),
-                                    IconButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      icon: Icon(
-                                        Icons.close,
-                                        size: 20.sp,
-                                        color: const Color(0xFF000000),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                content: SingleChildScrollView(
-                                  child: ListBody(
-                                    children: const <Widget>[
-                                      Text(
-                                        'Choose a profile Picture to upload',
+                      GestureDetector(
+                        onTap: () {
+                          if (image == null) {
+                            showDialog<void>(
+                              context: context,
+                              barrierDismissible:
+                                  false, // user must tap button!
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    // ignore: prefer_const_literals_to_create_immutables
+                                    children: [
+                                      const Text(
+                                        'Choose Image',
                                         style: TextStyle(),
                                       ),
+                                      IconButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        icon: Icon(
+                                          Icons.close,
+                                          size: 20.sp,
+                                          color: const Color(0xFF000000),
+                                        ),
+                                      )
                                     ],
                                   ),
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: const Text(
-                                      'Camera',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                  content: SingleChildScrollView(
+                                    child: ListBody(
+                                      children: const <Widget>[
+                                        Text(
+                                          'Choose a profile Picture to upload',
+                                          style: TextStyle(),
+                                        ),
+                                      ],
                                     ),
-                                    onPressed: () {
-                                      pickCamera();
-                                      Navigator.pop(context);
-                                    },
                                   ),
-                                  TextButton(
-                                    child: const Text(
-                                      'Gallery',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold,
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: const Text(
+                                        'Camera',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
+                                      onPressed: () {
+                                        pickCamera();
+                                        Navigator.pop(context);
+                                      },
                                     ),
-                                    onPressed: () {
-                                      pickImage();
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                        }
-                      },
-                      child: Stack(
-                        children: [
-                          Container(
-                            height: 135.h,
-                            width: 1.sw,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.green[700],
-                            ),
-                            child: Container(
-                              alignment: Alignment.topCenter,
-                              height: 105.h,
-                              width: 105.w,
-                              clipBehavior: Clip.antiAlias,
+                                    TextButton(
+                                      child: const Text(
+                                        'Gallery',
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        pickImage();
+                                        Navigator.pop(context);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                        },
+                        child: Stack(
+                          children: [
+                            Container(
+                              height: 135.h,
+                              width: 1.sw,
+                              alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                border: Border.all(
-                                    color: const Color(0xff0ced10), width: 7),
                                 color: Colors.green[700],
                               ),
-                              child: image != null
-                                  ? ClipOval(
-                                      child: Image.file(
-                                        image!,
-                                        width: 70.h,
-                                        height: 100.h,
-                                        fit: BoxFit.cover,
+                              child: Container(
+                                alignment: Alignment.topCenter,
+                                height: 105.h,
+                                width: 105.w,
+                                clipBehavior: Clip.antiAlias,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                      color: const Color(0xff0ced10), width: 7),
+                                  color: Colors.green[700],
+                                ),
+                                child: image != null
+                                    ? ClipOval(
+                                        child: Image.file(
+                                          image!,
+                                          width: 70.h,
+                                          height: 100.h,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      )
+                                    : Icon(
+                                        Icons.person,
+                                        size: 90.sp,
+                                        color: const Color(0xff0ced10),
                                       ),
-                                    )
-                                  : Icon(
-                                      Icons.person,
-                                      size: 90.sp,
-                                      color: const Color(0xff0ced10),
-                                    ),
+                              ),
                             ),
-                          ),
-                          Positioned(
-                              bottom: 0.h,
-                              right: 120.w,
-                              child: ConstrainedBox(
-                                constraints: BoxConstraints.tightFor(
-                                    width: 70.w, height: 15.h),
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    elevation: 0,
-                                    primary: Colors.green[700],
-                                  ),
-                                  onPressed: () {
-                                    if (image != null) {
-                                      showDialog<void>(
-                                        context: context,
-                                        barrierDismissible:
-                                            false, // user must tap button!
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                            title: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              // ignore: prefer_const_literals_to_create_immutables
-                                              children: [
-                                                const Text(
-                                                  'Choose Image',
-                                                  style: TextStyle(),
-                                                ),
-                                                IconButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.close,
-                                                    size: 20.sp,
-                                                    color:
-                                                        const Color(0xFF000000),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                            content: SingleChildScrollView(
-                                              child: ListBody(
-                                                children: const <Widget>[
-                                                  Text(
-                                                    'Choose a profile Picture to upload',
+                            Positioned(
+                                bottom: 0.h,
+                                right: 120.w,
+                                child: ConstrainedBox(
+                                  constraints: BoxConstraints.tightFor(
+                                      width: 70.w, height: 15.h),
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      elevation: 0,
+                                      primary: Colors.green[700],
+                                    ),
+                                    onPressed: () {
+                                      if (image != null) {
+                                        showDialog<void>(
+                                          context: context,
+                                          barrierDismissible:
+                                              false, // user must tap button!
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(
+                                              title: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                // ignore: prefer_const_literals_to_create_immutables
+                                                children: [
+                                                  const Text(
+                                                    'Choose Image',
                                                     style: TextStyle(),
                                                   ),
+                                                  IconButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    icon: Icon(
+                                                      Icons.close,
+                                                      size: 20.sp,
+                                                      color: const Color(
+                                                          0xFF000000),
+                                                    ),
+                                                  )
                                                 ],
                                               ),
-                                            ),
-                                            actions: <Widget>[
-                                              TextButton(
-                                                child: const Text(
-                                                  'Camera',
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
+                                              content: SingleChildScrollView(
+                                                child: ListBody(
+                                                  children: const <Widget>[
+                                                    Text(
+                                                      'Choose a profile Picture to upload',
+                                                      style: TextStyle(),
+                                                    ),
+                                                  ],
                                                 ),
-                                                onPressed: () {
-                                                  pickCamera();
-                                                  Navigator.pop(context);
-                                                },
                                               ),
-                                              TextButton(
-                                                child: const Text(
-                                                  'Gallery',
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.bold,
+                                              actions: <Widget>[
+                                                TextButton(
+                                                  child: const Text(
+                                                    'Camera',
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
                                                   ),
+                                                  onPressed: () {
+                                                    pickCamera();
+                                                    Navigator.pop(context);
+                                                  },
                                                 ),
-                                                onPressed: () {
-                                                  pickImage();
-                                                  Navigator.pop(context);
-                                                },
-                                              ),
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    }
-                                  },
-                                  child: const Align(
-                                    alignment: Alignment.centerRight,
-                                    child: Text(
-                                      '+EDIT',
-                                      textAlign: TextAlign.right,
-                                      style: TextStyle(
-                                          color: Color(0xff0ced10),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold),
+                                                TextButton(
+                                                  child: const Text(
+                                                    'Gallery',
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                  onPressed: () {
+                                                    pickImage();
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      }
+                                    },
+                                    child: const Align(
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        '+EDIT',
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            color: Color(0xff0ced10),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
                                   ),
+                                ))
+                          ],
+                        ),
+                      ),
+                      Form(
+                        key: _formKey,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        child: ListView(
+                          physics: const ScrollPhysics(),
+                          shrinkWrap: true,
+                          children: <Widget>[
+                            profileCard(
+                              child: TextFormField(
+                                textAlign: TextAlign.center,
+                                controller: businessNameController,
+                                validator: nameValidator,
+                                cursorColor: Colors.black,
+                                //showCursor: true,
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 25.sp),
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  fillColor: Colors.black,
+                                  contentPadding: EdgeInsets.only(
+                                      top: 1.0, bottom: 6.0, left: 8.0),
                                 ),
-                              ))
-                        ],
-                      ),
-                    ),
-                    Form(
-                      key: _formKey,
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      child: ListView(
-                        physics: const ScrollPhysics(),
-                        shrinkWrap: true,
-                        children: <Widget>[
-                          profileCard(
-                            child: TextFormField(
-                              textAlign: TextAlign.center,
-                              controller: businessNameController,
-                              validator: nameValidator,
-                              cursorColor: Colors.black,
-                              //showCursor: true,
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 25.sp),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                fillColor: Colors.black,
-                                contentPadding: EdgeInsets.only(
-                                    top: 1.0, bottom: 6.0, left: 8.0),
                               ),
+                              // child: TextFormField(
+                              //   textAlign: TextAlign.center,
+                              //   controller: businessNameController,
+                              //   validator: nameValidator,
+                              //   cursorColor: Colors.black,
+                              //   decoration: const InputDecoration(
+                              //     border: InputBorder.none,
+                              //     fillColor: Colors.black,
+                              //   ),
+                              // ),
+                              title: 'BUSINESS NAME',
                             ),
-                            // child: TextFormField(
-                            //   textAlign: TextAlign.center,
-                            //   controller: businessNameController,
-                            //   validator: nameValidator,
-                            //   cursorColor: Colors.black,
-                            //   decoration: const InputDecoration(
-                            //     border: InputBorder.none,
-                            //     fillColor: Colors.black,
-                            //   ),
-                            // ),
-                            title: 'BUSINESS NAME',
-                          ),
-                          const Divider(
-                              indent: 15, endIndent: 15, thickness: 2),
-                          profileCard(
-                            child: TextFormField(
-                              textAlign: TextAlign.center,
-                              controller: ownersNameController,
-                              validator: nameValidator,
-                              cursorColor: Colors.black,
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 25.sp),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                fillColor: Colors.black,
-                                contentPadding: EdgeInsets.only(
-                                    top: 1.0, bottom: 6.0, left: 8.0),
+                            const Divider(
+                                indent: 15, endIndent: 15, thickness: 2),
+                            profileCard(
+                              child: TextFormField(
+                                textAlign: TextAlign.center,
+                                controller: ownersNameController,
+                                validator: nameValidator,
+                                cursorColor: Colors.black,
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 25.sp),
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  fillColor: Colors.black,
+                                  contentPadding: EdgeInsets.only(
+                                      top: 1.0, bottom: 6.0, left: 8.0),
+                                ),
                               ),
+                              // child: TextFormField(
+                              //   textAlign: TextAlign.center,
+                              //   controller: ownersNameController,
+                              //   validator: nameValidator,
+                              //   decoration: InputDecoration(
+                              //     contentPadding:
+                              //         EdgeInsets.symmetric(horizontal: 10.w),
+                              //     border: InputBorder.none,
+                              //     fillColor: Colors.black,
+                              //   ),
+                              // ),
+                              title: 'OWNER\'S NAME',
                             ),
-                            // child: TextFormField(
-                            //   textAlign: TextAlign.center,
-                            //   controller: ownersNameController,
-                            //   validator: nameValidator,
-                            //   decoration: InputDecoration(
-                            //     contentPadding:
-                            //         EdgeInsets.symmetric(horizontal: 10.w),
-                            //     border: InputBorder.none,
-                            //     fillColor: Colors.black,
-                            //   ),
-                            // ),
-                            title: 'OWNER\'S NAME',
-                          ),
-                          const Divider(
-                              indent: 15, endIndent: 15, thickness: 2),
-                          profileCard(
-                            child: TextFormField(
-                              textAlign: TextAlign.center,
-                              controller: emailAddressController,
-                              validator: emailValidator,
-                              cursorColor: Colors.black,
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 25.sp),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                fillColor: Colors.black,
-                                contentPadding: EdgeInsets.only(
-                                    top: 1.0, bottom: 6.0, left: 8.0),
+                            const Divider(
+                                indent: 15, endIndent: 15, thickness: 2),
+                            profileCard(
+                              child: TextFormField(
+                                textAlign: TextAlign.center,
+                                controller: emailAddressController,
+                                validator: emailValidator,
+                                cursorColor: Colors.black,
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 25.sp),
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  fillColor: Colors.black,
+                                  contentPadding: EdgeInsets.only(
+                                      top: 1.0, bottom: 6.0, left: 8.0),
+                                ),
                               ),
-                            ),
 
-                            // child: TextFormField(
-                            //   textAlign: TextAlign.center,
-                            //     controller: emailAddressController,
-                            //     validator: emailValidator,
-                            //   cursorColor: Colors.black,
-                            //   style: TextStyle(color: Colors.black, fontSize: 25.sp),
-                            //   decoration: const InputDecoration(
-                            //     border: InputBorder.none,
-                            //     fillColor: Colors.black,
-                            //     contentPadding: EdgeInsets.only(
-                            //         top: 1.0, bottom: 6.0, left: 8.0),
-                            //   ),
-                            // ),
-                            // child: TextFormField(
-                            //   textAlign: TextAlign.center,
-                            //   controller: emailAddressController,
-                            //   validator: emailValidator,
-                            //   decoration: InputDecoration(
-                            //     contentPadding:
-                            //         EdgeInsets.symmetric(horizontal: 10.w),
-                            //     border: InputBorder.none,
-                            //     fillColor: Colors.black,
-                            //   ),
-                            // ),
-                            title: 'EMAIL ADDRESS',
-                          ),
-                          profileCard(
-                            child: TextFormField(
-                              textAlign: TextAlign.center,
-                              controller: contactController,
-                              validator: nameValidator,
-                              cursorColor: Colors.black,
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 25.sp),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                fillColor: Colors.black,
-                                contentPadding: EdgeInsets.only(
-                                    top: 1.0, bottom: 6.0, left: 8.0),
-                              ),
+                              // child: TextFormField(
+                              //   textAlign: TextAlign.center,
+                              //     controller: emailAddressController,
+                              //     validator: emailValidator,
+                              //   cursorColor: Colors.black,
+                              //   style: TextStyle(color: Colors.black, fontSize: 25.sp),
+                              //   decoration: const InputDecoration(
+                              //     border: InputBorder.none,
+                              //     fillColor: Colors.black,
+                              //     contentPadding: EdgeInsets.only(
+                              //         top: 1.0, bottom: 6.0, left: 8.0),
+                              //   ),
+                              // ),
+                              // child: TextFormField(
+                              //   textAlign: TextAlign.center,
+                              //   controller: emailAddressController,
+                              //   validator: emailValidator,
+                              //   decoration: InputDecoration(
+                              //     contentPadding:
+                              //         EdgeInsets.symmetric(horizontal: 10.w),
+                              //     border: InputBorder.none,
+                              //     fillColor: Colors.black,
+                              //   ),
+                              // ),
+                              title: 'EMAIL ADDRESS',
                             ),
-                            // child: TextFormField(
-                            //   textAlign: TextAlign.center,
-                            //   controller: contactController,
-                            //   validator: nameValidator,
-                            //   decoration: InputDecoration(
-                            //     contentPadding:
-                            //         EdgeInsets.symmetric(horizontal: 10.w),
-                            //     border: InputBorder.none,
-                            //     fillColor: Colors.black,
-                            //   ),
-                            // ),
-                            title: 'CONTACT',
-                          ),
-                          profileCard(
-                            child: TextFormField(
-                              textAlign: TextAlign.center,
-                              controller: locationController,
-                              validator: nameValidator,
-                              // controller: contactController,
-                              // validator: nameValidator,
-                              cursorColor: Colors.black,
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 25.sp),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                fillColor: Colors.black,
-                                contentPadding: EdgeInsets.only(
-                                    top: 1.0, bottom: 6.0, left: 8.0),
+                            profileCard(
+                              child: TextFormField(
+                                textAlign: TextAlign.center,
+                                controller: contactController,
+                                validator: nameValidator,
+                                cursorColor: Colors.black,
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 25.sp),
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  fillColor: Colors.black,
+                                  contentPadding: EdgeInsets.only(
+                                      top: 1.0, bottom: 6.0, left: 8.0),
+                                ),
                               ),
+                              // child: TextFormField(
+                              //   textAlign: TextAlign.center,
+                              //   controller: contactController,
+                              //   validator: nameValidator,
+                              //   decoration: InputDecoration(
+                              //     contentPadding:
+                              //         EdgeInsets.symmetric(horizontal: 10.w),
+                              //     border: InputBorder.none,
+                              //     fillColor: Colors.black,
+                              //   ),
+                              // ),
+                              title: 'CONTACT',
                             ),
-                            // child: TextFormField(
-                            //   textAlign: TextAlign.center,
-                            //   controller: locationController,
-                            //   validator: nameValidator,
-                            //   decoration: InputDecoration(
-                            //     contentPadding:
-                            //         EdgeInsets.symmetric(horizontal: 10.w),
-                            //     border: InputBorder.none,
-                            //     fillColor: Colors.black,
-                            //   ),
-                            // ),
-                            title: 'LOCATION',
-                          ),
-                          const Divider(
-                              indent: 15, endIndent: 15, thickness: 2),
-                          profileCard(
-                            child: TextFormField(
-                              textAlign: TextAlign.center,
-                              controller: idController,
-                              validator: nameValidator,
-                              keyboardType: TextInputType.phone,
-                              cursorColor: Colors.black,
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 25.sp),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                fillColor: Colors.black,
-                                contentPadding: EdgeInsets.only(
-                                    top: 1.0, bottom: 6.0, left: 8.0),
+                            profileCard(
+                              child: TextFormField(
+                                textAlign: TextAlign.center,
+                                controller: locationController,
+                                validator: nameValidator,
+                                // controller: contactController,
+                                // validator: nameValidator,
+                                cursorColor: Colors.black,
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 25.sp),
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  fillColor: Colors.black,
+                                  contentPadding: EdgeInsets.only(
+                                      top: 1.0, bottom: 6.0, left: 8.0),
+                                ),
                               ),
+                              // child: TextFormField(
+                              //   textAlign: TextAlign.center,
+                              //   controller: locationController,
+                              //   validator: nameValidator,
+                              //   decoration: InputDecoration(
+                              //     contentPadding:
+                              //         EdgeInsets.symmetric(horizontal: 10.w),
+                              //     border: InputBorder.none,
+                              //     fillColor: Colors.black,
+                              //   ),
+                              // ),
+                              title: 'LOCATION',
                             ),
-                            // child: TextFormField(
-                            //   textAlign: TextAlign.center,
-                            //   controller: idController,
-                            //   validator: nameValidator,
-                            //   keyboardType: TextInputType.phone,
-                            //   decoration: InputDecoration(
-                            //     contentPadding:
-                            //         EdgeInsets.symmetric(horizontal: 10.w),
-                            //     border: InputBorder.none,
-                            //     fillColor: Colors.black,
-                            //   ),
-                            // ),
-                            title: 'I.D. NO.',
-                          ),
-                          const Divider(
-                              indent: 15, endIndent: 15, thickness: 2),
-                          profileCard(
-                            child: TextFormField(
-                              textAlign: TextAlign.center,
-                              controller: kraController,
-                              validator: nameValidator,
-                              cursorColor: Colors.black,
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 25.sp),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                fillColor: Colors.black,
-                                contentPadding: EdgeInsets.only(
-                                    top: 1.0, bottom: 6.0, left: 8.0),
+                            const Divider(
+                                indent: 15, endIndent: 15, thickness: 2),
+                            profileCard(
+                              child: TextFormField(
+                                textAlign: TextAlign.center,
+                                controller: idController,
+                                validator: nameValidator,
+                                keyboardType: TextInputType.phone,
+                                cursorColor: Colors.black,
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 25.sp),
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  fillColor: Colors.black,
+                                  contentPadding: EdgeInsets.only(
+                                      top: 1.0, bottom: 6.0, left: 8.0),
+                                ),
                               ),
+                              // child: TextFormField(
+                              //   textAlign: TextAlign.center,
+                              //   controller: idController,
+                              //   validator: nameValidator,
+                              //   keyboardType: TextInputType.phone,
+                              //   decoration: InputDecoration(
+                              //     contentPadding:
+                              //         EdgeInsets.symmetric(horizontal: 10.w),
+                              //     border: InputBorder.none,
+                              //     fillColor: Colors.black,
+                              //   ),
+                              // ),
+                              title: 'I.D. NO.',
                             ),
-                            // child: TextFormField(
-                            //   textAlign: TextAlign.center,
-                            //   controller: kraController,
-                            //   validator: nameValidator,
-                            //   decoration: InputDecoration(
-                            //     contentPadding:
-                            //         EdgeInsets.symmetric(horizontal: 10.w),
-                            //     border: InputBorder.none,
-                            //     fillColor: Colors.black,
-                            //   ),
-                            // ),
-                            title: 'K.R.A NO.',
-                          ),
-                          const Divider(
-                              indent: 15, endIndent: 15, thickness: 2),
-                          profileCard(
-                            child: TextFormField(
-                              textAlign: TextAlign.center,
-                              controller: epraController,
-                              validator: nameValidator,
-                              cursorColor: Colors.black,
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 25.sp),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                fillColor: Colors.black,
-                                contentPadding: EdgeInsets.only(
-                                    top: 1.0, bottom: 6.0, left: 8.0),
+                            const Divider(
+                                indent: 15, endIndent: 15, thickness: 2),
+                            profileCard(
+                              child: TextFormField(
+                                textAlign: TextAlign.center,
+                                controller: kraController,
+                                validator: nameValidator,
+                                cursorColor: Colors.black,
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 25.sp),
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  fillColor: Colors.black,
+                                  contentPadding: EdgeInsets.only(
+                                      top: 1.0, bottom: 6.0, left: 8.0),
+                                ),
                               ),
+                              // child: TextFormField(
+                              //   textAlign: TextAlign.center,
+                              //   controller: kraController,
+                              //   validator: nameValidator,
+                              //   decoration: InputDecoration(
+                              //     contentPadding:
+                              //         EdgeInsets.symmetric(horizontal: 10.w),
+                              //     border: InputBorder.none,
+                              //     fillColor: Colors.black,
+                              //   ),
+                              // ),
+                              title: 'K.R.A NO.',
                             ),
-                            // child: TextFormField(
-                            //   textAlign: TextAlign.center,
-                            //   controller: epraController,
-                            //   validator: nameValidator,
-                            //   decoration: InputDecoration(
-                            //     contentPadding:
-                            //         EdgeInsets.symmetric(horizontal: 10.w),
-                            //     border: InputBorder.none,
-                            //     fillColor: Colors.black,
-                            //   ),
-                            // ),
-                            title: 'EPRA LICENSE NO.',
-                          ),
-                          const Divider(
-                              indent: 15, endIndent: 15, thickness: 2),
-                          profileCard(
-                            child: TextFormField(
-                              textAlign: TextAlign.center,
-                              controller: businessLicenseController,
-                              validator: nameValidator,
-                              cursorColor: Colors.black,
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: 25.sp),
-                              decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                fillColor: Colors.black,
-                                contentPadding: EdgeInsets.only(
-                                    top: 1.0, bottom: 6.0, left: 8.0),
+                            const Divider(
+                                indent: 15, endIndent: 15, thickness: 2),
+                            profileCard(
+                              child: TextFormField(
+                                textAlign: TextAlign.center,
+                                controller: epraController,
+                                validator: nameValidator,
+                                cursorColor: Colors.black,
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 25.sp),
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  fillColor: Colors.black,
+                                  contentPadding: EdgeInsets.only(
+                                      top: 1.0, bottom: 6.0, left: 8.0),
+                                ),
                               ),
+                              // child: TextFormField(
+                              //   textAlign: TextAlign.center,
+                              //   controller: epraController,
+                              //   validator: nameValidator,
+                              //   decoration: InputDecoration(
+                              //     contentPadding:
+                              //         EdgeInsets.symmetric(horizontal: 10.w),
+                              //     border: InputBorder.none,
+                              //     fillColor: Colors.black,
+                              //   ),
+                              // ),
+                              title: 'EPRA LICENSE NO.',
                             ),
-                            // child: TextFormField(
-                            //   textAlign: TextAlign.center,
-                            //   controller: businessLicenseController,
-                            //   validator: nameValidator,
-                            //   decoration: InputDecoration(
-                            //     contentPadding:
-                            //         EdgeInsets.symmetric(horizontal: 10.w),
-                            //     border: InputBorder.none,
-                            //     fillColor: Colors.black,
-                            //   ),
-                            // ),
-                            title: 'BUSINESS LICENSE NO.',
+                            const Divider(
+                                indent: 15, endIndent: 15, thickness: 2),
+                            profileCard(
+                              child: TextFormField(
+                                textAlign: TextAlign.center,
+                                controller: businessLicenseController,
+                                validator: nameValidator,
+                                cursorColor: Colors.black,
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 25.sp),
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  fillColor: Colors.black,
+                                  contentPadding: EdgeInsets.only(
+                                      top: 1.0, bottom: 6.0, left: 8.0),
+                                ),
+                              ),
+                              // child: TextFormField(
+                              //   textAlign: TextAlign.center,
+                              //   controller: businessLicenseController,
+                              //   validator: nameValidator,
+                              //   decoration: InputDecoration(
+                              //     contentPadding:
+                              //         EdgeInsets.symmetric(horizontal: 10.w),
+                              //     border: InputBorder.none,
+                              //     fillColor: Colors.black,
+                              //   ),
+                              // ),
+                              title: 'BUSINESS LICENSE NO.',
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Divider(indent: 15, endIndent: 15, thickness: 2),
+                      SizedBox(height: 20.h),
+                      greenButton(
+                        'SAVE',
+                        () {
+                          final FormState? form = _formKey.currentState;
+                          if (form!.validate()) {
+                            //print('Saving' + businessNameController.text);
+                            if (image != null) {
+                              context.read<LoadingProvider>().setLoad(true);
+                              uploadProfile(
+                                      image: image,
+                                      businessName: businessNameController.text,
+                                      ownersName: ownersNameController.text,
+                                      emailAddress: emailAddressController.text,
+                                      contact: contactController.text,
+                                      location: locationController.text,
+                                      idNo: idController.text,
+                                      kraNo: kraController.text,
+                                      epraLicenseNo: epraController.text,
+                                      businessPermit:
+                                          businessLicenseController.text,
+                                      profileSet: profile.profileId != null
+                                          ? false
+                                          : true)
+                                  .then((value) {
+                                context.read<LoadingProvider>().setLoad(false);
+                                value == 'success'
+                                    ? {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                              content: Text(value!),
+                                              backgroundColor: Colors.green),
+                                        ),
+                                        Navigator.of(context).pop(),
+                                        context
+                                            .read<LoadingProvider>()
+                                            .setLoad(false)
+                                      }
+                                    : {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                              content: Text(value!),
+                                              backgroundColor: Colors.red),
+                                        ),
+                                        context
+                                            .read<LoadingProvider>()
+                                            .setLoad(false)
+                                      };
+                              }).catchError((error) {
+                                context.read<LoadingProvider>().setLoad(false);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(error.toString())));
+                              });
+                            } else {
+                              print('no image');
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text('No Image'),
+                                backgroundColor: Colors.red,
+                              ));
+                            }
+                          } else {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text('Invalid Input'),
+                              backgroundColor: Colors.red,
+                            ));
+                          }
+                        },
+                      ),
+                      SizedBox(height: 20.h),
+                      const Divider(indent: 15, endIndent: 15, thickness: 2),
+                      SizedBox(height: 20.h),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const [
+                          Text(
+                            "By proceeding I acknowledge that I have read Kelivog's",
+                            style: TextStyle(fontWeight: FontWeight.bold),
                           ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                              '*terms and conditions(link) _*and* privacy policy(link) _*and agree to them',
+                              style: TextStyle(fontWeight: FontWeight.bold)),
                         ],
                       ),
-                    ),
-                    const Divider(indent: 15, endIndent: 15, thickness: 2),
-                    SizedBox(height: 20.h),
-                    greenButton('SAVE', () {
-                      final FormState? form = _formKey.currentState;
-                      if (form!.validate()) {
-                        //print('Saving' + businessNameController.text);
-                        if (image != null) {
-                          context.read<LoadingProvider>().setLoad(true);
-                          uploadProfile(
-                                  image: image,
-                                  businessName: businessNameController.text,
-                                  ownersName: ownersNameController.text,
-                                  emailAddress: emailAddressController.text,
-                                  contact: contactController.text,
-                                  location: locationController.text,
-                                  idNo: idController.text,
-                                  kraNo: kraController.text,
-                                  epraLicenseNo: epraController.text,
-                                  businessPermit:
-                                      businessLicenseController.text,
-                                  profileSet:
-                                      profile.profileId != null ? false : true)
-                              .then((value) {
-                            context.read<LoadingProvider>().setLoad(false);
-                            value == 'success'
-                                ? {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          content: Text(value!),
-                                          backgroundColor: Colors.green),
-                                    ),
-                                    Navigator.of(context).pop(),
-                                    context
-                                        .read<LoadingProvider>()
-                                        .setLoad(false)
-                                  }
-                                : {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          content: Text(value!),
-                                          backgroundColor: Colors.red),
-                                    ),
-                                    context
-                                        .read<LoadingProvider>()
-                                        .setLoad(false)
-                                  };
-                          }).catchError((error) {
-                            context.read<LoadingProvider>().setLoad(false);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(error.toString())));
-                          });
-                        } else {
-                          print('no image');
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text('No Image'),
-                            backgroundColor: Colors.red,
-                          ));
-                        }
-                      } else {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text('Invalid Input'),
-                          backgroundColor: Colors.red,
-                        ));
-                      }
-                    }),
-                  ],
+                      SizedBox(height: 20.h),
+                    ],
+                  ),
                 ),
-              )),
+              ),
             );
           } // snapshot.data  :- get your object which is pass from your loadProfileScreen() function
         }

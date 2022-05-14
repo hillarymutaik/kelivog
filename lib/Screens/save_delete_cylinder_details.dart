@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kelivog/Widget/edit_image.dart';
 import 'package:kelivog/Widget/header.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:kelivog/Widget/validators.dart';
 
 class SaveDeleteCylinderDetails extends StatelessWidget {
   const SaveDeleteCylinderDetails({Key? key}) : super(key: key);
@@ -52,7 +53,7 @@ class SaveDeleteCylinderDetails extends StatelessWidget {
                           child: TextFormField(
                             style:
                                 TextStyle(color: Colors.black, fontSize: 16.sp),
-                            // validator: nameValidator,0xff0ced10
+                            validator: brandValidator,
                             // controller: loginController,
                             cursorColor: Colors.green,
                             decoration: const InputDecoration(

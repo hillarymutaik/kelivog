@@ -208,7 +208,7 @@ class _SaveDeleteState extends State<SaveDeleteScreen2>
                 ),
                 child: TextFormField(
                   style: TextStyle(color: Colors.black, fontSize: 20.sp),
-                  validator: nameValidator,
+                  validator: brandValidator,
                   controller: brandController,
                   textAlign: TextAlign.center,
                   cursorColor: Colors.black,
