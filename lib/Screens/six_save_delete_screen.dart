@@ -31,7 +31,8 @@ Future<dynamic> uploadInventory(
     {String? brand,
     String? capacityId,
     String? price,
-    String? cylinderId}) async {
+    String? cylinderId
+    }) async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   final String? jwt = prefs.getString('jwt');
 
@@ -328,7 +329,8 @@ class _SaveDeleteState extends State<SixSaveDeleteScreen>
                                   brand: brandController.text,
                                   cylinderId: widget.id,
                                   price: priceController.text,
-                                  capacityId: widget.capacityId)
+                                  capacityId: widget.capacityId
+                          )
                               .then((value) async {
                             value != 200
                                 ? ScaffoldMessenger.of(context).showSnackBar(

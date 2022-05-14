@@ -10,26 +10,26 @@ import 'package:provider/provider.dart';
 import 'package:kelivog/Widget/validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '6kg_cylinder_screen.dart';
-
-class Details {
-      // final String? price;
-      final double? takeHome;
-      final  double? serviceFee;
-
-      Details({
-    // this.price,
-    this.takeHome,
-    this.serviceFee,
-  });
-
-  factory Details.fromJson(Map<String, dynamic> json) {
-    return Details(
-      //price: json['price'],
-      takeHome: json['takeHome'],
-      serviceFee: json['serviceFee'],
-    );
-  }
-}
+//
+// class Details {
+//       // final String? price;
+//       final double? takeHome;
+//       final  double? serviceFee;
+//
+//       Details({
+//     // this.price,
+//     this.takeHome,
+//     this.serviceFee,
+//   });
+//
+//   factory Details.fromJson(Map<String, dynamic> json) {
+//     return Details(
+//       //price: json['price'],
+//       takeHome: json['takeHome'],
+//       serviceFee: json['serviceFee'],
+//     );
+//   }
+// }
 
 class SellDetails extends StatefulWidget {
   final String item, id, title;
@@ -47,8 +47,7 @@ class SellDetails extends StatefulWidget {
 class _SellDetailsState extends State<SellDetails> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-
-  Future<Map<String, dynamic>> uploadData(
+  Future<dynamic> uploadData(
       {String? brand,
       String? capacityId,
       String? cylinderId,
@@ -104,27 +103,20 @@ class _SellDetailsState extends State<SellDetails> {
     return updateResponse;
   }
 
-  double price = 0;
-  double fee = 0;
-  double takeH = 0;
-  double servicefee =0;
+
 
   TextEditingController brandController = TextEditingController();
   TextEditingController capacityController = TextEditingController();
   late final  priceController = TextEditingController();
-  late final serviceFeecontroller = TextEditingController();
-  late var takeHomecontroller = TextEditingController();
 
   bool isLoading = false;
 
   clearTextInput() {
     brandController.clear();
     priceController.clear();
-    takeHomecontroller.clear();
   }
 
   List<Inventory> inventories = [];
-  //List<ServiceFee> fees = [];
 
   Map<String, dynamic> selectedCapacity =
   {"capacity": "", "capacityId": ""} as Map<String, dynamic>;
@@ -345,99 +337,6 @@ class _SellDetailsState extends State<SellDetails> {
                           ],
                         ),
                       ),
-
-                      // Padding(
-                      //   padding: EdgeInsets.symmetric(
-                      //       vertical: 12.h, horizontal: 16.w),
-                      //   child: Row(
-                      //     children: [
-                      //       Expanded(
-                      //         child: Text("SERVICE FEE",
-                      //             style: TextStyle(
-                      //               fontSize: 18.sp,
-                      //               fontWeight: FontWeight.bold,
-                      //             )),
-                      //       ),
-                      //       SizedBox(width: 1.w),
-                      //       Expanded(
-                      //         child: Container(
-                      //           width: 95.w,
-                      //           height: 40.h,
-                      //           decoration: BoxDecoration(
-                      //               color: Colors.yellow[600],
-                      //               borderRadius: BorderRadius.circular(15)),
-                      //           child: Center(
-                      //               child: TextFormField(
-                      //                 // onChanged: (serviceFeecontroller) {
-                      //                 //   print('Second text field: $serviceFeecontroller');
-                      //                 // },
-                      //                 textAlign: TextAlign.center,
-                      //                 controller: serviceFeecontroller,
-                      //                 validator: priceValidator,
-                      //                 cursorColor: Colors.black,
-                      //                 keyboardType: TextInputType.number,
-                      //                 style: TextStyle(
-                      //                     color: Colors.black, fontSize: 25.sp),
-                      //                 decoration: const InputDecoration(
-                      //                   //hintText: '100',
-                      //                   //prefix: Text("KES."),
-                      //                   contentPadding: EdgeInsets.only(
-                      //                       top: 1.0, bottom: 6.0, left: 8.0),
-                      //                   border: InputBorder.none,
-                      //                   fillColor: Colors.black,
-                      //                 ),
-                      //               ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      // Padding(
-                      //   padding: EdgeInsets.symmetric(
-                      //       vertical: 12.h, horizontal: 16.w),
-                      //   child: Row(
-                      //     children: [
-                      //       Expanded(
-                      //         child: Text("TAKE HOME",
-                      //             style: TextStyle(
-                      //               fontSize: 18.sp,
-                      //               fontWeight: FontWeight.bold,
-                      //             )),
-                      //       ),
-                      //       SizedBox(width: 1.w),
-                      //       Expanded(
-                      //         child: Container(
-                      //           width: 90.w,
-                      //           height: 40.h,
-                      //           decoration: BoxDecoration(
-                      //               color: Colors.yellow[600],
-                      //               borderRadius: BorderRadius.circular(15)),
-                      //           child: Center(
-                      //             child: Text("${price-servicefee }"
-                      //             )
-                      //
-                      //          //      child: TextField(
-                      //          //    controller: takeHomecontroller,
-                      //          //    textAlign: TextAlign.center,
-                      //          //    cursorColor: Colors.black,
-                      //          //    keyboardType: TextInputType.number,
-                      //          //    style: TextStyle(
-                      //          //        color: Colors.black, fontSize: 25.sp),
-                      //          //    decoration: const InputDecoration(
-                      //          //      contentPadding: EdgeInsets.only(
-                      //          //          top: 1.0, bottom: 6.0, left: 8.0),
-                      //          //      border: InputBorder.none,
-                      //          //      fillColor: Colors.black,
-                      //          //    ),
-                      //          // ),
-                      //         ),
-                      //       ),
-                      //       )
-                      //     ],
-                      //   ),
-                      // ),
-                      //rowItem('TAKE HOME',details: fees.toString()),
                     ],
                   ),
                 ),
@@ -453,11 +352,9 @@ class _SellDetailsState extends State<SellDetails> {
                             if (_formKey.currentState!.validate()) {
                             uploadData(
                               update: false,
-                              brand: brandController.text,
-                              capacityId: widget.id,
-                              price: priceController.text,
-                              // serviceFee:serviceFeecontroller.text,
-                              // takeHome:takeHomecontroller.text
+                                brand: brandController.text,
+                                cylinderId: widget.id,
+                                price: priceController.text,
                             ).then((value) {
                           final responseValue = value.cast<String, dynamic>();
                           ScaffoldMessenger.of(context).showSnackBar(
