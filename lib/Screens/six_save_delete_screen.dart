@@ -192,6 +192,10 @@ class _SaveDeleteState extends State<SixSaveDeleteScreen>
                         color: Colors.yellow[600],
                       ),
                       child: TextFormField(
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.allow(
+                              RegExp('[a-zA-Z]')),
+                        ],
                         textAlign: TextAlign.center,
                         controller: brandController,
                         validator: brandValidator,

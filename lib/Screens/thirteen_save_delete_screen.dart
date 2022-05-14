@@ -173,6 +173,10 @@ class _SaveDeleteState extends State<ThirteenSaveDeleteScreen>
                         color: Colors.yellow[600],
                       ),
                       child: TextFormField(
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.allow(
+                              RegExp('[a-zA-Z]')),
+                        ],
                         textAlign: TextAlign.center,
                         controller: brandController,
                         cursorColor: Colors.black,
