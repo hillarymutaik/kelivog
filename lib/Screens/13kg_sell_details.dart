@@ -158,9 +158,9 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
                                   fontSize: 18.sp,
                                   fontWeight: FontWeight.bold,
                                 )),
-                            SizedBox(width: 35.w),
+                            SizedBox(width: 105.w),
                             Container(
-                              width: 240.w,
+                              width: 160.w,
                               height: 40.h,
                               decoration: BoxDecoration(
                                   color: Colors.yellow[600],
@@ -271,113 +271,6 @@ class _SellDetailsState extends State<ThirteenSellDetails> {
                           ],
                         ),
                       ),
-
-                      // Padding(
-                      //   padding: EdgeInsets.symmetric(
-                      //       vertical: 12.h, horizontal: 16.w),
-                      //   child: Row(
-                      //     children: [
-                      //       Expanded(
-                      //         child: Text("SERVICE FEE",
-                      //             style: TextStyle(
-                      //               fontSize: 18.sp,
-                      //               fontWeight: FontWeight.bold,
-                      //             )),
-                      //       ),
-                      //       SizedBox(width: 1.w),
-                      //       Expanded(
-                      //         child: Container(
-                      //           width: 90.w,
-                      //           height: 40.h,
-                      //           decoration: BoxDecoration(
-                      //               color: Colors.yellow[600],
-                      //               borderRadius: BorderRadius.circular(15)),
-                      //           child: Center(
-                      //             //child: Text(serviceFeeController.text),
-                      //             child: TextFormField(
-                      //               onChanged: (value) {
-                      //                 setState(() {
-                      //                   _servicefee = double.tryParse(value) as TextEditingController;
-                      //                 });
-                      //               },
-                      //               // validator: ,
-                      //               // controller: ,
-                      //               showCursor: false,
-                      //               style: const TextStyle(
-                      //                 fontSize: 20.0,
-                      //                 height: 2.0,
-                      //                 color: Colors.black,
-                      //               ),
-                      //               decoration: const InputDecoration(
-                      //                 contentPadding: EdgeInsets.only(
-                      //                     top: 1.0, bottom: 100.0, left: 8.0),
-                      //                 border: OutlineInputBorder(
-                      //                   borderRadius: BorderRadius.all(
-                      //                       Radius.circular(15.0)),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                      //
-                      // Padding(
-                      //   padding: EdgeInsets.symmetric(
-                      //       vertical: 12.h, horizontal: 16.w),
-                      //   child: Row(
-                      //     children: [
-                      //       Expanded(
-                      //         child: Text("TAKE HOME",
-                      //             style: TextStyle(
-                      //               fontSize: 18.sp,
-                      //               fontWeight: FontWeight.bold,
-                      //             )),
-                      //       ),
-                      //       SizedBox(width: 1.w),
-                      //       Expanded(
-                      //         child: Container(
-                      //           width: 90.w,
-                      //           height: 40.h,
-                      //           decoration: BoxDecoration(
-                      //               color: Colors.yellow[600],
-                      //               borderRadius: BorderRadius.circular(15)),
-                      //           child: Center(
-                      //             //child: Text(serviceFeeController.text),
-                      //             child: TextFormField(
-                      //               onChanged: (value) {
-                      //                 setState(() {
-                      //                   _takeHome = double.tryParse(value) as TextEditingController;
-                      //                 });
-                      //               },
-                      //               // validator: ,
-                      //               // controller: ,
-                      //               showCursor: false,
-                      //               style: const TextStyle(
-                      //                 fontSize: 20.0,
-                      //                 height: 2.0,
-                      //                 color: Colors.black,
-                      //               ),
-                      //               decoration: const InputDecoration(
-                      //                 contentPadding: EdgeInsets.only(
-                      //                     top: 1.0, bottom: 100.0, left: 8.0),
-                      //                 border: OutlineInputBorder(
-                      //                   borderRadius: BorderRadius.all(
-                      //                       Radius.circular(15.0)),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           ),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-
-                      // rowItem('SERVICE FEE'),
-                      // rowItem('TAKE HOME'),
                     ],
                   ),
                 ),

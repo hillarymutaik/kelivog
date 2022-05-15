@@ -3,8 +3,8 @@ import 'package:form_field_validator/form_field_validator.dart';
 final nameValidator = RequiredValidator(errorText: '*required');
 final brandValidator = MultiValidator([
   RequiredValidator(errorText: '*required'),
-  BrandPatternValidator(r"^[a-zA-Z]",
-      errorText: 'Incorrent format,do not use numbers')
+  // BrandPatternValidator(r"^[a-zA-Z]",
+  //     errorText: 'Incorrent format,do not use numbers')
 ]);
 
 final phoneValidator = MultiValidator([

@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:kelivog/Widget/validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '13kg_sell_details.dart';
 import '6kg_cylinder_screen.dart';
 //
 // class Details {
@@ -216,9 +217,9 @@ class _SellDetailsState extends State<SellDetails> {
                                   fontSize: 18.sp,
                                   fontWeight: FontWeight.bold,
                                 )),
-                            SizedBox(width: 35.w),
+                            SizedBox(width: 105.w),
                             Container(
-                              width: 240.w,
+                              width: 160.w,
                               height: 40.h,
                               decoration: BoxDecoration(
                                   color: Colors.yellow[600],
@@ -233,7 +234,7 @@ class _SellDetailsState extends State<SellDetails> {
                                   //onChanged: (value) => brandController = double.parse(value) as TextEditingController,
                                   textAlign: TextAlign.center,
                                   controller: brandController,
-                                  validator: brandValidator,
+                                  //validator: brandValidator,
                                   cursorColor: Colors.black,
                                   //showCursor: true,
                                   style: TextStyle(
@@ -351,10 +352,10 @@ class _SellDetailsState extends State<SellDetails> {
                            // _calculateTakeHome;
                             context.read<LoadingProvider>().setLoad(true);
                             if (_formKey.currentState!.validate()) {
-                            uploadData(
-                              update: false,
+                              UploadData(
+                              // update: false,
                                 brand: brandController.text,
-                                cylinderId: widget.id,
+                                capacity: widget.id,
                                 price: priceController.text,
                             ).then((value) {
                           final responseValue = value.cast<String, dynamic>();
