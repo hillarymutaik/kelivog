@@ -77,7 +77,7 @@ class PendingSchedulesCard extends StatelessWidget {
           SizedBox(width: 0.2.sw, child: Text(name)),
           SizedBox(width: 5.w),
           SizedBox(
-            width: 0.2.sw,
+            width: 0.4.sw,
             child: Container(
               width: 95.w,
               height: 25.h,
