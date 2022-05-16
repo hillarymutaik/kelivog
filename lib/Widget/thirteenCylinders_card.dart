@@ -51,8 +51,8 @@ class ThirteenCylindersCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      height: 80.h,
-                      width: 70.w,
+                      height: 40.h,
+                      width: 50.w,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15.r),
@@ -83,7 +83,7 @@ class ThirteenCylindersCard extends StatelessWidget {
                         children: [
                           rowItem('BRAND'),
                           SizedBox(
-                              width: 0.5.sw,
+                              width: 0.6.sw,
                               child: Container(
                                 width: 95.w,
                                 height: 25.h,
@@ -106,7 +106,7 @@ class ThirteenCylindersCard extends StatelessWidget {
                         children: [
                           rowItem('CAPACITY'),
                           SizedBox(
-                              width: 0.5.sw,
+                              width: 0.6.sw,
                               child: Container(
                                 width: 90.w,
                                 height: 25.h,
@@ -129,7 +129,7 @@ class ThirteenCylindersCard extends StatelessWidget {
                         children: [
                           rowItem('AMOUNT'),
                           SizedBox(
-                              width: 0.5.sw,
+                              width: 0.6.sw,
                               child: Container(
                                 width: 90.w,
                                 height: 25.h,
@@ -164,7 +164,7 @@ class ThirteenCylindersCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(width: 0.2.sw, child: Text(text)),
-          SizedBox(width: 5.w),
+          // SizedBox(width: 5.w),
         ],
       ),
     );

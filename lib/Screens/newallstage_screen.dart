@@ -159,8 +159,8 @@ class _PendingSchedulesScreenState extends State<NewAllStageScreen> {
                 //     MaterialPageRoute(builder: (ctx) => const DescriptionScreen()));
               },
               child: Container(
-                height: 80,
-                width: 80,
+                height: 50,
+                width: 50,
                 child: transaction.capacityName == "6 Kg"
                     ? Image.asset(
                         "images/6kg.jpg",
@@ -185,6 +185,7 @@ class _PendingSchedulesScreenState extends State<NewAllStageScreen> {
                 ),
               ),
             ),
+            SizedBox(width: 5.w),
             Column(
               children: [
                 rowItem('BRAND', value: transaction.brand),
@@ -209,20 +210,20 @@ class _PendingSchedulesScreenState extends State<NewAllStageScreen> {
         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SizedBox(
-              // width: 0.1.sw,
+              width: 0.2.sw,
               child: Text(
-            text,
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w700,
-            ),
-          )),
-          SizedBox(width: 25.w),
+                text,
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w700,
+                ),
+              )),
+          SizedBox(width: 5.w),
           SizedBox(
-            width: 0.40.sw,
+            width: 0.60.sw,
             child: Container(
               width: 90.w,
-              height: text == 'PURCHASE STATUS' ? 40.h : 20.h,
+              height: text == 'PURCHASE STATUS' ? 40.h : 30.h,
               decoration: BoxDecoration(
                   color: Colors.yellow[600],
                   borderRadius: BorderRadius.circular(5)),

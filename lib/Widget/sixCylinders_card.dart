@@ -51,8 +51,8 @@ class SixCylindersCard extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      height: 80.h,
-                      width: 70.w,
+                      height: 50.h,
+                      width: 40.w,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15.r),
@@ -82,20 +82,25 @@ class SixCylindersCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           rowItem('BRAND'),
-                          SizedBox(
-                            width: 0.5.sw,
-                            child: Container(
-                                width: 95.w,
-                                height: 25.h,
-                                decoration: BoxDecoration(
-                                    color: Colors.yellow[600],
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: Center(
-                                  child: Text(
-                                    brand,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                )),
+                          Column(
+                            children: [
+                              SizedBox(
+                                width: 0.6.sw,
+                                child: Container(
+                                    width: 95.w,
+                                    height: 25.h,
+                                    decoration: BoxDecoration(
+                                        color: Colors.yellow[600],
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                    child: Center(
+                                      child: Text(
+                                        brand,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    )),
+                              ),
+                            ],
                           ),
                         ]),
                     SizedBox(
@@ -106,7 +111,7 @@ class SixCylindersCard extends StatelessWidget {
                         children: [
                           rowItem('CAPACITY'),
                           SizedBox(
-                              width: 0.5.sw,
+                              width: 0.6.sw,
                               child: Container(
                                 width: 90.w,
                                 height: 25.h,
@@ -128,21 +133,26 @@ class SixCylindersCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           rowItem('AMOUNT'),
-                          SizedBox(
-                              width: 0.5.sw,
-                              child: Container(
-                                width: 90.w,
-                                height: 25.h,
-                                decoration: BoxDecoration(
-                                    color: Colors.yellow[600],
-                                    borderRadius: BorderRadius.circular(15)),
-                                child: Center(
-                                  child: Text(
-                                    price,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              )),
+                          Column(
+                            children: [
+                              SizedBox(
+                                  width: 0.6.sw,
+                                  child: Container(
+                                    width: 90.w,
+                                    height: 25.h,
+                                    decoration: BoxDecoration(
+                                        color: Colors.yellow[600],
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                    child: Center(
+                                      child: Text(
+                                        price,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  )),
+                            ],
+                          ),
                         ]),
                     SizedBox(
                       height: 0.05.sw,
@@ -159,12 +169,12 @@ class SixCylindersCard extends StatelessWidget {
 
   Widget rowItem(text) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 6.h),
-      child: Row(
+      padding: EdgeInsets.symmetric(horizontal: 2.h),
+      child: Column(
         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SizedBox(width: 0.2.sw, child: Text(text)),
-          SizedBox(width: 5.w),
+          // SizedBox(width: 1.w),
         ],
       ),
     );
