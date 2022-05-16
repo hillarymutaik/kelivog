@@ -23,7 +23,7 @@ class _PendingSchedulesScreenState extends State<ActiveSchedulesScreen> {
   void initState() {
     super.initState();
     timer =
-        Timer.periodic(const Duration(seconds: 3), (Timer t) => getSchedule());
+        Timer.periodic(const Duration(seconds: 5), (Timer t) => getSchedule());
   }
 
   @override
