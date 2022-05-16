@@ -900,7 +900,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     },
                                 ),
                                 const TextSpan(
-                                  text: ' *and*  ',
+                                  text: ' and  ',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.black),
