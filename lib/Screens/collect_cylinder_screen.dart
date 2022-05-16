@@ -8,35 +8,18 @@ import 'package:kelivog/Widget/header.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../Widget/validators.dart';
 
-class Inventory {
-  final String capacity;
-  final String capacityId;
 
-  const Inventory({
-    required this.capacityId,
-    required this.capacity,
-  });
-}
 class CollectCylinderScreen extends StatefulWidget {
-    //final String item, id, title, capacityId, price, brand;
    final Schedule schedule;
   const CollectCylinderScreen(
     {Key? key,
-    // required this.capacityId,
-    // required this.id,
-    // required this.item,
-    // required this.title,
-    // required this.price,
-    // required this.brand,
     required this.schedule})
         : super(key: key);
 
     @override
-    State<CollectCylinderScreen> createState() =>
-    _SixSaveDeleteCylinderDetailsState();
+    State<CollectCylinderScreen> createState() => _SixSaveDeleteCylinderDetailsState();
     }
 
     class _SixSaveDeleteCylinderDetailsState
@@ -52,8 +35,6 @@ class CollectCylinderScreen extends StatefulWidget {
     {"capacity": "", "capacityId": ""} as Map<String, dynamic>;
     var jsonResponse;
     bool isLoading = false;
-    //bool isLoggedIN = false;
-    late Timer timer;
 
     @override
     void initState() {
@@ -61,9 +42,8 @@ class CollectCylinderScreen extends StatefulWidget {
     brandController = TextEditingController(
     text: widget.schedule.brand.isNotEmpty ? widget.schedule.brand : '');
     priceController.text = widget.schedule.amount.toString().isEmpty ? '' : widget.schedule.amount.toString();
-    timer =
-        Timer.periodic(const Duration(seconds: 5), (Timer t) => statusUpdate());
     }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -75,9 +55,9 @@ class CollectCylinderScreen extends StatefulWidget {
           child: Column(
             children: [
               header(),
-              SizedBox(height: 15.h),
+              //SizedBox(height: 15.h),
               Container(
-                height: 140.h,
+                height: 80.h,
                 width: 150.w,
                 decoration: BoxDecoration(
                   color: Colors.white,
@@ -95,35 +75,48 @@ class CollectCylinderScreen extends StatefulWidget {
                   child: widget.schedule.capacity != '6 Kg'
                       ? Image.asset(
                           'images/13kg.jpg',
-                          height: 100.h,
+                          height: 70.h,
                           width: 100.w,
                         )
                       : Image.asset(
                           'images/6kg.jpg',
-                          height: 100.h,
+                          height: 70.h,
                           width: 100.w,
                         ),
                 ),
               ),
-              SizedBox(height: 25.h),
+              SizedBox(height: 10.h),
               Form(
             key: _formKey,
-            //autovalidateMode: AutovalidateMode.onUserInteraction,
             child: Container(
-            child: Column(
-            children: [
-              item('BRAND', details: widget.schedule.brand),
-              item('CAPACITY', details: widget.schedule.capacity),
-              Padding(
+                width: 350.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(15.r)),
+                  image: const DecorationImage(
+                    image: AssetImage("images/background.jpg"),
+                    fit: BoxFit.fitWidth,
+                    alignment: Alignment.topCenter,
+                  ),
+                  boxShadow: const [
+                    BoxShadow(color: Colors.grey, spreadRadius: 2),
+                  ],
+                ),
+                child: ListView(
+                    physics: const ScrollPhysics(),
+                    shrinkWrap: true,
+                    children: [
+                  item('BRAND', details: widget.schedule.brand),
+                  item('CAPACITY', details: widget.schedule.capacity),
+                  Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: 12.h, horizontal: 16.w),
                   child:Column(
               children: [
               Text('PRICE',
               style: TextStyle(fontSize: 21.sp, fontWeight: FontWeight.bold)),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
-          child: Container(
+            Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+            child: Container(
             width: 0.7.sw,
             height: 40.h,
             decoration: BoxDecoration(
@@ -177,7 +170,6 @@ class CollectCylinderScreen extends StatefulWidget {
                   child:ElevatedButton(
                       onPressed: () async {
                         context.read<LoadingProvider>().setLoad(true);
-                        //if (_formKey.currentState!.validate()) {
                           UpdateData(
                             cylinderId: widget.schedule.id,
                             update: true,
@@ -185,35 +177,6 @@ class CollectCylinderScreen extends StatefulWidget {
                             brand: widget.schedule.brand,
                             amount: priceController.text,
                           );
-                        //       .then((value) {
-                        //     final responseValue = value.cast<String, dynamic>();
-                        //     ScaffoldMessenger.of(context).showSnackBar(
-                        //       SnackBar(
-                        //         content: Text(
-                        //           responseValue['message'],
-                        //           style: const TextStyle(
-                        //               color: Colors.white,
-                        //               fontSize: 20,
-                        //               fontWeight: FontWeight.bold),
-                        //         ),
-                        //         backgroundColor: responseValue['success']
-                        //             ? Colors.green
-                        //             : Colors.red,
-                        //       ),
-                        //     );
-                        //     Navigator.of(context).pop();
-                        //     context.read<LoadingProvider>().setLoad(false);
-                        //   }).catchError((error) {
-                        //     print(error);
-                        //     ScaffoldMessenger.of(context).showSnackBar(
-                        //         SnackBar(content: Text(error.toString())));
-                        //     Navigator.of(context).pop();
-                        //     context.read<LoadingProvider>().setLoad(false);
-                        //   });
-                        // } else {
-                        //   print('not valid');
-                        //   context.read<LoadingProvider>().setLoad(false);
-                        // }
                       },
                       child: Text(
                         'UPDATE',
@@ -275,51 +238,12 @@ class CollectCylinderScreen extends StatefulWidget {
                     ),
                     onPressed: () {
                       context.read<LoadingProvider>().setLoad(true);
-                      statusUpdate().then((value) => {
-                            value != 200
-                                ? {
-                                    context.read<LoadingProvider>().setLoad(false),
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          'Error occurred!',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        backgroundColor: Colors.red,
-                                      ),
-                                    ),
-                                  }
-                                : {
-                              //Navigator.of(context).pop(),
-                          // Navigator.push(context,
-                          // MaterialPageRoute(builder: (ctx) => ActiveSchedulesScreen())),
-                                    Navigator.pushReplacement(context,
-                                        MaterialPageRoute(builder: (ctx) => ActiveSchedulesScreen())),
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          'Successfully collected empty cylinder',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        backgroundColor: Colors.green,
-                                      ),
-                                    ),
-                                  },
-                          });
-                      context.read<LoadingProvider>().setLoad(false);
+                      statusUpdate();
+                      //context.read<LoadingProvider>().setLoad(false);
                     },
-                    child: Text(
-                      'EMPTY CYLINDER COLLECTED',
+                    child: Text('EMPTY CYLINDER COLLECTED',
                       style: TextStyle(
-                          color: const Color(0xff000000),
-                          fontSize: 21.sp,
-                          fontWeight: FontWeight.bold),
+                          color: const Color(0xff000000), fontSize: 21.sp, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -334,37 +258,32 @@ class CollectCylinderScreen extends StatefulWidget {
   Widget item(text, {String? details}) {
     return Column(
       children: [
-        Text(text,
-            style: TextStyle(fontSize: 21.sp, fontWeight: FontWeight.bold)),
+        Text(text, style: TextStyle(fontSize: 21.sp, fontWeight: FontWeight.bold)),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
           child: Container(
             width: 0.7.sw,
-            height: 40.h,
+            height: 30.h,
             decoration: BoxDecoration(
                 color: Colors.yellow[600],
                 borderRadius: BorderRadius.circular(15)),
             child: Center(child: Text(details!)),
           ),
         ),
-        Divider(indent: 15.w, endIndent: 15.w, thickness: 2)
+        //Divider(indent: 15.w, endIndent: 15.w, thickness: 2)
       ],
     );
   }
 
-
   Future<dynamic> UpdateData(
-      {
-        String? brand,
+      {String? brand,
         String? capacity,
         String? cylinderId,
-        String? amount,
-        required bool update}) async {
+        String? amount, required bool update}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? jwt = prefs.getString('jwt');
     Map<String, dynamic> token = jsonDecode(jwt!);
     Map<String, dynamic> body = {
-
       'brand': brand,
       'capacity': capacity,
       'cylinderId': cylinderId,
@@ -379,7 +298,6 @@ class CollectCylinderScreen extends StatefulWidget {
         },
         body: jsonEncode(body),
       );
-
       if (updateCylinderRequest.statusCode == 200) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -388,39 +306,15 @@ class CollectCylinderScreen extends StatefulWidget {
             duration: Duration(seconds: 3),
           ),
         );
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (ctx) => ActiveSchedulesScreen()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (ctx) => ActiveSchedulesScreen()));
         context.read<LoadingProvider>().setLoad(false);
       } else {
         print(updateCylinderRequest.body);
         context.read<LoadingProvider>().setLoad(false);
         return jsonDecode(updateCylinderRequest.body)['message'];
       }
-
-
-
-      // Map<String, dynamic> updateResponse = {
-      //   'message': jsonDecode(updateCylinderRequest.body)['message'],
-      //   'success': jsonDecode(updateCylinderRequest.body)['success'],
-      //   'data': jsonDecode(updateCylinderRequest.body)['data'],
-      // };
-      // return updateResponse;
     }
-    // final postCylinderRequest =
-    // await http.post(Uri.parse('https://kelivog.com/sell'),
-    //     headers: {
-    //       'Content-Type': 'application/json; charset=UTF-8',
-    //       'Authorization': token['token']
-    //     },
-    //     body: jsonEncode(body));
-    // Map<String, dynamic> updateResponse = {
-    //   'message': jsonDecode(postCylinderRequest.body)['message'],
-    //   'success': jsonDecode(postCylinderRequest.body)['success'],
-    //   'data': jsonDecode(postCylinderRequest.body)['data'],
-    // };
-    // return updateResponse;
   }
 
   Future<dynamic> statusUpdate() async {
@@ -438,9 +332,37 @@ class CollectCylinderScreen extends StatefulWidget {
       },
       body: jsonEncode(body),
     );
-    return putRequestResponse.statusCode;
-  }
 
+    if (putRequestResponse.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.green,
+          content: Text('Successfully collected empty cylinder'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+      Navigator.push(context,
+          MaterialPageRoute(builder: (ctx) => ActiveSchedulesScreen()));
+      context.read<LoadingProvider>().setLoad(false);
+    } else {
+      print(putRequestResponse.body);
+      context.read<LoadingProvider>().setLoad(false);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (ctx) => ActiveSchedulesScreen()));
+      return jsonDecode(putRequestResponse.body)['message'];
+    }
+    //return putRequestResponse.statusCode;
+  }
+}
+
+class Inventory {
+  final String capacity;
+  final String capacityId;
+
+  const Inventory({
+    required this.capacityId,
+    required this.capacity,
+  });
 }
 
 

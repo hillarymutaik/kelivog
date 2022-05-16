@@ -127,106 +127,128 @@ class _PendingSchedulesScreenState extends State<NewAllStageScreen> {
     }
   }
 
-  Widget newSchedulesCard({required Cylinder schedule}) {
+
+  Widget schedulesCard({required Cylinder schedule}) {
     var transaction = schedule;
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8.h),
-      child: GestureDetector(
-        onTap: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (ctx) => SaleCompleted(
-          //       cylinder: schedule,
-          //     ),
-          //   ),
-          // );
-          // Navigator.push(context,
-          //     MaterialPageRoute(builder: (ctx) => const DescriptionScreen()));
-        },
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            GestureDetector(
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //     builder: (ctx) => SaleCompleted(),
-                //   ),
-                // );
-                // Navigator.push(context,
-                //     MaterialPageRoute(builder: (ctx) => const DescriptionScreen()));
-              },
-              child: Container(
-                height: 80,
-                width: 80,
-                child: transaction.capacityName == "6 Kg"
-                    ? Image.asset(
-                        "images/6kg.jpg",
-                        fit: BoxFit.contain,
-                      )
-                    : Image.asset(
-                        "images/13kg.jpg",
-                        fit: BoxFit.contain,
-                      ),
-                clipBehavior: Clip.antiAlias,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15.r),
-                  border: Border.all(color: const Color(0xff0ced10), width: 2),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black,
-                      offset: const Offset(4, 4),
-                      blurRadius: 3.r,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Column(
+      child: SizedBox(
+        width: 0.97.sw,
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+                stops: [0.01, 0.01], colors: [Colors.green, Colors.grey]),
+            borderRadius: BorderRadius.all(Radius.circular(15.r)),
+          ),
+          child: Card(
+            elevation: 3,
+            color: Colors.grey[200],
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.r)),
+            child: Row(
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                rowItem('BRAND', value: transaction.brand),
-                rowItem('CAPACITY', value: transaction.capacityName),
-                rowItem('AMOUNT', value: transaction.price.toString()),
-                rowItem('PHONE NO.', value: transaction.buyerContact),
-
-                // rowItem('PURCHASE \n STATUS',
-                //     value: transaction.isSold ? 'PROCESSING' : 'COMPLETE'),
-              ],
-            )
-          ],
+                // GestureDetector(
+                //   onTap: () {
+                //     Navigator.push(context,
+                //         MaterialPageRoute(
+                //             builder: (ctx) => CollectCylinderScreen(
+                //                 schedule: schedule)));
+                //   },),
+                SizedBox(width: 0.01.sw,),
+                  Container(
+                    height: 80,
+                    width: 60,
+                    child: transaction.capacityName == "6 Kg"
+                        ? Image.asset(
+                      "images/6kg.jpg",
+                      fit: BoxFit.contain,
+                    )
+                        : Image.asset(
+                      "images/13kg.jpg",
+                      fit: BoxFit.contain,
+                    ),
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15.r),
+                      border: Border.all(color: const Color(0xff0ced10), width: 2),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black,
+                          offset: const Offset(4, 4),
+                          blurRadius: 3.r,
+                        ),
+                      ],
+                    ),
+                  ),
+                 SizedBox(width: 0.03.sw,),
+                 Column(children: [
+                    rowItem('BRAND', details: transaction.brand),
+                    rowItem('CAPACITY', details: transaction.capacityName),
+                    rowItem('AMOUNT', details: transaction.price.toString()),
+                    rowItem('PHONE NO.', details: transaction.buyerContact),
+                    // rowItem('PURCHASE \n STATUS',
+                    //     value: transaction.isSold ? 'PROCESSING' : 'COMPLETE'),
+                  ],
+                )
+             ]
+            ),
+          ),
         ),
       ),
     );
   }
 
-  Widget rowItem(text, {required String value}) {
+  //
+  // Widget rowItem(text, {required String value}) {
+  //   return Padding(
+  //     padding: EdgeInsets.symmetric(vertical: 6.h),
+  //     child: Row(
+  //       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //       children: [
+  //         SizedBox(
+  //             // width: 0.1.sw,
+  //             child: Text(
+  //           text,
+  //           style: TextStyle(
+  //             fontSize: 14.sp,
+  //             fontWeight: FontWeight.w700,
+  //           ),
+  //         )),
+  //         SizedBox(width: 25.w),
+  //         SizedBox(
+  //           width: 0.40.sw,
+  //           child: Container(
+  //             width: 90.w,
+  //             height: text == 'PURCHASE STATUS' ? 40.h : 20.h,
+  //             decoration: BoxDecoration(
+  //                 color: Colors.yellow[600],
+  //                 borderRadius: BorderRadius.circular(5)),
+  //             child: Center(child: Text(value)),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
+  rowItem(String name, {required String details}) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 6.h),
+      padding: EdgeInsets.symmetric(vertical: 8.h),
       child: Row(
-        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          SizedBox(width: 0.2.sw, child: Text(name)),
+          SizedBox(width: 0.05.sw,),
           SizedBox(
-              // width: 0.1.sw,
-              child: Text(
-            text,
-            style: TextStyle(
-              fontSize: 14.sp,
-              fontWeight: FontWeight.w700,
-            ),
-          )),
-          SizedBox(width: 25.w),
-          SizedBox(
-            width: 0.40.sw,
+            width: 0.5.sw,
             child: Container(
-              width: 90.w,
-              height: text == 'PURCHASE STATUS' ? 40.h : 20.h,
+              width: 80.w,
+              height: 25.h,
               decoration: BoxDecoration(
                   color: Colors.yellow[600],
-                  borderRadius: BorderRadius.circular(5)),
-              child: Center(child: Text(value)),
+                  borderRadius: BorderRadius.circular(15)),
+              child: Center(child: Text(details)),
             ),
           ),
         ],
@@ -241,7 +263,7 @@ class _PendingSchedulesScreenState extends State<NewAllStageScreen> {
       scrollDirection: Axis.vertical,
       itemCount: items.length,
       itemBuilder: (context, index) {
-        return newSchedulesCard(schedule: items[index]);
+        return schedulesCard(schedule: items[index]);
       },
     );
   }

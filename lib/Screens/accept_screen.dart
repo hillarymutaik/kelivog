@@ -21,18 +21,12 @@ class AcceptScreen extends StatefulWidget {
 }
 
 class _AcceptScreenState extends State<AcceptScreen> {
-  File? image;
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  ///File? image;
   var jsonResponse;
-  bool isLoading = true;
-  late ScaffoldMessengerState scaffoldMessenger;
-
-  late Timer timer;
 
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(const Duration(seconds: 3), (Timer t) => statusUpdate());
   }
 
   @override
@@ -120,49 +114,8 @@ class _AcceptScreenState extends State<AcceptScreen> {
               SizedBox(height: 20.h),
               greenButton('ACCEPT', () {
                 context.read<LoadingProvider>().setLoad(true);
-                statusUpdate().then((value) => {
-                      value != 200
-                          ? {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (ctx) =>
-                                          const PendingSchedulesScreen())),
-                              //Navigator.of(context).pop(),
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    'Error occurred',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  backgroundColor: Colors.red,
-                                ),
-                              ),
-                              //getSchedule()
-                            }
-                          : {
-                             //Navigator.of(context).pop(),
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(
-                                builder: (ctx) => PendingSchedulesScreen())),
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    'Purchase process successfully accepted',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  backgroundColor: Colors.green,
-                                ),
-                              ),
-                            },
-                    });
-                context.read<LoadingProvider>().setLoad(false);
+                statusUpdate();
+               // context.read<LoadingProvider>().setLoad(false);
               }),
             ],
           ),
@@ -186,6 +139,26 @@ class _AcceptScreenState extends State<AcceptScreen> {
     },
       body: jsonEncode(body),
     );
-    return putRequestResponse.statusCode;
+
+    if (putRequestResponse.statusCode == 200) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          backgroundColor: Colors.green,
+          content: Text('Purchase process successfully accepted'),
+          duration: Duration(seconds: 3),
+        ),
+      );
+      print(putRequestResponse.body);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (ctx) => PendingSchedulesScreen()));
+      context.read<LoadingProvider>().setLoad(false);
+    } else {
+      print(putRequestResponse.body);
+      context.read<LoadingProvider>().setLoad(false);
+      Navigator.push(context,
+          MaterialPageRoute(builder: (ctx) =>
+              const PendingSchedulesScreen()));
+      return jsonDecode(putRequestResponse.body)['message'];
+    }
   }
 }

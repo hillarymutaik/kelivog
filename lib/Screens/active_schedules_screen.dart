@@ -94,7 +94,6 @@ class _PendingSchedulesScreenState extends State<ActiveSchedulesScreen> {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? jwt = prefs.getString('jwt');
     Map<String, dynamic> token = jsonDecode(jwt!);
-
     final http.Response response =
     await http.get(Uri.parse("https://kelivog.com/schedules/active"), headers: {
       'Content-Type': 'application/json; charset=UTF-8',
@@ -102,7 +101,7 @@ class _PendingSchedulesScreenState extends State<ActiveSchedulesScreen> {
     });
     if (response.statusCode == 200) {
       var responseBody = json.decode(response.body);
-      print(responseBody['data'][0]);
+      print(responseBody['data']);
       responseBody['data'].forEach((item) {
         final Schedule schedule = Schedule(
           id: item['_id'],
@@ -114,12 +113,12 @@ class _PendingSchedulesScreenState extends State<ActiveSchedulesScreen> {
           status: item['status'],
           brand: item['brand'],
         );
-        print(schedule);
+        //print(schedule);
         items.add(schedule);
       });
       return items;
     } else {
-      throw Exception('Failed to load album');
+      throw Exception('Failed to load active schedules');
     }
   }
 
@@ -128,7 +127,7 @@ class _PendingSchedulesScreenState extends State<ActiveSchedulesScreen> {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8.h),
       child: SizedBox(
-        width: 0.85.sw,
+        width: 0.97.sw,
         child: Container(
           decoration: BoxDecoration(
             gradient: const LinearGradient(
@@ -141,12 +140,11 @@ class _PendingSchedulesScreenState extends State<ActiveSchedulesScreen> {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.r)),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context,
+                    Navigator.push(context,
                         MaterialPageRoute(
                             builder: (ctx) => CollectCylinderScreen(
                                schedule: schedule)));
@@ -154,15 +152,16 @@ class _PendingSchedulesScreenState extends State<ActiveSchedulesScreen> {
                   child: transaction.capacity != '6 Kg'
                       ? Image.asset(
                           'images/13kg.jpg',
-                          height: 100.h,
-                          width: 100.w,
+                          height: 70.h,
+                          width: 50.w,
                         )
                       : Image.asset(
                           'images/6kg.jpg',
-                          height: 100.h,
-                          width: 100.w,
+                          height: 70.h,
+                          width: 50.w,
                         ),
                 ),
+                SizedBox(width: 5.w),
                 Column(
                   children: [
                     rowItem('BRAND', details: transaction.brand),
@@ -180,15 +179,14 @@ class _PendingSchedulesScreenState extends State<ActiveSchedulesScreen> {
 
   rowItem(String name, {required String details}) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 6.h),
+      padding: EdgeInsets.symmetric(vertical: 8.h),
       child: Row(
         children: [
-          SizedBox(width: 0.1.sw, child: Text(name)),
-          SizedBox(width: 5.w),
+          SizedBox(width: 0.2.sw, child: Text(name)),
           SizedBox(
-            width: 0.5.sw,
+            width: 0.6.sw,
             child: Container(
-              width: 99.w,
+              width: 80.w,
               height: 25.h,
               decoration: BoxDecoration(
                   color: Colors.yellow[600],

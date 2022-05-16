@@ -79,7 +79,7 @@ class SixCylindersCard extends StatelessWidget {
                 Column(
                   children: [
                     SizedBox(
-                      height: 0.05.sw,
+                      height: 0.02.sw,
                     ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -102,7 +102,7 @@ class SixCylindersCard extends StatelessWidget {
                           ),
                         ]),
                     SizedBox(
-                      height: 0.05.sw,
+                      height: 0.02.sw,
                     ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -125,7 +125,7 @@ class SixCylindersCard extends StatelessWidget {
                               )),
                         ]),
                     SizedBox(
-                      height: 0.05.sw,
+                      height: 0.02.sw,
                     ),
                     Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -148,7 +148,7 @@ class SixCylindersCard extends StatelessWidget {
                               )),
                         ]),
                     SizedBox(
-                      height: 0.05.sw,
+                      height: 0.02.sw,
                     ),
                   ],
                 )
