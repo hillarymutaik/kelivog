@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,6 +14,7 @@ import 'package:kelivog/Widget/header.dart';
 import 'package:kelivog/Widget/validators.dart';
 import 'package:provider/src/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Profile {
   final String? location;
@@ -801,7 +803,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           if (form!.validate()) {
                             //print('Saving' + businessNameController.text);
                             if (image != null) {
-                              context.read<LoadingProvider>().setLoad(true);
+                              // context.read<LoadingProvider>().setLoad(true);
                               uploadProfile(
                                       image: image,
                                       businessName: businessNameController.text,
@@ -870,17 +872,64 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       SizedBox(height: 20.h),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const [
-                          Text(
+                        children: [
+                          const Text(
                             "By proceeding I acknowledge that I have read Kelivog's",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 4,
                           ),
-                          Text(
-                              '*terms and conditions(link) _*and* privacy policy(link) _*and agree to them',
-                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          RichText(
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Terms and Conditions  ',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () async {
+                                      const url =
+                                          'https://kelivog.com/terms-and-conditions/';
+                                      if (await launch(url)) {
+                                        await launch(url);
+                                      } else {
+                                        throw 'Could not launch $url';
+                                      }
+                                    },
+                                ),
+                                const TextSpan(
+                                  text: ' and  ',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                ),
+                                TextSpan(
+                                  text: 'Privacy policy ',
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.blue),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () async {
+                                      const url =
+                                          'https://kelivog.com/privacyPolicy';
+                                      if (await launch(url)) {
+                                        await launch(url);
+                                      } else {
+                                        throw 'Could not launch $url';
+                                      }
+                                    },
+                                ),
+                                const TextSpan(
+                                  text: ' and agree to them',
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                       SizedBox(height: 20.h),
