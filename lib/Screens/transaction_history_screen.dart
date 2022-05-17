@@ -50,22 +50,54 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                 height: ScreenUtil().setHeight(20),
               ),
               Container(
-                  height: MediaQuery.of(context).size.height * 0.70,
-                  child: transactions.isNotEmpty
-                      ? ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: transactions.length,
-                          itemBuilder: _listViewItemBuilder)
-                      : const Center(
-                          child: Text(
-                            "No Data",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                height: MediaQuery
+                    .of(context)
+                    .size
+                    .height * 0.70,
+                child: FutureBuilder(
+                  future: getTransaction(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.none:
+                      case ConnectionState.waiting:
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      default:
+                        if (snapshot.hasError) {
+                          return const Center(
+                            child: Text(
+                              "No Data",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                        )
-                  ),
+                          );
+                        } else {
+                          return createListView(context, snapshot);
+                        }
+                    }
+                  },
+                ),
+              ),
+              // Container(
+              //     height: MediaQuery.of(context).size.height * 0.70,
+              //     child: transactions.isNotEmpty
+              //         ? ListView.builder(
+              //             shrinkWrap: true,
+              //             itemCount: transactions.length,
+              //             itemBuilder: _listViewItemBuilder)
+              //         : const Center(
+              //             child: Text(
+              //               "No Data",
+              //               style: TextStyle(
+              //                 fontSize: 20,
+              //                 fontWeight: FontWeight.bold,
+              //               ),
+              //             ),
+              //           )
+              //     ),
             ],
           ),
         ),
@@ -73,9 +105,21 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
     );
   }
 
-  void _navigationToNewsDetail(BuildContext context, Transaction transaction) {
+
+  Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
+    List<Transaction> items = snapshot.data;
+    return ListView.builder(
+      shrinkWrap: true,
+      scrollDirection: Axis.vertical,
+      itemCount: items.length,
+      itemBuilder: (context, index) {
+        return schedulesCard(index+1);
+      },
+    );
   }
-  Widget _listViewItemBuilder(BuildContext context, int index) {
+
+
+  Widget schedulesCard(int index) {
     var transaction = transactions[index];
     return Align(
       alignment: Alignment.topLeft,
@@ -94,7 +138,26 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                         builder: (ctx) =>
                             TransactionItemsScreen(transaction, index + 1)));
               },
-              child: item1(transaction)),
+              child:  Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+        child: Card(
+          color: const Color(0xff0ced10),
+          shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
+          child: Padding(
+            padding: EdgeInsets.only(bottom: 4.h),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(15.r)),
+                color: Colors.yellow,
+              ),
+              width: 0.70.sw,
+              height: 65.h,
+              child: Center(child: Text(transaction.transactionId)),
+            ),
+          ),
+        ),
+      )),
         ]),
       ),
     );
@@ -111,7 +174,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
     return Text(transaction.transactionId, style: const TextStyle(fontSize: 18.0));
   }
 
-  void getTransaction() async {
+  Future<List<Transaction>> getTransaction() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? jwt = prefs.getString('jwt');
     Map<String, dynamic> token = jsonDecode(jwt!);
@@ -147,34 +210,13 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
             transactions.add(transaction);
         }
       }
-      setState(() {});
+      return transactions;
     } else {
       throw Exception('Failed to load transactions');
     }
   }
 
-  Widget item1(Transaction transaction) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
-      child: Card(
-        color: const Color(0xff0ced10),
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
-        child: Padding(
-          padding: EdgeInsets.only(bottom: 4.h),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(15.r)),
-              color: Colors.yellow,
-            ),
-            width: 0.70.sw,
-            height: 65.h,
-            child: Center(child: Text(transaction.transactionId)),
-          ),
-        ),
-      ),
-    );
-  }
+
 }
 
 class Transaction {

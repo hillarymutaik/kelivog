@@ -96,36 +96,6 @@ class _PendingSchedulesScreenState extends State<PendingSchedulesScreen> {
                       },
                     ),
                   ),
-                  // Container(
-                  //   height: MediaQuery.of(context).size.height * 0.70,
-                  //   child: items.isNotEmpty
-                  //       ? Column(
-                  //     children: [
-                  //       Container(
-                  //         height:
-                  //         MediaQuery.of(context).size.height * 0.70,
-                  //         child: ListView.builder(
-                  //           shrinkWrap: true,
-                  //           itemCount: items.length,
-                  //           itemBuilder: (context, index) {
-                  //             return schedulesCard(
-                  //               schedule: items[index],
-                  //             );
-                  //           },
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   )
-                  //       : const Center(
-                  //     child: Text(
-                  //       "No Data",
-                  //       style: TextStyle(
-                  //         fontSize: 20,
-                  //         fontWeight: FontWeight.bold,
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                 ],
               ),
             ],

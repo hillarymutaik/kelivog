@@ -65,7 +65,7 @@ class TransactionItemsScreen extends StatelessWidget {
                               historyItem('CAPACITY', transaction.capacityName),
                               historyItem('DATE', transaction.date),
                               historyItem('AMOUNT', transaction.transactionAmount),
-                              historyItem('CLIENT', transaction.clientName),
+                              //historyItem('CLIENT', transaction.clientName),
                              //historyItem('TRANSACTION DESCRIPTION', transaction.id, 55),
                             ],
                           ),
