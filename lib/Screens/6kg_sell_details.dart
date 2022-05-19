@@ -12,26 +12,6 @@ import 'package:kelivog/Widget/validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '13kg_sell_details.dart';
 import '6kg_cylinder_screen.dart';
-//
-// class Details {
-//       // final String? price;
-//       final double? takeHome;
-//       final  double? serviceFee;
-//
-//       Details({
-//     // this.price,
-//     this.takeHome,
-//     this.serviceFee,
-//   });
-//
-//   factory Details.fromJson(Map<String, dynamic> json) {
-//     return Details(
-//       //price: json['price'],
-//       takeHome: json['takeHome'],
-//       serviceFee: json['serviceFee'],
-//     );
-//   }
-// }
 
 class SellDetails extends StatefulWidget {
   final String item, id, title;
