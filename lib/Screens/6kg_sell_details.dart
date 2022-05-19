@@ -65,6 +65,7 @@ class _SellDetailsState extends State<SellDetails> {
       'brand': brand,
       'capacity': capacityId,
       'price': int.parse(price!),
+
       // 'serviceFee': double.parse(serviceFee!),
       // 'takeHome': double.parse(takeHome!),
     };
@@ -104,9 +105,6 @@ class _SellDetailsState extends State<SellDetails> {
     };
     return updateResponse;
   }
-
-
-
   TextEditingController brandController = TextEditingController();
   TextEditingController capacityController = TextEditingController();
   late final  priceController = TextEditingController();
@@ -373,10 +371,8 @@ class _SellDetailsState extends State<SellDetails> {
                                   : Colors.red,
                             ),
                           );
-                          Navigator.push(
-                              context, MaterialPageRoute(builder: (ctx) =>
-                              SixCylindersListsScreen(title: '', id: '', item: '')));
-                         // Navigator.of(context).pop();
+
+                         Navigator.of(context).pop();
                           context.read<LoadingProvider>().setLoad(false);
                         }).catchError((error) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -483,18 +479,18 @@ class _SellDetailsState extends State<SellDetails> {
     }
   }
 
-  Future getServiceFee() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? jwt = prefs.getString('jwt');
-    Map<String, dynamic> token = jsonDecode(jwt!);
-    final http.Response responseFee = await http.get(Uri.parse("https://kelivog.com/serviceFee"),
-        headers: {
-      'Content-Type': 'application/json; charset=UTF-8',
-    'Authorization': token['token']
-    });
-      final data = jsonDecode(responseFee.body);
-      return Future.value((data)['data']);
-  }
+  // Future getServiceFee() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   final String? jwt = prefs.getString('jwt');
+  //   Map<String, dynamic> token = jsonDecode(jwt!);
+  //   final http.Response responseFee = await http.get(Uri.parse("https://kelivog.com/serviceFee"),
+  //       headers: {
+  //     'Content-Type': 'application/json; charset=UTF-8',
+  //   'Authorization': token['token']
+  //   });
+  //     final data = jsonDecode(responseFee.body);
+  //     return Future.value((data)['data']);
+  // }
 }
 
 class Inventory {
@@ -507,15 +503,3 @@ class Inventory {
   });
 }
 
-
-// class ServiceFee {
-//   final double serviceFee;
-//   const ServiceFee({
-//     required this.serviceFee,
-//   });
-//   factory ServiceFee.fromJson(Map<String, dynamic> json) {
-//     return ServiceFee(
-//       serviceFee: json['serviceFee'],
-//     );
-//   }
-// }

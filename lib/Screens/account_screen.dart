@@ -158,7 +158,7 @@ class _AccountScreenState extends State<AccountScreen> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const TransactionHistoryScreen()));
+                    builder: (context) => TransactionHistoryScreen()));
           }),
           item('WITHDRAWAL', () {
             Navigator.push(

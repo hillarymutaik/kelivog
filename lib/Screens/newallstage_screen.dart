@@ -200,39 +200,6 @@ class _PendingSchedulesScreenState extends State<NewAllStageScreen> {
     );
   }
 
-  //
-  // Widget rowItem(text, {required String value}) {
-  //   return Padding(
-  //     padding: EdgeInsets.symmetric(vertical: 6.h),
-  //     child: Row(
-  //       // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //       children: [
-  //         SizedBox(
-  //             // width: 0.1.sw,
-  //             child: Text(
-  //           text,
-  //           style: TextStyle(
-  //             fontSize: 14.sp,
-  //             fontWeight: FontWeight.w700,
-  //           ),
-  //         )),
-  //         SizedBox(width: 25.w),
-  //         SizedBox(
-  //           width: 0.40.sw,
-  //           child: Container(
-  //             width: 90.w,
-  //             height: text == 'PURCHASE STATUS' ? 40.h : 20.h,
-  //             decoration: BoxDecoration(
-  //                 color: Colors.yellow[600],
-  //                 borderRadius: BorderRadius.circular(5)),
-  //             child: Center(child: Text(value)),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   rowItem(String name, {required String details}) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8.h),

@@ -4,6 +4,7 @@ import 'package:kelivog/Screens/transaction_items.dart';
 import 'package:kelivog/Widget/header.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:http/http.dart' as http;
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TransactionHistoryScreen extends StatefulWidget {
@@ -15,12 +16,23 @@ class TransactionHistoryScreen extends StatefulWidget {
 }
 
 class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
-  final List<Transaction> transactions = [];
 
   @override
   void initState() {
     super.initState();
     getTransaction();
+    scrollController.addListener(() {
+      if(scrollController.position.pixels>=scrollController.position.maxScrollExtent && !loading){
+        print('New Transaction Call');
+        getTransaction();
+      }
+    });
+  }
+
+  @override
+  void dispose(){
+    super.dispose();
+    scrollController.dispose();
   }
 
   @override
@@ -54,69 +66,155 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                     .of(context)
                     .size
                     .height * 0.70,
-                child: FutureBuilder(
-                  future: getTransaction(),
-                  builder: (BuildContext context, AsyncSnapshot snapshot) {
-                    switch (snapshot.connectionState) {
-                      case ConnectionState.none:
-                      case ConnectionState.waiting:
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      default:
-                        if (snapshot.hasError) {
-                          return const Center(
-                            child: Text(
-                              "No Data",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                child:
+
+                // FutureBuilder(
+                //   future: getTransaction(),
+                //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+                //     switch (snapshot.connectionState) {
+                //       case ConnectionState.none:
+                //       case ConnectionState.waiting:
+                //         return const Center(
+                //           child: CircularProgressIndicator(),
+                //         );
+                //       default:
+                //         if (snapshot.hasError) {
+                //           return const Center(
+                //             child: Text(
+                //               "No Data",
+                //               style: TextStyle(
+                //                 fontSize: 20,
+                //                 fontWeight: FontWeight.bold,
+                //               ),
+                //             ),
+                //           );
+                //         } else {
+                //           return
+
+                // FutureBuilder(
+                //   future: getTransaction(),
+                //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+                //     switch (snapshot.connectionState) {
+                //       case ConnectionState.none:
+                //       case ConnectionState.waiting:
+                //         return const Center(
+                //           child: CircularProgressIndicator(),
+                //         );
+                LayoutBuilder(
+                  //future: getTransaction(),
+                  builder:(context, constraints) {
+                  if(transactions.isNotEmpty) {
+                    return Stack(
+                      children: [
+                        ListView.separated(
+                      controller: scrollController,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: transactions.length + (allloaded?1:0),
+                      itemBuilder: (context, index) {
+                        if(index<transactions.length){
+                        return schedulesCard(index);
+                      }else{
+                          return SizedBox(
+                            width: constraints.maxWidth,
+                            height: 50,
+                              child: const Center(
+                                child: Text("No Transactions",
+                                  style: TextStyle(fontSize: 20,
+                                    fontWeight: FontWeight.bold,),
+                                ),
+                                //child: CircularProgressIndicator(),
+                              )
                           );
-                        } else {
-                          return createListView(context, snapshot);
-                        }
-                    }
-                  },
+                        }},
+                      separatorBuilder: (BuildContext context, int index) =>
+                          const Divider(height: 4, color: Colors.black, indent: 15, endIndent: 15,),
+                    ),
+                  if(loading)...[
+                    Positioned(
+                     left:0,
+                     bottom: 0,
+                     child: SizedBox(
+                       width: constraints.maxWidth,
+                       height: 80,
+                       child: const Center(
+                       child: CircularProgressIndicator(color: Colors.blueAccent,),
+                     ),)
+
+                  ),
+                   ]
+                  ],
+                    );
+                }
+                  else {
+                      return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                        // child: Text(
+                        //   "No Transactions",
+                        //   style: TextStyle(
+                        //     fontSize: 20,
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
+                      // );
+                  }
+
+                },
+                //         }
+                //     }
+                //   },
                 ),
-              ),
-              // Container(
-              //     height: MediaQuery.of(context).size.height * 0.70,
-              //     child: transactions.isNotEmpty
-              //         ? ListView.builder(
-              //             shrinkWrap: true,
-              //             itemCount: transactions.length,
-              //             itemBuilder: _listViewItemBuilder)
-              //         : const Center(
-              //             child: Text(
-              //               "No Data",
-              //               style: TextStyle(
-              //                 fontSize: 20,
-              //                 fontWeight: FontWeight.bold,
-              //               ),
-              //             ),
-              //           )
-              //     ),
+              )
             ],
           ),
         ),
       ),
     );
   }
+  final ScrollController scrollController = ScrollController();
+  bool loading =false, allloaded=false;
+  // List<String> trans=[];
+  //
+  // getTransactions() async{
+  //
+  //   if(allloaded){
+  //     return;
+  //   }
+  //   setState(() {
+  //     loading=true;
+  //   });
+  //
+  //   await Future.delayed(Duration(microseconds: 500) );
+  //   List<String> newData = transactions.length>=10?[]: List.generate(10, (index) => "${trans.length}");
+  //   if(newData.isNotEmpty){
+  //     trans.addAll(newData);
+  //     setState(() {
+  //       loading= false;
+  //       allloaded=newData.isEmpty;
+  //     });
+  //   }
+  // }
 
 
-  Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
-    List<Transaction> items = snapshot.data;
-    return ListView.builder(
-      shrinkWrap: true,
-      scrollDirection: Axis.vertical,
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        return schedulesCard(index+1);
-      },
-    );
-  }
+
+
+  // Widget createListView(BuildContext context, AsyncSnapshot snapshot) {
+  //   List<Transaction> items = snapshot.data;
+  //   return SmartRefresher(
+  //    controller: refreshController,
+  //    // onRefresh: () async{
+  //    //   final result = await
+  //    // },
+  //     child:ListView.builder(
+  //     shrinkWrap: true,
+  //     scrollDirection: Axis.vertical,
+  //     itemCount: items.length,
+  //     itemBuilder: (context, index) {
+  //       return schedulesCard(index);
+  //     },
+  //   ));
+  // }
 
 
   Widget schedulesCard(int index) {
@@ -127,7 +225,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 6.h),
         child: Row(children: [
           Text(
-            '${index + 1}. ',
+            '${index+ 1}. ',
             style: TextStyle(fontSize: 15.sp, fontWeight: FontWeight.bold),
           ),
           GestureDetector(
@@ -163,27 +261,38 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
     );
   }
 
-  Widget _itemThumbnail(Transaction transaction) {
-    return Text(
-      transaction.id,
-      style: TextStyle(fontSize: 20.0),
-    );
-  }
+  List<Transaction> transactions = [];
 
-  Widget _itemTitle(Transaction transaction) {
-    return Text(transaction.transactionId, style: const TextStyle(fontSize: 18.0));
-  }
+  int currentPage =5;
+
 
   Future<List<Transaction>> getTransaction() async {
+    List<String> trans = [];
+    if(allloaded){
+      currentPage;
+    }
+    setState(() {
+      loading=true;
+    });
+    await Future.delayed(const Duration(microseconds: 200) );
+    List<String> newTransactions = transactions.length>=10?[]: List.generate(10, (index) => "${trans.length}");
+    if(newTransactions.isNotEmpty){
+      trans.addAll(newTransactions);
+      setState(() {
+        loading= false;
+        allloaded=newTransactions.isEmpty;
+      });
+    }
+
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? jwt = prefs.getString('jwt');
     Map<String, dynamic> token = jsonDecode(jwt!);
     final http.Response response = await http
-        .get(Uri.parse("https://kelivog.com/transactions/list"), headers: {
+        .get(Uri.parse("https://kelivog.com/transactions/list?pageSize=${currentPage}&pageNo=1"), headers: {
       'Content-Type': 'application/json; charset=UTF-8',
       'Authorization': token['token']
     });
-
+    //${transactions.length}
     if (response.statusCode == 200) {
       var responseBody = json.decode(response.body);
       print(responseBody);
@@ -210,6 +319,9 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
             transactions.add(transaction);
         }
       }
+      setState(() {
+
+      });
       return transactions;
     } else {
       throw Exception('Failed to load transactions');
@@ -234,3 +346,4 @@ class Transaction {
         required this.transactionId,
         required this.id});
 }
+

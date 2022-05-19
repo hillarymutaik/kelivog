@@ -144,7 +144,7 @@ class _AcceptScreenState extends State<AcceptScreen> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           backgroundColor: Colors.green,
-          content: Text('Refill process successfully accepted'),
+          content: Text('Schedule Process Successfully Confirmed'),
           duration: Duration(seconds: 3),
         ),
       );
