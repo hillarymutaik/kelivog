@@ -7,9 +7,8 @@
 
 
    <application
-        android:label="kelivog"
+        android:label="Kelivog Associate"
         android:icon="@mipmap/ic_launcher">
-        
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

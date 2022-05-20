@@ -25,10 +25,15 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('keystore.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
-    compileSdkVersion flutter.compileSdkVersion
-    //compileSdkVersion 31
-    //buildToolsVersion("31.0.0")
+    compileSdkVersion 31
+    buildToolsVersion("31.0.0")
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -44,23 +49,28 @@ android {
 
     defaultConfig {
         applicationId "com.kelivog.kelivog"
-        minSdkVersion 20
-        targetSdkVersion flutter.targetSdkVersion
+        minSdkVersion 16
+        targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        multiDexEnabled = true
+        multiDexEnabled true
+    }
+
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
+        }
     }
     buildTypes {
         release {
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
-
-    dexOptions {
-        incremental true
-        javaMaxHeapSize "4g"
-    }
 }
+
 
 flutter {
     source '../..'
@@ -68,8 +78,8 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'com.android.support:multidex:1.0.3'
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.5.30"
-    implementation("androidx.multidex:multidex:2.0.1")
+//    def multidex_version = "2.0.1"
+    implementation 'com.android.support:multidex:1.0.3'
 }
 
