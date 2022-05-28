@@ -54,8 +54,8 @@ class _RegisterScreenState extends State<RegisterScreen>
     String phone = phoneController.text;
     String password = passwordController.text;
     String? address = estateController.text; //
-    double latitude = _currentPosition!.latitude; //
-    double longitude = _currentPosition!.longitude; //
+    // double latitude = _currentPosition!.latitude; //
+    // double longitude = _currentPosition!.longitude; //
 
     var myData = {
       'name': name,
