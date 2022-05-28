@@ -63,8 +63,8 @@ class _RegisterScreenState extends State<RegisterScreen>
       'phonenumber': phone,
       'password': password,
       'address': address,
-      'latitude': "$latitude",
-      'longitude': "$longitude"
+      // 'latitude': "$latitude",
+      // 'longitude': "$longitude"
     };
 
     print("REgistering...$myData");
@@ -116,60 +116,60 @@ class _RegisterScreenState extends State<RegisterScreen>
   @override
   void initState() {
     super.initState();
-    _getCurrentLocation();
+    // _getCurrentLocation();
   }
 
-  Future _getCurrentLocation() async {
-    bool serviceEnabled;
-    // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      // Location services are not enabled don't continue
-      // accessing the position and request users of the
-      // App to enable the location services.
-      return Future.error('Location services are disabled.');
-    }
-    LocationPermission permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.deniedForever) {
-        return Future.error('Location Not Available');
-      }
-    } else {
-      throw Exception('Error');
-    }
-    return await Geolocator.getCurrentPosition(
-            desiredAccuracy: LocationAccuracy.best)
-        .then((Position position) {
-      setState(() {
-        _currentPosition = position;
-      });
+  // Future _getCurrentLocation() async {
+  //   bool serviceEnabled;
+  //   // Test if location services are enabled.
+  //   serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  //   if (!serviceEnabled) {
+  //     // Location services are not enabled don't continue
+  //     // accessing the position and request users of the
+  //     // App to enable the location services.
+  //     return Future.error('Location services are disabled.');
+  //   }
+  //   LocationPermission permission = await Geolocator.checkPermission();
+  //   if (permission == LocationPermission.denied) {
+  //     permission = await Geolocator.requestPermission();
+  //     if (permission == LocationPermission.deniedForever) {
+  //       return Future.error('Location Not Available');
+  //     }
+  //   } else {
+  //     throw Exception('Error');
+  //   }
+  //   return await Geolocator.getCurrentPosition(
+  //           desiredAccuracy: LocationAccuracy.best)
+  //       .then((Position position) {
+  //     setState(() {
+  //       _currentPosition = position;
+  //     });
 
-      _getAddressFromLatLng();
-    }).catchError((e) {
-      if (kDebugMode) {
-        print(e);
-      }
-    });
-  }
+  //     _getAddressFromLatLng();
+  //   }).catchError((e) {
+  //     if (kDebugMode) {
+  //       print(e);
+  //     }
+  //   });
+  // }
 
-  _getAddressFromLatLng() async {
-    try {
-      List<Placemark> p = await placemarkFromCoordinates(
-          _currentPosition!.latitude, _currentPosition!.longitude);
+  // _getAddressFromLatLng() async {
+  //   try {
+  //     List<Placemark> p = await placemarkFromCoordinates(
+  //         _currentPosition!.latitude, _currentPosition!.longitude);
 
-      Placemark place = p[0];
+  //     Placemark place = p[0];
 
-      setState(() {
-        _currentAddress =
-            "${place.locality}, ${place.postalCode}, ${place.country}";
-      });
-    } catch (e) {
-      if (kDebugMode) {
-        print(e);
-      }
-    }
-  }
+  //     setState(() {
+  //       _currentAddress =
+  //           "${place.locality}, ${place.postalCode}, ${place.country}";
+  //     });
+  //   } catch (e) {
+  //     if (kDebugMode) {
+  //       print(e);
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
