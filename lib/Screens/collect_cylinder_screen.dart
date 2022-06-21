@@ -306,9 +306,14 @@ class CollectCylinderScreen extends StatefulWidget {
             duration: Duration(seconds: 3),
           ),
         );
-        Navigator.push(context,
-            MaterialPageRoute(builder: (ctx) => ActiveSchedulesScreen()));
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => ActiveSchedulesScreen()),
+            result: (Route<dynamic> route) => false);
         context.read<LoadingProvider>().setLoad(false);
+
+        // Navigator.push(context,
+        //     MaterialPageRoute(builder: (ctx) => ActiveSchedulesScreen()));
+
       } else {
         print(updateCylinderRequest.body);
         context.read<LoadingProvider>().setLoad(false);
@@ -341,14 +346,22 @@ class CollectCylinderScreen extends StatefulWidget {
           duration: Duration(seconds: 3),
         ),
       );
-      Navigator.push(context,
-          MaterialPageRoute(builder: (ctx) => ActiveSchedulesScreen()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => ActiveSchedulesScreen()),
+          result: (Route<dynamic> route) => false);
       context.read<LoadingProvider>().setLoad(false);
+      // Navigator.push(context,
+      //     MaterialPageRoute(builder: (ctx) => ActiveSchedulesScreen()));
+      // context.read<LoadingProvider>().setLoad(false);
     } else {
       print(putRequestResponse.body);
       context.read<LoadingProvider>().setLoad(false);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (ctx) => ActiveSchedulesScreen()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => ActiveSchedulesScreen()),
+          result: (Route<dynamic> route) => false);
+      context.read<LoadingProvider>().setLoad(false);
+      // Navigator.push(context,
+      //     MaterialPageRoute(builder: (ctx) => ActiveSchedulesScreen()));
       return jsonDecode(putRequestResponse.body)['message'];
     }
     //return putRequestResponse.statusCode;

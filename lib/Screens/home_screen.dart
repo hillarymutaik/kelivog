@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,6 +7,8 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:kelivog/Screens/pending_schedules_screen.dart';
 import 'package:kelivog/Widget/header.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 import 'active_schedules_screen.dart';
 import 'notifications_screen.dart';
@@ -20,8 +24,28 @@ class _HomeScreenState extends State<HomeScreen> {
   final Geolocator geolocator = Geolocator();
   Position? _currentPosition;
   String? _currentAddress;
-  Future _getCurrentLocation() async {
+
+  Future <dynamic> _getCurrentLocation() async {
     bool serviceEnabled;
+
+    // final SharedPreferences prefs = await SharedPreferences.getInstance();
+    // final String? jwt = prefs.getString('jwt');
+    // Map<String, dynamic> token = jsonDecode(jwt!);
+    //
+    // double latitude = _currentPosition!.latitude; //
+    // double longitude = _currentPosition!.longitude; //
+    //
+    // Map<String, dynamic> body = { 'latitude': "$latitude", 'longitude': "$longitude"};
+    // var url = Uri.parse('https://kelivog.com/location/associate');
+    // final postRequestResponse = await http.Client().post(
+    //     url, headers: {
+    //   'Content-Type': 'application/json; charset=UTF-8',
+    //   'Authorization': token['token']
+    // },
+    //     body: jsonEncode(body),encoding: Encoding.getByName("utf-8")
+    // );
+    // var data = json.decode(postRequestResponse.body);
+    // print(data);
 
     // Test if location services are enabled.
     serviceEnabled = await Geolocator.isLocationServiceEnabled();

@@ -438,7 +438,6 @@ class _RegisterScreenState extends State<RegisterScreen>
                         controller: phoneController,
                         validator: phoneValidator,
                         cursorColor: Colors.black,
-                        //showCursor: true,
                         style: TextStyle(color: Colors.black, fontSize: 30.sp),
                         decoration: const InputDecoration(
                           border: InputBorder.none,

@@ -149,8 +149,11 @@ class _AcceptScreenState extends State<AcceptScreen> {
         ),
       );
       print(putRequestResponse.body);
-      Navigator.push(context,
-          MaterialPageRoute(builder: (ctx) => PendingSchedulesScreen()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => PendingSchedulesScreen()),
+          result: (Route<dynamic> route) => false);
+      // Navigator.push(context,
+      //     MaterialPageRoute(builder: (ctx) => PendingSchedulesScreen()));
       context.read<LoadingProvider>().setLoad(false);
     } else {
       print(putRequestResponse.body);

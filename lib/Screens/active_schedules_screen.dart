@@ -22,8 +22,7 @@ class _PendingSchedulesScreenState extends State<ActiveSchedulesScreen> {
   @override
   void initState() {
     super.initState();
-    timer =
-        Timer.periodic(const Duration(seconds: 5), (Timer t) => getSchedule());
+    timer = Timer.periodic(const Duration(seconds: 5), (Timer t) => getSchedule());
   }
 
   @override
@@ -107,7 +106,6 @@ class _PendingSchedulesScreenState extends State<ActiveSchedulesScreen> {
           id: item['_id'],
           amount: item['amount'],
           capacity: item['capacity'],
-          //buyerUserId: item['buyerUserId'],
           buyerContact: item['buyerContact'],
           cylinderId: item['cylinderId'],
           status: item['status'],
@@ -144,10 +142,8 @@ class _PendingSchedulesScreenState extends State<ActiveSchedulesScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(
-                            builder: (ctx) => CollectCylinderScreen(
-                               schedule: schedule)));
+                    Navigator.push(context, MaterialPageRoute(
+                            builder: (ctx) => CollectCylinderScreen(schedule: schedule)));
                   },
                   child: transaction.capacity != '6 Kg'
                       ? Image.asset(
@@ -186,8 +182,7 @@ class _PendingSchedulesScreenState extends State<ActiveSchedulesScreen> {
           SizedBox(
             width: 0.6.sw,
             child: Container(
-              width: 80.w,
-              height: 25.h,
+              width: 80.w, height: 25.h,
               decoration: BoxDecoration(
                   color: Colors.yellow[600],
                   borderRadius: BorderRadius.circular(15)),
@@ -217,17 +212,14 @@ class _PendingSchedulesScreenState extends State<ActiveSchedulesScreen> {
 class Schedule {
   final String id;
   final String capacity;
-  //final String buyerUserId;
   final String buyerContact;
   final String cylinderId;
   final int amount;
   final String brand;
   final int status;
-
   Schedule({
     required this.id,
     required this.capacity,
-    //required this.buyerUserId,
     required this.buyerContact,
     required this.cylinderId,
     required this.amount,
